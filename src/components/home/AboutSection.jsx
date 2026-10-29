@@ -8,7 +8,6 @@ const STATS = [
   { label: 'Competitions', key: 'Official Events' },
   { label: 'Tracks', key: 'Fest Tracks' },
   { label: 'Podium medals', key: 'Podium Medals' },
-  { label: 'Expected footfall', key: 'Expected Footfall', suffix: '+' },
 ].map((s) => ({ ...s, value: FEST_INFO.stats.find((x) => x.label === s.key)?.value ?? 0 }));
 
 // Counts from 0 to `value` once the number scrolls into view
@@ -57,7 +56,7 @@ export const AboutSection = () => (
           every kind of talent — and medals for the best of them.
         </p>
 
-        <dl className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <dl className="mt-10 grid grid-cols-3 gap-3 sm:gap-4">
           {STATS.map((s) => (
             <div key={s.label} className="rounded-2xl bg-white border border-ink-line p-4">
               <dt className="text-xs font-medium text-ink-muted">{s.label}</dt>
