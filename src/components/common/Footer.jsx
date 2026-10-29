@@ -1,5 +1,4 @@
 import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
 import { MapPin, Calendar, Phone, Mail, ArrowUp } from 'lucide-react';
 import { FEST_INFO } from '../../data/events';
 import { useLenis } from '../../hooks/useLenis';
@@ -14,19 +13,12 @@ const LINKS = [
 ];
 
 export const Footer = () => {
-  const { scrollTo } = useLenis();
-  const location = useLocation();
-  const navigate = useNavigate();
+  const { scrollTo, goToSection } = useLenis();
 
-  // Smooth-scroll on the homepage; otherwise route home first, then scroll once it has mounted
+  // Section links work from any page; the app-level scroll handler takes it from the URL hash
   const goTo = (e, hash) => {
     e.preventDefault();
-    if (location.pathname === '/') {
-      scrollTo(hash);
-    } else {
-      navigate(`/${hash}`);
-      setTimeout(() => scrollTo(hash), 150);
-    }
+    goToSection(hash);
   };
 
   return (

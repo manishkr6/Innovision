@@ -14,7 +14,7 @@ const festDate = new Date(FEST_INFO.countdownTarget).toLocaleDateString('en-IN',
 });
 
 export const HeroSection = () => {
-  const { scrollTo } = useLenis();
+  const { goToSection } = useLenis();
   const reduced = useReducedMotion();
 
   // Staggered fade-up for hero copy; disabled when the user prefers reduced motion
@@ -81,14 +81,14 @@ export const HeroSection = () => {
 
             <motion.div {...fadeUp(0.4)} className="mt-8 flex flex-col sm:flex-row gap-3">
               <button
-                onClick={() => scrollTo('#events')}
+                onClick={() => goToSection('#events')}
                 className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-marigold-500 hover:bg-marigold-600 text-white font-semibold shadow-lg shadow-black/20 transition-colors"
               >
                 Explore the events
                 <ArrowRight className="w-4 h-4" />
               </button>
               <button
-                onClick={() => scrollTo('#esports')}
+                onClick={() => goToSection('#esports')}
                 className="inline-flex items-center justify-center px-7 py-3.5 rounded-full bg-night/60 hover:bg-night/80 backdrop-blur border border-white/40 text-white font-semibold transition-colors"
               >
                 See the esports line-up

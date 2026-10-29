@@ -4,7 +4,7 @@ import { useLenis } from '../../hooks/useLenis';
 import { Reveal } from '../common/Reveal';
 
 export const CtaBand = () => {
-  const { scrollTo } = useLenis();
+  const { goToSection } = useLenis();
   return (
     <section className="px-4 sm:px-6 lg:px-8 pb-20 sm:pb-28">
       <Reveal className="relative max-w-7xl mx-auto overflow-hidden rounded-[2rem] bg-marigold-500 px-6 py-14 sm:px-14 sm:py-16 text-white">
@@ -19,13 +19,13 @@ export const CtaBand = () => {
           </div>
           <div className="flex flex-col sm:flex-row md:flex-col lg:flex-row gap-3 md:justify-end">
             <button
-              onClick={() => scrollTo('#events')}
+              onClick={() => goToSection('#events')}
               className="inline-flex items-center justify-center gap-2 rounded-full bg-ink hover:bg-ink-soft px-7 py-3.5 font-semibold transition-colors"
             >
               Browse events <ArrowRight className="w-4 h-4" />
             </button>
             <button
-              onClick={() => scrollTo('#contact')}
+              onClick={() => goToSection('#contact')}
               className="inline-flex items-center justify-center rounded-full bg-white/15 hover:bg-white/25 border border-white/40 px-7 py-3.5 font-semibold transition-colors"
             >
               Talk to us

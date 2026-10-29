@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Ticket, ChevronRight } from 'lucide-react';
 import { useLenis } from '../../hooks/useLenis';
@@ -11,8 +11,7 @@ export const Navbar = () => {
   const [activeSection, setActiveSection] = useState('home');
   
   const location = useLocation();
-  const navigate = useNavigate();
-  const { scrollTo } = useLenis();
+  const { goToSection, goHome } = useLenis();
 
   const navLinks = [
     { key: 'home', label: 'Home', href: '/' },
@@ -52,98 +51,61 @@ export const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile menu on route change
+  // Close the mobile menu on any navigation (page or section) and on Escape
   useEffect(() => {
     setMobileMenuOpen(false);
-  }, [location.pathname]);
+  }, [location.pathname, location.hash, location.key]);
 
-  // Dynamic Scroll-Spy and Active Link Tracker
   useEffect(() => {
-    if (location.pathname.startsWith('/events/')) {
-      setActiveSection('events');
-      return;
-    }
-    if (location.pathname === '/passes') {
-      setActiveSection('passes');
-      return;
-    }
+    if (!mobileMenuOpen) return;
+    const onKey = (e) => e.key === 'Escape' && setMobileMenuOpen(false);
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [mobileMenuOpen]);
 
-    if (location.pathname === '/' || location.pathname === '') {
-      // Active = last tracked section whose top has passed the header; contact wins at the very bottom
-      const handleScrollSpy = () => {
-        const scrollY = window.scrollY;
-        const isNearBottom = window.innerHeight + scrollY >= document.documentElement.scrollHeight - 100;
-        if (isNearBottom) return setActiveSection('contact');
-        let current = 'home';
-        for (const id of spyIds) {
-          const el = document.getElementById(id);
-          if (el && scrollY + 200 >= el.offsetTop) current = id;
-        }
-        setActiveSection(current);
-      };
+  // Scroll-spy: active = last section whose top has crossed ~35% of the viewport
+  useEffect(() => {
+    if (location.pathname.startsWith('/events/')) return setActiveSection('events');
+    if (location.pathname === '/passes') return setActiveSection('passes');
+    if (location.pathname === '/contact') return setActiveSection('contact');
+    if (location.pathname !== '/') return setActiveSection(null);
 
-      const hashKey = location.hash.replace('#', '');
-      if (spyIds.includes(hashKey)) setActiveSection(hashKey);
+    const update = () => {
+      const line = window.innerHeight * 0.35;
+      let current = 'home';
+      for (const id of spyIds) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top <= line) current = id;
+      }
+      const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
+      setActiveSection(atBottom ? spyIds[spyIds.length - 1] : current);
+    };
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    return () => {
+      window.removeEventListener('scroll', update);
+      window.removeEventListener('resize', update);
+    };
+  }, [location.pathname]); // eslint-disable-line react-hooks/exhaustive-deps
 
-      window.addEventListener('scroll', handleScrollSpy, { passive: true });
-      return () => window.removeEventListener('scroll', handleScrollSpy);
-    }
-  }, [location.pathname, location.hash]);
+  const isLinkActive = (link) => activeSection === link.key;
 
-  const isLinkActive = (link) => {
-    if (link.key === 'home') {
-      return location.pathname === '/' && activeSection === 'home';
-    }
-    return activeSection === link.key;
-  };
-
+  // Section links become real URLs (/#events) with history entries; the app-level handler does the scrolling
   const handleNavClick = (e, link) => {
     e.preventDefault();
-    setActiveSection(link.key);
-
-    if (link.isAnchor) {
-      const targetHash = link.href.replace('/', '');
-      window.history.replaceState(null, '', `/${targetHash}`);
-
-      if (location.pathname === '/') {
-        scrollTo(targetHash);
-      } else {
-        navigate(`/${targetHash}`);
-        setTimeout(() => {
-          scrollTo(targetHash);
-        }, 150);
-      }
-    } else {
-      window.history.replaceState(null, '', '/');
-      if (location.pathname === '/') {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else {
-        navigate('/');
-      }
-    }
+    if (link.isAnchor) goToSection(link.href.slice(1));
+    else goHome();
     setMobileMenuOpen(false);
   };
 
   const handleLogoClick = (e) => {
-    setActiveSection('home');
-    if (location.pathname === '/') {
-      e.preventDefault();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      window.history.replaceState(null, '', '/');
-    }
+    e.preventDefault();
+    goHome();
   };
 
   const handleRegisterClick = () => {
-    setActiveSection('events');
-    window.history.replaceState(null, '', '/#events');
-    if (location.pathname === '/') {
-      scrollTo('#events');
-    } else {
-      navigate('/#events');
-      setTimeout(() => {
-        scrollTo('#events');
-      }, 150);
-    }
+    goToSection('#events');
     setMobileMenuOpen(false);
   };
 
@@ -182,6 +144,7 @@ export const Navbar = () => {
                   key={link.label}
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link)}
+                  aria-current={active ? 'true' : undefined}
                   className={`px-4 py-2 rounded-full text-sm font-medium transition-colors cursor-pointer ${
                     solid
                       ? active ? 'bg-ink text-white' : 'text-ink-soft hover:bg-paper-deep'
@@ -218,6 +181,8 @@ export const Navbar = () => {
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle navigation menu"
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-nav"
             className={`lg:hidden p-2 rounded-lg ${solid ? 'text-ink' : 'text-white'}`}
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -232,6 +197,7 @@ export const Navbar = () => {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25 }}
+            id="mobile-nav"
             className="lg:hidden bg-paper border-b border-ink-line px-4 pt-3 pb-5 overflow-hidden"
           >
             <div className="flex flex-col gap-1">
