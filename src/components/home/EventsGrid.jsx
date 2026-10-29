@@ -1,23 +1,9 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, X, Users, ArrowRight } from 'lucide-react';
+import { Search, X, Users, ArrowRight, CalendarDays, MapPin } from 'lucide-react';
 import { EVENTS } from '../../data/events';
-
-// Track letter (from event.track, e.g. "C. Esports and Gaming Arena") -> tab label + prayer-flag colour
-const TRACKS = {
-  A: { label: 'Technical', chip: 'bg-flag-blue/10 text-flag-blue' },
-  B: { label: 'Strategy', chip: 'bg-flag-yellow/15 text-marigold-700' },
-  C: { label: 'Esports', chip: 'bg-flag-red/10 text-flag-red' },
-  D: { label: 'Creative', chip: 'bg-flag-green/10 text-flag-green' },
-};
-
-const trackOf = (event) => event.track.charAt(0);
-const cleanTbc = (s) => s.replace(/\s*\[TBC\]/g, '');
-// "Code Clash (Coding Competition)" -> ["Code Clash", "Coding Competition"]
-const splitTitle = (title) => {
-  const m = title.match(/^(.*?)\s*\((.*)\)$/);
-  return m ? [m[1], m[2]] : [title, null];
-};
+import { TRACKS, trackOf, cleanTbc, splitTitle, dayLabel, startTime, shortVenue } from '../../data/eventUtils';
+import { Reveal } from '../common/Reveal';
 
 export const EventsGrid = () => {
   const [activeTab, setActiveTab] = useState('all');
@@ -44,7 +30,7 @@ export const EventsGrid = () => {
   return (
     <section id="events" className="py-20 sm:py-28 bg-paper-deep/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
+        <Reveal className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
           <div>
             <p className="text-sm font-semibold text-marigold-600">The line-up</p>
             <h2 className="mt-2 font-heading text-4xl sm:text-5xl font-extrabold tracking-tight text-ink">
@@ -71,7 +57,7 @@ export const EventsGrid = () => {
               </button>
             )}
           </label>
-        </div>
+        </Reveal>
 
         <div className="mt-8 flex gap-2 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0">
           {tabs.map((t) => (
@@ -113,13 +99,16 @@ export const EventsGrid = () => {
                   to={`/events/${event.slug}`}
                   className="group flex flex-col overflow-hidden rounded-3xl bg-white border border-ink-line hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
                 >
-                  <div className="aspect-[16/10] overflow-hidden bg-paper-deep">
+                  <div className="relative aspect-[16/10] overflow-hidden bg-paper-deep">
                     <img
                       src={event.image}
                       alt={name}
                       loading="lazy"
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
+                    <span className="absolute top-3 left-3 rounded-full bg-white/95 px-3 py-1 text-xs font-semibold text-ink shadow-sm">
+                      {event.registrationFee} · {event.maxSlots} slots
+                    </span>
                   </div>
                   <div className="flex flex-col flex-1 p-6">
                     <span className={`self-start rounded-full px-3 py-1 text-xs font-semibold ${track.chip}`}>
@@ -128,7 +117,18 @@ export const EventsGrid = () => {
                     <h3 className="mt-3 font-heading text-2xl font-bold text-ink leading-tight">{name}</h3>
                     {sub && <p className="text-sm font-medium text-ink-muted">{sub}</p>}
                     <p className="mt-3 text-sm text-ink-soft leading-relaxed line-clamp-2">{event.tagline}</p>
-                    <div className="mt-auto pt-5 flex items-center justify-between text-sm">
+                    <div className="mt-4 space-y-1.5 text-sm text-ink-muted">
+                      <p className="flex items-center gap-2">
+                        <CalendarDays className="w-4 h-4 shrink-0" />
+                        {dayLabel(event)}
+                        {startTime(event) ? ` · ${startTime(event)}` : ` · ${cleanTbc(event.time)}`}
+                      </p>
+                      <p className="flex items-center gap-2 truncate">
+                        <MapPin className="w-4 h-4 shrink-0" />
+                        <span className="truncate">{shortVenue(event)}</span>
+                      </p>
+                    </div>
+                    <div className="mt-auto pt-5 border-t border-ink-line/70 flex items-center justify-between text-sm">
                       <span className="inline-flex items-center gap-1.5 text-ink-muted">
                         <Users className="w-4 h-4" />
                         {cleanTbc(event.teamSize.label)}

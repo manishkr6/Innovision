@@ -42,7 +42,7 @@ export const CountdownTimer = () => {
               <span className="block font-heading text-3xl sm:text-4xl font-extrabold text-ink tabular-nums">
                 {String(b.value).padStart(2, '0')}
               </span>
-              <span className="block mt-0.5 text-[11px] sm:text-xs font-medium text-ink-muted">{b.label}</span>
+              <span className="block mt-0.5 text-xs sm:text-sm font-medium text-ink-muted">{b.label}</span>
             </div>
           ))}
         </div>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, IdCard } from 'lucide-react';
+import { Reveal } from '../common/Reveal';
 import { CODE_OF_CONDUCT } from '../../data/events';
 
 export const CodeOfConduct = () => {
@@ -9,7 +10,7 @@ export const CodeOfConduct = () => {
   return (
     <section id="code-of-conduct" className="py-20 sm:py-28 scroll-mt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-[1fr_1.6fr] gap-10 lg:gap-16">
-        <div className="lg:sticky lg:top-28 self-start">
+        <Reveal className="lg:sticky lg:top-28 self-start">
           <p className="text-sm font-semibold text-marigold-600">Code of conduct</p>
           <h2 className="mt-2 font-heading text-4xl sm:text-5xl font-extrabold tracking-tight text-ink leading-[1.05]">
             Play fair. Have fun.
@@ -25,7 +26,7 @@ export const CodeOfConduct = () => {
               for it at every venue.
             </p>
           </div>
-        </div>
+        </Reveal>
 
         <div className="divide-y divide-ink-line rounded-3xl bg-white border border-ink-line">
           {CODE_OF_CONDUCT.map((item) => {

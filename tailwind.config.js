@@ -10,8 +10,10 @@ export default {
       colors: {
         // Homepage palette: warm paper + ink, marigold accent, prayer-flag track colours
         paper: { DEFAULT: '#FBF8F3', deep: '#F3EDE3' },
-        ink: { DEFAULT: '#1C1917', soft: '#44403C', muted: '#78716C', line: '#E7E0D5' },
-        marigold: { 50: '#FFF8EB', 100: '#FDEBC8', 400: '#F7A928', 500: '#EE8E0B', 600: '#C96F06', 700: '#9A5309' },
+        // All pairings meet WCAG AA: white on 500 = 5.2:1, 600/700 text on paper >= 6.9:1, 400 on night = 8:1
+        ink: { DEFAULT: '#1C1917', soft: '#3F3A36', muted: '#5F5852', line: '#E2D9CC' },
+        // Deep Himalayan saffron. 400 = accent on dark surfaces, 500 = fill under white text, 600/700 = accent text on light
+        marigold: { 50: '#FFF4EC', 100: '#FDE3D0', 400: '#FB923C', 500: '#C2410C', 600: '#9A3412', 700: '#7C2D12' },
         flag: { blue: '#2456A6', red: '#C2412D', green: '#2F7D4F', yellow: '#D99A0B' },
         night: '#17151F',
         cyber: {

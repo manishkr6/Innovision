@@ -43,13 +43,18 @@ export const HeroSection = () => {
       <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-14 sm:pb-20">
         <div className="grid lg:grid-cols-[1.4fr_1fr] gap-10 lg:gap-16 items-end">
           <div>
-            <motion.p
-              {...fadeUp(0)}
-              className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur px-4 py-1.5 text-xs sm:text-sm font-medium text-white"
-            >
-              <span className="w-2 h-2 rounded-full bg-marigold-400" />
-              {FEST_INFO.faculty} · {FEST_INFO.university}
-            </motion.p>
+            <motion.div {...fadeUp(0)} className="flex flex-wrap gap-2">
+              <span className="inline-flex items-center gap-2 rounded-full bg-flag-green px-4 py-1.5 text-xs sm:text-sm font-semibold text-white">
+                <span className="relative flex w-2 h-2">
+                  <span className="absolute inline-flex w-full h-full rounded-full bg-white opacity-75 motion-safe:animate-ping" />
+                  <span className="relative inline-flex w-2 h-2 rounded-full bg-white" />
+                </span>
+                Registrations open · Free entry
+              </span>
+              <span className="inline-flex items-center rounded-full bg-white/15 backdrop-blur px-4 py-1.5 text-xs sm:text-sm font-medium text-white">
+                {FEST_INFO.faculty} · {FEST_INFO.university}
+              </span>
+            </motion.div>
 
             <motion.h1
               {...fadeUp(0.1)}

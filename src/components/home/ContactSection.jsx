@@ -1,5 +1,6 @@
 import React from 'react';
 import { Phone, Mail, MapPin, MessageCircle, ExternalLink } from 'lucide-react';
+import { Reveal } from '../common/Reveal';
 import { FACULTY_COORDINATORS, STUDENT_REPRESENTATIVES, FEST_INFO } from '../../data/events';
 
 const digits = (person) => person.cleanPhone || person.phone.replace(/[^0-9]/g, '');
@@ -17,7 +18,7 @@ const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
 export const ContactSection = () => (
   <section id="contact" className="py-20 sm:py-28 bg-paper-deep/60 scroll-mt-24">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="max-w-2xl">
+      <Reveal className="max-w-2xl">
         <p className="text-sm font-semibold text-marigold-600">Contact</p>
         <h2 className="mt-2 font-heading text-4xl sm:text-5xl font-extrabold tracking-tight text-ink">
           Questions? Talk to the team.
@@ -26,7 +27,7 @@ export const ContactSection = () => (
           Reach the faculty coordinators or student committee by phone or WhatsApp for rules, reporting times and team
           registrations.
         </p>
-      </div>
+      </Reveal>
 
       <h3 className="mt-12 text-sm font-semibold text-ink-muted">Faculty coordinators</h3>
       <div className="mt-4 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">

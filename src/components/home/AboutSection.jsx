@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useInView } from 'framer-motion';
 import { FEST_INFO } from '../../data/events';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
+import { Reveal } from '../common/Reveal';
 
 const STATS = [
   { label: 'Competitions', key: 'Official Events' },
@@ -41,7 +42,7 @@ const CountUp = ({ value, suffix = '' }) => {
 
 export const AboutSection = () => (
   <section id="about" className="py-20 sm:py-28">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+    <Reveal className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
       <div>
         <p className="text-sm font-semibold text-marigold-600">About the fest</p>
         <h2 className="mt-2 font-heading text-4xl sm:text-5xl font-extrabold tracking-tight text-ink leading-[1.05]">
@@ -86,6 +87,6 @@ export const AboutSection = () => (
           <p className="font-heading font-bold leading-tight">Ideas · Innovation · Tech</p>
         </div>
       </div>
-    </div>
+    </Reveal>
   </section>
 );

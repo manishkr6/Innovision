@@ -4,8 +4,12 @@ import { MarqueeStrip } from '../components/home/MarqueeStrip';
 import { AboutSection } from '../components/home/AboutSection';
 import { EsportsSpotlight } from '../components/home/EsportsSpotlight';
 import { EventsGrid } from '../components/home/EventsGrid';
+import { ScheduleSection } from '../components/home/ScheduleSection';
+import { ParticipateSection } from '../components/home/ParticipateSection';
 import { CodeOfConduct } from '../components/home/CodeOfConduct';
+import { FaqSection } from '../components/home/FaqSection';
 import { ContactSection } from '../components/home/ContactSection';
+import { CtaBand } from '../components/home/CtaBand';
 import { Seo } from '../components/common/Seo';
 
 export const HomePage = () => (
@@ -19,7 +23,13 @@ export const HomePage = () => (
     <AboutSection />
     <EsportsSpotlight />
     <EventsGrid />
+    <ScheduleSection />
+    <ParticipateSection />
     <CodeOfConduct />
+    <FaqSection />
     <ContactSection />
+    <div className="bg-paper-deep/60 pt-4">
+      <CtaBand />
+    </div>
   </>
 );

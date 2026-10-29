@@ -16,10 +16,14 @@ export const Navbar = () => {
 
   const navLinks = [
     { key: 'home', label: 'Home', href: '/' },
+    { key: 'esports', label: 'Esports', href: '/#esports', isAnchor: true },
     { key: 'events', label: 'Events', href: '/#events', isAnchor: true },
-    { key: 'code-of-conduct', label: 'Code of Conduct', href: '/#code-of-conduct', isAnchor: true },
+    { key: 'schedule', label: 'Schedule', href: '/#schedule', isAnchor: true },
+    { key: 'code-of-conduct', label: 'Rules', href: '/#code-of-conduct', isAnchor: true },
     { key: 'contact', label: 'Contact', href: '/#contact', isAnchor: true },
   ];
+  // Homepage section ids tracked by the scroll-spy, in page order
+  const spyIds = navLinks.filter((l) => l.isAnchor).map((l) => l.key);
 
   // Check saved registrations count in localStorage
   useEffect(() => {
@@ -66,33 +70,21 @@ export const Navbar = () => {
     }
 
     if (location.pathname === '/' || location.pathname === '') {
+      // Active = last tracked section whose top has passed the header; contact wins at the very bottom
       const handleScrollSpy = () => {
-        const contactEl = document.getElementById('contact');
-        const conductEl = document.getElementById('code-of-conduct');
-        const eventsEl = document.getElementById('events');
-
         const scrollY = window.scrollY;
-        const windowBottom = window.innerHeight + scrollY;
-        const isNearBottom = windowBottom >= document.documentElement.scrollHeight - 100;
-
-        if (contactEl && (isNearBottom || scrollY + 200 >= contactEl.offsetTop)) {
-          setActiveSection('contact');
-        } else if (conductEl && scrollY + 200 >= conductEl.offsetTop) {
-          setActiveSection('code-of-conduct');
-        } else if (eventsEl && scrollY + 200 >= eventsEl.offsetTop) {
-          setActiveSection('events');
-        } else {
-          setActiveSection('home');
+        const isNearBottom = window.innerHeight + scrollY >= document.documentElement.scrollHeight - 100;
+        if (isNearBottom) return setActiveSection('contact');
+        let current = 'home';
+        for (const id of spyIds) {
+          const el = document.getElementById(id);
+          if (el && scrollY + 200 >= el.offsetTop) current = id;
         }
+        setActiveSection(current);
       };
 
-      if (location.hash === '#contact') {
-        setActiveSection('contact');
-      } else if (location.hash === '#code-of-conduct') {
-        setActiveSection('code-of-conduct');
-      } else if (location.hash === '#events') {
-        setActiveSection('events');
-      }
+      const hashKey = location.hash.replace('#', '');
+      if (spyIds.includes(hashKey)) setActiveSection(hashKey);
 
       window.addEventListener('scroll', handleScrollSpy, { passive: true });
       return () => window.removeEventListener('scroll', handleScrollSpy);
@@ -177,13 +169,13 @@ export const Navbar = () => {
               <span className={`font-heading text-lg sm:text-xl font-extrabold tracking-tight ${solid ? 'text-ink' : 'text-white'}`}>
                 INNOVISION <span className="text-marigold-500">2026</span>
               </span>
-              <span className={`text-[11px] font-medium ${solid ? 'text-ink-muted' : 'text-white/75'}`}>
+              <span className={`text-xs font-medium ${solid ? 'text-ink-muted' : 'text-white/75'}`}>
                 ICFAI University, Sikkim
               </span>
             </span>
           </Link>
 
-          <nav className="hidden md:flex items-center gap-1">
+          <nav className="hidden lg:flex items-center gap-1">
             {navLinks.map((link) => {
               const active = isLinkActive(link);
               return (
@@ -203,7 +195,7 @@ export const Navbar = () => {
             })}
           </nav>
 
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-3">
             {regCount > 0 && (
               <Link
                 to="/passes"
@@ -227,7 +219,7 @@ export const Navbar = () => {
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle navigation menu"
-            className={`md:hidden p-2 rounded-lg ${solid ? 'text-ink' : 'text-white'}`}
+            className={`lg:hidden p-2 rounded-lg ${solid ? 'text-ink' : 'text-white'}`}
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -241,7 +233,7 @@ export const Navbar = () => {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25 }}
-            className="md:hidden bg-paper border-b border-ink-line px-4 pt-3 pb-5 overflow-hidden"
+            className="lg:hidden bg-paper border-b border-ink-line px-4 pt-3 pb-5 overflow-hidden"
           >
             <div className="flex flex-col gap-1">
               {navLinks.map((link) => (

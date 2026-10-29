@@ -15,6 +15,13 @@
     --accent-cyan: #38BDF8;
   }
 
+  /* Visible keyboard focus everywhere (mouse clicks don't trigger :focus-visible) */
+  :focus-visible {
+    outline: 2px solid #C2410C;
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
   body {
     background-color: #FBF8F3;
     color: #1C1917;
