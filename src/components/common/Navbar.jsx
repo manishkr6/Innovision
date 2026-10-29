@@ -156,157 +156,121 @@ export const Navbar = () => {
     setMobileMenuOpen(false);
   };
 
+  // Transparent over the hero photo / dark pages; solid paper bar once scrolled or on light pages
+  const solid = isScrolled || mobileMenuOpen || location.pathname === '/contact';
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'py-3.5 bg-[#07090E]/90 backdrop-blur-md border-b border-white/[0.08] shadow-lg'
-          : 'py-5 bg-transparent'
+        solid
+          ? 'py-3 bg-paper/95 backdrop-blur-md border-b border-ink-line shadow-sm'
+          : 'py-5 bg-gradient-to-b from-black/40 to-transparent'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          
-          {/* Left: <IV> Badge + INNOVISION 2026 */}
-          <Link
-            to="/"
-            onClick={handleLogoClick}
-            className="flex items-center gap-3 group focus:outline-none"
-          >
-            <div className="w-9 h-9 rounded-xl border border-white/15 bg-white/[0.04] flex items-center justify-center text-white font-mono text-xs font-bold group-hover:border-white/30 transition-all">
-              &lt;IV&gt;
-            </div>
-            
-            <div className="flex flex-col text-left">
-              <span className="font-display tracking-wider text-xl sm:text-2xl font-black text-white">
-                INNOVISION <span className="text-blue-400 text-lg">2026</span>
+          <Link to="/" onClick={handleLogoClick} className="flex items-center gap-3 focus:outline-none">
+            <span className="w-10 h-10 rounded-xl bg-marigold-500 text-white font-heading font-extrabold text-lg flex items-center justify-center shadow-sm">
+              IV
+            </span>
+            <span className="flex flex-col leading-tight">
+              <span className={`font-heading text-lg sm:text-xl font-extrabold tracking-tight ${solid ? 'text-ink' : 'text-white'}`}>
+                INNOVISION <span className="text-marigold-500">2026</span>
               </span>
-              <span className="font-mono text-[9px] uppercase tracking-widest text-slate-400">
-                ICFAI SIKKIM // FST
+              <span className={`text-[11px] font-medium ${solid ? 'text-ink-muted' : 'text-white/75'}`}>
+                ICFAI University, Sikkim
               </span>
-            </div>
+            </span>
           </Link>
 
-          {/* Center: Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-1">
             {navLinks.map((link) => {
               const active = isLinkActive(link);
-
               return (
                 <a
                   key={link.label}
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link)}
-                  className={`relative font-body text-sm tracking-wide transition-all py-1.5 px-1 cursor-pointer ${
-                    active
-                      ? 'text-white font-semibold'
-                      : 'text-slate-400 hover:text-white font-medium'
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-colors cursor-pointer ${
+                    solid
+                      ? active ? 'bg-ink text-white' : 'text-ink-soft hover:bg-paper-deep'
+                      : active ? 'bg-white text-ink' : 'text-white/90 hover:bg-white/15'
                   }`}
                 >
-                  <span>{link.label}</span>
-                  {active && (
-                    <span className="absolute bottom-0 left-0 w-full h-[2px] bg-blue-500 rounded-full" />
-                  )}
+                  {link.label}
                 </a>
               );
             })}
           </nav>
 
-          {/* Right: Actions */}
-          <div className="hidden md:flex items-center gap-4">
-            {/* My Passes Pill if registered */}
+          <div className="hidden md:flex items-center gap-3">
             {regCount > 0 && (
               <Link
                 to="/passes"
-                className={`flex items-center gap-2 px-3 py-1.5 rounded-full border text-xs font-mono transition-all ${
-                  activeSection === 'passes'
-                    ? 'bg-blue-600/20 border-blue-500 text-blue-300'
-                    : 'bg-white/[0.03] border-white/10 text-slate-300 hover:bg-white/[0.06]'
+                className={`flex items-center gap-2 px-3.5 py-2 rounded-full text-sm font-medium border transition-colors ${
+                  solid ? 'border-ink-line text-ink-soft hover:bg-paper-deep' : 'border-white/40 text-white hover:bg-white/15'
                 }`}
-                title="View your registered event tickets"
+                title="View your registered event passes"
               >
-                <Ticket className="w-3.5 h-3.5 text-blue-400" />
-                <span>My Passes ({regCount})</span>
+                <Ticket className="w-4 h-4" />
+                My Passes ({regCount})
               </Link>
             )}
-
-            {/* Pill-shaped REGISTER button */}
             <button
               onClick={handleRegisterClick}
-              className="px-6 py-2 rounded-full bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 text-white font-mono text-xs font-bold tracking-wider uppercase shadow-md shadow-blue-500/20 hover:shadow-blue-500/35 hover:scale-105 active:scale-95 transition-all"
+              className="px-5 py-2.5 rounded-full bg-marigold-500 hover:bg-marigold-600 text-white text-sm font-semibold shadow-sm transition-colors"
             >
-              REGISTER
+              Register now
             </button>
           </div>
 
-          {/* Mobile Menu Hamburger button */}
-          <div className="flex items-center gap-2 md:hidden">
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Toggle mobile navigation menu"
-              className="p-2 rounded-lg border border-white/10 bg-white/[0.04] text-slate-200 focus:outline-none"
-            >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
-          </div>
-
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle navigation menu"
+            className={`md:hidden p-2 rounded-lg ${solid ? 'text-ink' : 'text-white'}`}
+          >
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
         </div>
       </div>
 
-      {/* Mobile Drawer */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden border-b border-white/10 bg-[#07090E]/95 backdrop-blur-xl px-4 pt-4 pb-6 overflow-hidden"
+            transition={{ duration: 0.25 }}
+            className="md:hidden bg-paper border-b border-ink-line px-4 pt-3 pb-5 overflow-hidden"
           >
-            <div className="flex flex-col space-y-3">
-              {navLinks.map((link) => {
-                const active = isLinkActive(link);
-
-                return (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    onClick={(e) => handleNavClick(e, link)}
-                    className={`flex items-center justify-between px-3 py-2.5 rounded-lg font-body text-base font-medium transition-colors ${
-                      active
-                        ? 'text-white bg-white/[0.06] font-semibold'
-                        : 'text-slate-300 hover:text-white hover:bg-white/[0.03]'
-                    }`}
-                  >
-                    <span>{link.label}</span>
-                    <ChevronRight className={`w-4 h-4 ${active ? 'text-blue-400' : 'text-slate-500'}`} />
-                  </a>
-                );
-              })}
-
+            <div className="flex flex-col gap-1">
+              {navLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  onClick={(e) => handleNavClick(e, link)}
+                  className={`flex items-center justify-between px-3 py-3 rounded-xl text-base font-medium ${
+                    isLinkActive(link) ? 'bg-paper-deep text-ink' : 'text-ink-soft'
+                  }`}
+                >
+                  {link.label}
+                  <ChevronRight className="w-4 h-4 text-ink-muted" />
+                </a>
+              ))}
               {regCount > 0 && (
                 <Link
                   to="/passes"
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center justify-between px-3 py-2.5 rounded-lg border font-mono text-sm ${
-                    activeSection === 'passes'
-                      ? 'bg-blue-600/20 border-blue-500 text-blue-300'
-                      : 'bg-white/[0.03] border-white/10 text-slate-300'
-                  }`}
+                  className="flex items-center gap-2 px-3 py-3 rounded-xl text-base font-medium text-ink-soft"
                 >
-                  <span className="flex items-center gap-2">
-                    <Ticket className="w-4 h-4 text-blue-400" />
-                    My Saved Passes ({regCount})
-                  </span>
-                  <ChevronRight className="w-4 h-4 text-slate-400" />
+                  <Ticket className="w-4 h-4" /> My Passes ({regCount})
                 </Link>
               )}
-
               <button
                 onClick={handleRegisterClick}
-                className="w-full mt-2 py-3 rounded-full bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 font-mono text-sm font-bold uppercase tracking-wider text-white shadow-md shadow-blue-500/20 flex items-center justify-center gap-2"
+                className="mt-2 py-3 rounded-full bg-marigold-500 text-white font-semibold"
               >
-                REGISTER NOW
+                Register now
               </button>
             </div>
           </motion.div>
