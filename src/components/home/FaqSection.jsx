@@ -5,7 +5,7 @@ import { Reveal } from '../common/Reveal';
 const FAQS = [
   {
     q: 'Who can take part?',
-    a: 'Currently enrolled students of The ICFAI University, Sikkim from every department, and students of invited institutions such as Sikkim University, Sikkim Manipal University and Sikkim Skill University.',
+    a: 'Any currently enrolled student from a college or university anywhere in Sikkim is welcome — just register for the event. That includes students of The ICFAI University, Sikkim from every department.',
   },
   {
     q: 'Can I enter more than one event?',

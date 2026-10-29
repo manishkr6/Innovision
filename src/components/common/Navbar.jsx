@@ -166,7 +166,7 @@ export const Navbar = () => {
             </span>
             <span className="flex flex-col leading-tight">
               <span className={`font-heading text-lg sm:text-xl font-extrabold tracking-tight ${solid ? 'text-ink' : 'text-white'}`}>
-                INNOVISION <span className="text-marigold-500">2026</span>
+                INNOVISION <span className={solid ? 'text-marigold-600' : 'text-marigold-400'}>2026</span>
               </span>
               <span className={`text-xs font-medium ${solid ? 'text-ink-muted' : 'text-white/75'}`}>
                 ICFAI University, Sikkim

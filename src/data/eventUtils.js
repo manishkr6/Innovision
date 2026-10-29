@@ -4,8 +4,8 @@
 export const TRACKS = {
   A: { label: 'Technical', chip: 'bg-flag-blue/15 text-flag-blue' },
   B: { label: 'Strategy', chip: 'bg-flag-yellow/25 text-marigold-700' },
-  C: { label: 'Esports', chip: 'bg-flag-red/15 text-flag-red' },
-  D: { label: 'Creative', chip: 'bg-flag-green/15 text-flag-green' },
+  C: { label: 'Esports', chip: 'bg-flag-red/15 text-flag-redText' },
+  D: { label: 'Creative', chip: 'bg-flag-green/15 text-flag-greenText' },
 };
 
 export const trackOf = (event) => event.track.charAt(0);

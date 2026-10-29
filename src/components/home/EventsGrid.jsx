@@ -70,7 +70,7 @@ export const EventsGrid = () => {
                   : 'bg-white text-ink-soft border-ink-line hover:border-ink-muted'
               }`}
             >
-              {t.label} <span className="opacity-60">({t.count})</span>
+              {t.label} <span className={activeTab === t.key ? "text-white/80" : "text-ink-muted"}>({t.count})</span>
             </button>
           ))}
         </div>

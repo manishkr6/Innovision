@@ -14,7 +14,7 @@ export default {
         ink: { DEFAULT: '#1C1917', soft: '#3F3A36', muted: '#5F5852', line: '#E2D9CC' },
         // Deep Himalayan saffron. 400 = accent on dark surfaces, 500 = fill under white text, 600/700 = accent text on light
         marigold: { 50: '#FFF4EC', 100: '#FDE3D0', 400: '#FB923C', 500: '#C2410C', 600: '#9A3412', 700: '#7C2D12' },
-        flag: { blue: '#2456A6', red: '#C2412D', green: '#2F7D4F', yellow: '#D99A0B' },
+        flag: { blue: '#2456A6', red: '#C2412D', green: '#2F7D4F', yellow: '#D99A0B', redText: '#9B2C1C', greenText: '#24603D' },
         night: '#17151F',
         cyber: {
           dark: '#0B0F19',

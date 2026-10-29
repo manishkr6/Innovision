@@ -15,7 +15,7 @@ export const CtaBand = () => {
             <h2 className="font-heading text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.05]">
               Your stage is set.
             </h2>
-            <p className="mt-3 text-lg text-white/90">Pick your event and register before the deadline.</p>
+            <p className="mt-3 text-lg text-white">Pick your event and register before the deadline.</p>
           </div>
           <div className="flex flex-col sm:flex-row md:flex-col lg:flex-row gap-3 md:justify-end">
             <button

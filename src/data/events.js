@@ -123,7 +123,7 @@ export const CODE_OF_CONDUCT = [
     number: "01",
     title: "Proof of Eligibility & Valid University ID",
     shortDesc: "Every participant must carry and present a valid college/university ID card at all times.",
-    fullDesc: "INNOVISION 2026 is open to enrolled students of The ICFAI University, Sikkim across all departments (BCA, MCA, BBA, MBA, B.Com, Law, Hospitality/Tourism) and to students of invited external institutions (including Sikkim University, Sikkim Manipal University, Sikkim Skill University, Harkamaya College of Education, and further invited colleges). Every participant must be a currently enrolled student and must carry their valid college/university identity card at all times, presenting it on request."
+    fullDesc: "INNOVISION 2026 is open to enrolled students of The ICFAI University, Sikkim across all departments (BCA, MCA, BBA, MBA, B.Com, Law, Hospitality/Tourism) and to students of every college and university across Sikkim who register for an event. Every participant must be a currently enrolled student and must carry their valid college/university identity card at all times, presenting it on request."
   },
   {
     id: "registration-leader",
@@ -253,7 +253,7 @@ export const EVENTS = [
       { criteria: "Penalty Minimization", weight: "20%", description: "Accuracy of submissions with minimal penalty points for failed runs." }
     ],
     eligibility: [
-      "Open to currently enrolled students of The ICFAI University, Sikkim and invited external institutions.",
+      "Open to students of The ICFAI University, Sikkim (all departments) and of every college and university across Sikkim, on registration.",
       "Must carry a valid college/university identity card at all times."
     ],
     registrationFee: "Free",
@@ -338,7 +338,7 @@ export const EVENTS = [
       { criteria: "Live Demo & Jury Defense", weight: "30%", description: "Clarity of presentation, functional feature walkthrough, and jury Q&A answers." }
     ],
     eligibility: [
-      "Open to currently enrolled students of The ICFAI University, Sikkim and invited external institutions.",
+      "Open to students of The ICFAI University, Sikkim (all departments) and of every college and university across Sikkim, on registration.",
       "Must carry a valid college/university identity card at all times."
     ],
     registrationFee: "Free",
@@ -419,7 +419,7 @@ export const EVENTS = [
       { criteria: "Speed & Buzzer Timing", weight: "40%", description: "Fastest response time on buzzer rounds without incurring negative penalties." }
     ],
     eligibility: [
-      "Open to students of ICFAI University, Sikkim across all departments (BCA, MCA, BBA, MBA, B.Com, Law, Hospitality/Tourism) and invited institutions.",
+      "Open to students of The ICFAI University, Sikkim (all departments) and of every college and university across Sikkim, on registration.",
       "Must carry a valid college/university ID card at all times."
     ],
     registrationFee: "Free",
@@ -494,7 +494,7 @@ export const EVENTS = [
       { criteria: "Keystroke Accuracy Percentage", weight: "30%", description: "Proportion of error-free characters typed during the round." }
     ],
     eligibility: [
-      "Open to students of ICFAI University, Sikkim across all departments and invited institutions.",
+      "Open to students of The ICFAI University, Sikkim (all departments) and of every college and university across Sikkim, on registration.",
       "Must carry a valid college/university ID card."
     ],
     registrationFee: "Free",
@@ -575,7 +575,7 @@ export const EVENTS = [
       { criteria: "Jury Q&A Defense", weight: "20%", description: "Confidence and depth of responses to jury cross-examination." }
     ],
     eligibility: [
-      "Open to students of ICFAI University, Sikkim across all departments (BCA, MCA, BBA, MBA, B.Com, Law, Hospitality/Tourism) and invited institutions.",
+      "Open to students of The ICFAI University, Sikkim (all departments) and of every college and university across Sikkim, on registration.",
       "Valid student ID required."
     ],
     registrationFee: "Free",
@@ -656,7 +656,7 @@ export const EVENTS = [
       { criteria: "Clue Integrity & Fair Play", weight: "30%", description: "Strict adherence to permitted zones and zero penalties/clue violations." }
     ],
     eligibility: [
-      "Open to students of ICFAI University, Sikkim across all departments and invited institutions.",
+      "Open to students of The ICFAI University, Sikkim (all departments) and of every college and university across Sikkim, on registration.",
       "Must carry a valid college/university ID card at all times."
     ],
     registrationFee: "Free",
@@ -741,7 +741,7 @@ export const EVENTS = [
       { criteria: "Finish / Kill Points", weight: "30%", description: "1 point awarded per verified in-game elimination." }
     ],
     eligibility: [
-      "Open to enrolled students of ICFAI University, Sikkim and invited external institutions.",
+      "Open to students of The ICFAI University, Sikkim (all departments) and of every college and university across Sikkim, on registration.",
       "All 4 squad members must carry valid institutional ID cards."
     ],
     registrationFee: "Free",
@@ -822,7 +822,7 @@ export const EVENTS = [
       { criteria: "Tournament Bracket Advancement", weight: "20%", description: "Match progression through the official bracket system." }
     ],
     eligibility: [
-      "Open to all students of ICFAI University, Sikkim and invited colleges.",
+      "Open to students of The ICFAI University, Sikkim (all departments) and of every college and university across Sikkim, on registration.",
       "Valid student ID required for all 5 team members."
     ],
     registrationFee: "Free",
@@ -902,7 +902,7 @@ export const EVENTS = [
       { criteria: "Match Score", weight: "100%", description: "Final goals scored at full-time (or extra time / penalties in knockout)." }
     ],
     eligibility: [
-      "Open to all students of ICFAI University, Sikkim and invited colleges.",
+      "Open to students of The ICFAI University, Sikkim (all departments) and of every college and university across Sikkim, on registration.",
       "Valid student ID required."
     ],
     registrationFee: "Free",
@@ -989,7 +989,7 @@ export const EVENTS = [
       { criteria: "Cinematography & Framing", weight: "25%", description: "Composition, lighting quality, camera movement, and visual aesthetic." }
     ],
     eligibility: [
-      "Open to all students of ICFAI University, Sikkim across all departments and invited institutions.",
+      "Open to students of The ICFAI University, Sikkim (all departments) and of every college and university across Sikkim, on registration.",
       "Valid student ID required."
     ],
     registrationFee: "Free",
@@ -1072,7 +1072,7 @@ export const EVENTS = [
       { criteria: "Technical Quality & Lighting", weight: "30%", description: "Sharpness, exposure control, dynamic range, and focus." }
     ],
     eligibility: [
-      "Open to all students of ICFAI University, Sikkim across all departments and invited institutions.",
+      "Open to students of The ICFAI University, Sikkim (all departments) and of every college and university across Sikkim, on registration.",
       "Valid student ID required."
     ],
     registrationFee: "Free",
@@ -1149,7 +1149,7 @@ export const EVENTS = [
       { criteria: "Overall Visual Impact & Finish", weight: "25%", description: "Aesthetic appeal, presentation quality, and completeness." }
     ],
     eligibility: [
-      "Open to all students of ICFAI University, Sikkim across all departments and invited institutions.",
+      "Open to students of The ICFAI University, Sikkim (all departments) and of every college and university across Sikkim, on registration.",
       "Valid student ID required."
     ],
     registrationFee: "Free",

@@ -37,8 +37,10 @@ export const HeroSection = () => {
         className="absolute inset-0 w-full h-full object-cover object-[center_30%]"
         fetchpriority="high"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-night via-night/60 to-black/30" />
-      <div className="absolute inset-0 bg-gradient-to-r from-night/80 via-night/30 to-transparent" />
+      {/* Even dark wash first so the bright spotlight beams never sit behind text, then depth gradients */}
+      <div className="absolute inset-0 bg-night/55" />
+      <div className="absolute inset-0 bg-gradient-to-t from-night via-night/70 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-r from-night/85 via-night/40 to-transparent" />
 
       <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-14 sm:pb-20">
         <div className="grid lg:grid-cols-[1.4fr_1fr] gap-10 lg:gap-16 items-end">
@@ -51,7 +53,7 @@ export const HeroSection = () => {
                 </span>
                 Registrations open
               </span>
-              <span className="inline-flex items-center rounded-full bg-white/15 backdrop-blur px-4 py-1.5 text-xs sm:text-sm font-medium text-white">
+              <span className="inline-flex items-center rounded-full bg-night/60 backdrop-blur border border-white/20 px-4 py-1.5 text-xs sm:text-sm font-medium text-white">
                 {FEST_INFO.faculty} · {FEST_INFO.university}
               </span>
             </motion.div>
@@ -64,7 +66,7 @@ export const HeroSection = () => {
               <span className="block text-marigold-400">2026</span>
             </motion.h1>
 
-            <motion.p {...fadeUp(0.2)} className="mt-5 max-w-xl text-lg sm:text-xl text-white/85 leading-relaxed">
+            <motion.p {...fadeUp(0.2)} className="mt-5 max-w-xl text-lg sm:text-xl text-white leading-relaxed [text-shadow:0_1px_12px_rgba(0,0,0,0.5)]">
               {FEST_INFO.tagline}. Code, competition, esports and creativity — open to students across Sikkim.
             </motion.p>
 
@@ -87,7 +89,7 @@ export const HeroSection = () => {
               </button>
               <button
                 onClick={() => scrollTo('#esports')}
-                className="inline-flex items-center justify-center px-7 py-3.5 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur border border-white/30 text-white font-semibold transition-colors"
+                className="inline-flex items-center justify-center px-7 py-3.5 rounded-full bg-night/60 hover:bg-night/80 backdrop-blur border border-white/40 text-white font-semibold transition-colors"
               >
                 See the esports line-up
               </button>
