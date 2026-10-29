@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="cyberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#22D3EE" />
+      <stop offset="50%" stop-color="#2F6BFF" />
+      <stop offset="100%" stop-color="#7C3AED" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#0B0B2B" />
+  <rect x="2" y="2" width="60" height="60" rx="12" stroke="url(#cyberGrad)" stroke-width="2" />
+  <!-- Circuit Nodes -->
+  <circle cx="12" cy="12" r="3" fill="#22D3EE" />
+  <path d="M12 15V24H20" stroke="#22D3EE" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="52" cy="52" r="3" fill="#7C3AED" />
+  <path d="M52 49V40H44" stroke="#7C3AED" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Central 'IV' Glyph -->
+  <path d="M22 22V42M28 22L36 42L44 22" stroke="url(#cyberGrad)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"/>
+</svg>
+
