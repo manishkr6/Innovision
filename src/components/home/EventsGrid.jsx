@@ -1,8 +1,8 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, X, Users, ArrowRight, CalendarDays, MapPin } from 'lucide-react';
+import { Search, X, Users, ArrowRight, MapPin } from 'lucide-react';
 import { EVENTS } from '../../data/events';
-import { TRACKS, trackOf, cleanTbc, splitTitle, dayLabel, startTime, shortVenue } from '../../data/eventUtils';
+import { TRACKS, trackOf, cleanTbc, splitTitle, shortVenue } from '../../data/eventUtils';
 import { Reveal } from '../common/Reveal';
 
 export const EventsGrid = () => {
@@ -106,9 +106,6 @@ export const EventsGrid = () => {
                       loading="lazy"
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
-                    <span className="absolute top-3 left-3 rounded-full bg-white/95 px-3 py-1 text-xs font-semibold text-ink shadow-sm">
-                      {event.registrationFee} · {event.maxSlots} slots
-                    </span>
                   </div>
                   <div className="flex flex-col flex-1 p-6">
                     <span className={`self-start rounded-full px-3 py-1 text-xs font-semibold ${track.chip}`}>
@@ -117,12 +114,7 @@ export const EventsGrid = () => {
                     <h3 className="mt-3 font-heading text-2xl font-bold text-ink leading-tight">{name}</h3>
                     {sub && <p className="text-sm font-medium text-ink-muted">{sub}</p>}
                     <p className="mt-3 text-sm text-ink-soft leading-relaxed line-clamp-2">{event.tagline}</p>
-                    <div className="mt-4 space-y-1.5 text-sm text-ink-muted">
-                      <p className="flex items-center gap-2">
-                        <CalendarDays className="w-4 h-4 shrink-0" />
-                        {dayLabel(event)}
-                        {startTime(event) ? ` · ${startTime(event)}` : ` · ${cleanTbc(event.time)}`}
-                      </p>
+                    <div className="mt-4 text-sm text-ink-muted">
                       <p className="flex items-center gap-2 truncate">
                         <MapPin className="w-4 h-4 shrink-0" />
                         <span className="truncate">{shortVenue(event)}</span>

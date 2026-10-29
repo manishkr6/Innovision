@@ -7,10 +7,9 @@ const FAQS = [
     q: 'Who can take part?',
     a: 'Currently enrolled students of The ICFAI University, Sikkim from every department, and students of invited institutions such as Sikkim University, Sikkim Manipal University and Sikkim Skill University.',
   },
-  { q: 'Is there a registration fee?', a: 'No. Every one of the 12 competitions is free to enter.' },
   {
     q: 'Can I enter more than one event?',
-    a: "Yes, as long as the schedules don't clash. The organisers can't move an event to fit individual clashes, so check the schedule first.",
+    a: "Yes, as long as the events don't clash. The organisers can't move an event to fit individual clashes.",
   },
   {
     q: 'What should I bring?',

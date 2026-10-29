@@ -1,4 +1,4 @@
-// Presentation helpers shared by the homepage sections (grid, schedule, esports spotlight)
+// Presentation helpers shared by the homepage sections (events grid, esports spotlight)
 
 // Track letter (from event.track, e.g. "C. Esports and Gaming Arena") -> label + prayer-flag colour classes
 export const TRACKS = {
@@ -16,25 +16,6 @@ export const cleanTbc = (s) => s.replace(/\s*\[TBC\]/g, '').trim();
 export const splitTitle = (title) => {
   const m = title.match(/^(.*?)\s*\((.*)\)$/);
   return m ? [m[1], m[2]] : [title, null];
-};
-
-// "Day 1 & Day 2 - November 2026" -> [1, 2]
-export const eventDays = (event) => [...event.date.matchAll(/Day (\d)/g)].map((m) => Number(m[1]));
-
-export const dayLabel = (event) => {
-  const days = eventDays(event);
-  return days.length > 1 ? `Days ${days.join(' & ')}` : `Day ${days[0]}`;
-};
-
-// "10:30 AM - 01:30 PM [TBC]" -> "10:30 AM"; submission windows return null
-export const startTime = (event) => event.time.match(/^\d{1,2}:\d{2} [AP]M/)?.[0] ?? null;
-
-// Minutes since midnight for sorting; null when the event has no fixed slot
-export const startMinutes = (event) => {
-  const t = startTime(event);
-  if (!t) return null;
-  const [, h, m, ap] = t.match(/(\d{1,2}):(\d{2}) ([AP]M)/);
-  return ((Number(h) % 12) + (ap === 'PM' ? 12 : 0)) * 60 + Number(m);
 };
 
 // "Advanced Computing Lab, Faculty of Science & Technology" -> "Advanced Computing Lab"

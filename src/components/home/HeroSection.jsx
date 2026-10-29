@@ -49,7 +49,7 @@ export const HeroSection = () => {
                   <span className="absolute inline-flex w-full h-full rounded-full bg-white opacity-75 motion-safe:animate-ping" />
                   <span className="relative inline-flex w-2 h-2 rounded-full bg-white" />
                 </span>
-                Registrations open · Free entry
+                Registrations open
               </span>
               <span className="inline-flex items-center rounded-full bg-white/15 backdrop-blur px-4 py-1.5 text-xs sm:text-sm font-medium text-white">
                 {FEST_INFO.faculty} · {FEST_INFO.university}

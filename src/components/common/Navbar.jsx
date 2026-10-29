@@ -18,7 +18,6 @@ export const Navbar = () => {
     { key: 'home', label: 'Home', href: '/' },
     { key: 'esports', label: 'Esports', href: '/#esports', isAnchor: true },
     { key: 'events', label: 'Events', href: '/#events', isAnchor: true },
-    { key: 'schedule', label: 'Schedule', href: '/#schedule', isAnchor: true },
     { key: 'code-of-conduct', label: 'Rules', href: '/#code-of-conduct', isAnchor: true },
     { key: 'contact', label: 'Contact', href: '/#contact', isAnchor: true },
   ];

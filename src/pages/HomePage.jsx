@@ -4,7 +4,6 @@ import { MarqueeStrip } from '../components/home/MarqueeStrip';
 import { AboutSection } from '../components/home/AboutSection';
 import { EsportsSpotlight } from '../components/home/EsportsSpotlight';
 import { EventsGrid } from '../components/home/EventsGrid';
-import { ScheduleSection } from '../components/home/ScheduleSection';
 import { ParticipateSection } from '../components/home/ParticipateSection';
 import { CodeOfConduct } from '../components/home/CodeOfConduct';
 import { FaqSection } from '../components/home/FaqSection';
@@ -23,7 +22,6 @@ export const HomePage = () => (
     <AboutSection />
     <EsportsSpotlight />
     <EventsGrid />
-    <ScheduleSection />
     <ParticipateSection />
     <CodeOfConduct />
     <FaqSection />

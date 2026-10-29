@@ -3,8 +3,8 @@ import { MousePointerClick, ClipboardCheck, Ticket, IdCard, Medal, Award, Scroll
 import { Reveal } from '../common/Reveal';
 
 const STEPS = [
-  { icon: MousePointerClick, title: 'Pick your event', text: 'Browse the 12 competitions and check the team size and timing.' },
-  { icon: ClipboardCheck, title: 'Register online — free', text: 'Fill the short form on the event page. No entry fee for any event.' },
+  { icon: MousePointerClick, title: 'Pick your event', text: 'Browse the 12 competitions and check the team size and rules.' },
+  { icon: ClipboardCheck, title: 'Register online', text: 'Fill the short form on the event page before the registration deadline.' },
   { icon: Ticket, title: 'Keep your digital pass', text: 'Your pass appears under “My Passes”. Print it or keep it on your phone.' },
   { icon: IdCard, title: 'Report with your college ID', text: 'Arrive at the venue on time. Late arrivals may be refused entry.' },
 ];

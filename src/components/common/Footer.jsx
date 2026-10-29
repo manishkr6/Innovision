@@ -7,7 +7,6 @@ import { useLenis } from '../../hooks/useLenis';
 const LINKS = [
   { label: 'Esports Arena', hash: '#esports' },
   { label: 'Events', hash: '#events' },
-  { label: 'Schedule', hash: '#schedule' },
   { label: 'How to take part', hash: '#participate' },
   { label: 'Code of Conduct', hash: '#code-of-conduct' },
   { label: 'FAQ', hash: '#faq' },
