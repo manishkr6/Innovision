@@ -8,8 +8,8 @@
     --bg-surface: #0E121D;
     --bg-card: rgba(14, 18, 29, 0.75);
     --border-color: rgba(255, 255, 255, 0.08);
-    --text-primary: #F8FAFC;
-    --text-secondary: #94A3B8;
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
     --accent-blue: #3B82F6;
     --accent-indigo: #6366F1;
     --accent-cyan: #38BDF8;
@@ -28,8 +28,9 @@
   }
 
   body {
+    @apply text-slate-900;
     background-color: #FBF8F3;
-    color: #1C1917;
+    color: #0F172A;
     overflow-x: hidden;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
