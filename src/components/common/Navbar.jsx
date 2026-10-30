@@ -110,7 +110,7 @@ export const Navbar = () => {
   };
 
   // Transparent over the hero photo / dark pages; solid paper bar once scrolled or on light pages
-  const solid = isScrolled || mobileMenuOpen || location.pathname === '/contact';
+  const solid = isScrolled || mobileMenuOpen || location.pathname === '/contact' || location.pathname.startsWith('/events/');
 
   return (
     <header

@@ -7,9 +7,9 @@ export const EventTabBar = () => {
   const { scrollTo } = useLenis();
 
   const tabs = [
-    { id: 'info', label: '01 // EVENT INFO', icon: Info },
-    { id: 'rules', label: '02 // RULES & REGULATIONS', icon: BookOpen },
-    { id: 'register', label: '03 // REGISTRATION', icon: UserPlus },
+    { id: 'info', label: '01 // Event Overview', icon: Info },
+    { id: 'rules', label: '02 // Rules & Regulations', icon: BookOpen },
+    { id: 'register', label: '03 // Registration', icon: UserPlus },
   ];
 
   useEffect(() => {
@@ -40,7 +40,7 @@ export const EventTabBar = () => {
   };
 
   return (
-    <div className="sticky top-16 sm:top-20 z-40 py-3 mb-10 bg-[#07090E]/90 backdrop-blur-md border-y border-white/[0.08]">
+    <div className="sticky top-16 sm:top-20 z-40 py-3 mb-12 bg-paper/95 backdrop-blur-md border-y border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-center sm:justify-start gap-2 overflow-x-auto no-scrollbar">
           {tabs.map((tab) => {
@@ -51,13 +51,13 @@ export const EventTabBar = () => {
               <button
                 key={tab.id}
                 onClick={() => handleTabClick(tab.id)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl font-mono text-xs font-semibold tracking-wider transition-all whitespace-nowrap cursor-pointer ${
+                className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs sm:text-sm font-semibold tracking-wide border transition-all whitespace-nowrap cursor-pointer ${
                   isActive
-                    ? 'bg-white text-slate-950 font-bold shadow-md'
-                    : 'text-slate-400 hover:text-white bg-white/[0.03] hover:bg-white/[0.06]'
+                    ? 'bg-black text-white border-black shadow-sm'
+                    : 'bg-white text-gray-700 border-gray-200 hover:border-gray-400 hover:text-gray-900'
                 }`}
               >
-                <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-slate-950' : 'text-slate-400'}`} />
+                <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-white' : 'text-gray-500'}`} />
                 <span>{tab.label}</span>
               </button>
             );
