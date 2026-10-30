@@ -1,51 +1,47 @@
 import React from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { Navbar } from './components/common/Navbar';
 import { Footer } from './components/common/Footer';
-import { CustomCursor } from './components/common/CustomCursor';
 import { ScrollProgressBar } from './components/common/ScrollProgressBar';
-import { CyberBackground } from './components/common/CyberBackground';
 import { HomePage } from './pages/HomePage';
 import { EventDetailPage } from './pages/EventDetailPage';
 import { ContactPage } from './pages/ContactPage';
 import { MyRegistrationsPage } from './pages/MyRegistrationsPage';
 import { NotFoundPage } from './pages/NotFoundPage';
-import { useLenis } from './hooks/useLenis';
+import { useSmoothScrollSetup } from './hooks/useLenis';
+
+// Pages not yet redesigned keep their original dark styling until the registration phase
+const Legacy = ({ children }) => (
+  <div className="bg-cyber-dark text-slate-100 font-body min-h-screen">{children}</div>
+);
 
 export const App = () => {
-  const location = useLocation();
-  // Initialize Lenis smooth scrolling
-  useLenis();
+  // One Lenis instance + route/hash scroll handling for the whole app
+  useSmoothScrollSetup();
 
   return (
-    <div className="relative min-h-screen bg-cyber-dark text-slate-100 flex flex-col justify-between selection:bg-cyber-cyan selection:text-cyber-darker transition-colors duration-300">
-      
-      {/* Scroll Progress Bar at the top */}
+    <div className="relative min-h-screen bg-paper text-ink flex flex-col justify-between">
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[200] focus:rounded-full focus:bg-ink focus:text-white focus:px-5 focus:py-2.5 focus:text-sm focus:font-semibold"
+      >
+        Skip to content
+      </a>
       <ScrollProgressBar />
 
-      {/* Cyberpunk Grid & Blobs Ambient Background */}
-      <CyberBackground />
-
-      {/* Sticky Main Navigation */}
       <Navbar />
 
-      {/* Main Routed Content - Instant & Reliable Route Mounting */}
-      <main className="flex-grow relative z-10">
+      <main id="main" className="flex-grow relative z-10">
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/events/:slug" element={<EventDetailPage />} />
+          <Route path="/events/:slug" element={<Legacy><EventDetailPage /></Legacy>} />
           <Route path="/contact" element={<ContactPage />} />
-          <Route path="/passes" element={<MyRegistrationsPage />} />
-          <Route path="*" element={<NotFoundPage />} />
+          <Route path="/passes" element={<Legacy><MyRegistrationsPage /></Legacy>} />
+          <Route path="*" element={<Legacy><NotFoundPage /></Legacy>} />
         </Routes>
       </main>
 
-      {/* Comprehensive Official Footer */}
       <Footer />
-
-      {/* Difference Circle Cursor Follower */}
-      <CustomCursor />
-
     </div>
   );
 };

@@ -8,6 +8,14 @@ export default {
   theme: {
     extend: {
       colors: {
+        // Homepage palette: warm paper + ink, marigold accent, prayer-flag track colours
+        paper: { DEFAULT: '#FBF8F3', deep: '#F3EDE3' },
+        // All pairings meet WCAG AA: white on 500 = 5.2:1, 600/700 text on paper >= 6.9:1, 400 on night = 8:1
+        ink: { DEFAULT: '#1C1917', soft: '#3F3A36', muted: '#5F5852', line: '#E2D9CC' },
+        // Deep Himalayan saffron. 400 = accent on dark surfaces, 500 = fill under white text, 600/700 = accent text on light
+        marigold: { 50: '#FFF4EC', 100: '#FDE3D0', 400: '#FB923C', 500: '#C2410C', 600: '#9A3412', 700: '#7C2D12' },
+        flag: { blue: '#2456A6', red: '#C2412D', green: '#2F7D4F', yellow: '#D99A0B', redText: '#9B2C1C', greenText: '#24603D' },
+        night: '#17151F',
         cyber: {
           dark: '#0B0F19',
           darker: '#07090E',
@@ -26,6 +34,8 @@ export default {
         }
       },
       fontFamily: {
+        heading: ['"Bricolage Grotesque"', 'system-ui', 'sans-serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
         display: ['"Bebas Neue"', '"Anton"', 'sans-serif'],
         anton: ['"Anton"', 'sans-serif'],
         body: ['"Space Grotesk"', '"Poppins"', 'sans-serif'],

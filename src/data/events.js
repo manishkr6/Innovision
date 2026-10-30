@@ -39,7 +39,7 @@ export const FEST_INFO = {
     "NextPreneur",
     "Tech Hunt (Treasure Hunt)",
     "BGMI Tournament",
-    "Mobile Legends",
+    "MOBA Legends: 5v5",
     "E-Football",
     "Frame Flick (Reel Making)",
     "Photography",
@@ -123,7 +123,7 @@ export const CODE_OF_CONDUCT = [
     number: "01",
     title: "Proof of Eligibility & Valid University ID",
     shortDesc: "Every participant must carry and present a valid college/university ID card at all times.",
-    fullDesc: "INNOVISION 2026 is open to enrolled students of The ICFAI University, Sikkim across all departments (BCA, MCA, BBA, MBA, B.Com, Law, Hospitality/Tourism) and to students of invited external institutions (including Sikkim University, Sikkim Manipal University, Sikkim Skill University, Harkamaya College of Education, and further invited colleges). Every participant must be a currently enrolled student and must carry their valid college/university identity card at all times, presenting it on request."
+    fullDesc: "INNOVISION 2026 is open to enrolled students of The ICFAI University, Sikkim across all departments (BCA, MCA, BBA, MBA, B.Com, Law, Hospitality/Tourism) and to students of every college and university across Sikkim who register for an event. Every participant must be a currently enrolled student and must carry their valid college/university identity card at all times, presenting it on request."
   },
   {
     id: "registration-leader",
@@ -151,7 +151,7 @@ export const CODE_OF_CONDUCT = [
     number: "05",
     title: "Esports Integrity & Account Ownership",
     shortDesc: "Zero tolerance for third-party tools, cheats, teaming, or account sharing in esports.",
-    fullDesc: "In all esports and gaming tournaments (BGMI, Mobile Legends, E-Football), cheating, hacking, third-party mod tools, radar scripts, teaming up with opponents, and deliberate disconnections are strictly prohibited and result in immediate disqualification. Players must compete using their real registered names and their own personal verified accounts. Account sharing is strictly prohibited."
+    fullDesc: "In all esports and gaming tournaments (BGMI, MOBA Legends: 5v5, E-Football), cheating, hacking, third-party mod tools, radar scripts, teaming up with opponents, and deliberate disconnections are strictly prohibited and result in immediate disqualification. Players must compete using their real registered names and their own personal verified accounts. Account sharing is strictly prohibited."
   },
   {
     id: "campus-equipment",
@@ -194,7 +194,7 @@ export const EVENTS = [
     shortDesc: "An algorithmic problem-solving and programming-logic challenge where developers solve rigorous computational problems under strict time and penalty constraints.",
     fullDesc: "Code Clash is the premier algorithmic challenge of INNOVISION 2026, hosted by the Department of Information Technology. Participants tackle computational challenges requiring deep mastery of data structures, algorithmic design, and edge-case handling. Solutions are evaluated on correctness, time taken, and penalty points.",
     icon: "code",
-    image: "https://i.pinimg.com/736x/a2/7b/1f/a27b1f7859d9581cbc074500ecd3bdd8.jpg",
+    image: "/images/photos/coding.jpg",
     isITOnly: true,
     date: "Day 1 - November 2026",
     time: "10:30 AM - 01:30 PM [TBC]",
@@ -253,7 +253,7 @@ export const EVENTS = [
       { criteria: "Penalty Minimization", weight: "20%", description: "Accuracy of submissions with minimal penalty points for failed runs." }
     ],
     eligibility: [
-      "Open to currently enrolled students of The ICFAI University, Sikkim and invited external institutions.",
+      "Open to students of The ICFAI University, Sikkim (all departments) and of every college and university across Sikkim, on registration.",
       "Must carry a valid college/university identity card at all times."
     ],
     registrationFee: "Free",
@@ -273,7 +273,7 @@ export const EVENTS = [
     shortDesc: "A team event in which teams solve real-world problems over a full day, run as a small hackathon. Work must be done during the event and demonstrated to the jury.",
     fullDesc: "The Web Hackathon is an intensive full-day team engineering competition. Teams are given the problem statement at the start of the event. All work must be conducted on site during the event window. At the conclusion, teams must demonstrate and present their live working prototype to the evaluation panel.",
     icon: "globe",
-    image: "https://i.pinimg.com/736x/c9/7f/8a/c97f8ad6fb8bf84b542692e3c463f282.jpg",
+    image: "/images/photos/team-laptop.jpg",
     isITOnly: true,
     date: "Day 2 - November 2026",
     time: "09:00 AM - 05:30 PM [TBC]",
@@ -338,7 +338,7 @@ export const EVENTS = [
       { criteria: "Live Demo & Jury Defense", weight: "30%", description: "Clarity of presentation, functional feature walkthrough, and jury Q&A answers." }
     ],
     eligibility: [
-      "Open to currently enrolled students of The ICFAI University, Sikkim and invited external institutions.",
+      "Open to students of The ICFAI University, Sikkim (all departments) and of every college and university across Sikkim, on registration.",
       "Must carry a valid college/university identity card at all times."
     ],
     registrationFee: "Free",
@@ -358,7 +358,7 @@ export const EVENTS = [
     shortDesc: "Tech trivia, general IT aptitude, and rapid-fire quiz rounds testing computing milestones, tech history, and logical puzzles.",
     fullDesc: "Brain Spark is the dynamic IT and fun quiz of INNOVISION 2026. Designed to test agility, knowledge, and quick thinking across computer science breakthroughs, emerging technology, industry milestones, and rapid-fire logic puzzles.",
     icon: "lightbulb",
-    image: "https://i.pinimg.com/1200x/b7/e8/79/b7e879cb933cfea9e049de0d45af2d2c.jpg",
+    image: "/images/photos/quiz.jpg",
     isITOnly: false,
     date: "Day 1 - November 2026",
     time: "02:00 PM - 04:30 PM [TBC]",
@@ -419,7 +419,7 @@ export const EVENTS = [
       { criteria: "Speed & Buzzer Timing", weight: "40%", description: "Fastest response time on buzzer rounds without incurring negative penalties." }
     ],
     eligibility: [
-      "Open to students of ICFAI University, Sikkim across all departments (BCA, MCA, BBA, MBA, B.Com, Law, Hospitality/Tourism) and invited institutions.",
+      "Open to students of The ICFAI University, Sikkim (all departments) and of every college and university across Sikkim, on registration.",
       "Must carry a valid college/university ID card at all times."
     ],
     registrationFee: "Free",
@@ -439,7 +439,7 @@ export const EVENTS = [
     shortDesc: "A typing-speed, words-per-minute (WPM) and accuracy contest on standardized keyboard testing software.",
     fullDesc: "Type Race evaluates keyboard speed, muscle memory, and precision accuracy under pressure. Competitors type across complex passages and technical syntax to achieve the highest net Words Per Minute (WPM) with strict accuracy benchmarks.",
     icon: "keyboard",
-    image: "/images/events/type-race.png",
+    image: "/images/photos/typing.jpg",
     isITOnly: false,
     date: "Day 2 - November 2026",
     time: "11:00 AM - 01:00 PM [TBC]",
@@ -494,7 +494,7 @@ export const EVENTS = [
       { criteria: "Keystroke Accuracy Percentage", weight: "30%", description: "Proportion of error-free characters typed during the round." }
     ],
     eligibility: [
-      "Open to students of ICFAI University, Sikkim across all departments and invited institutions.",
+      "Open to students of The ICFAI University, Sikkim (all departments) and of every college and university across Sikkim, on registration.",
       "Must carry a valid college/university ID card."
     ],
     registrationFee: "Free",
@@ -518,7 +518,7 @@ export const EVENTS = [
     shortDesc: "Startup pitching, business-plan presentation and entrepreneurial innovation challenge. Pitch original business ideas to a jury of founders and faculty.",
     fullDesc: "NextPreneur is the flagship entrepreneurship and business-pitching challenge of INNOVISION 2026, held in association with Institution's Innovation Council (Ministry of Education Initiative). Student founders present original business plans, market models, and prototype solutions to an expert panel.",
     icon: "compass",
-    image: "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=1000&q=80",
+    image: "/images/photos/mic-stage.jpg",
     isITOnly: false,
     date: "Day 1 - November 2026",
     time: "01:30 PM - 05:00 PM [TBC]",
@@ -575,7 +575,7 @@ export const EVENTS = [
       { criteria: "Jury Q&A Defense", weight: "20%", description: "Confidence and depth of responses to jury cross-examination." }
     ],
     eligibility: [
-      "Open to students of ICFAI University, Sikkim across all departments (BCA, MCA, BBA, MBA, B.Com, Law, Hospitality/Tourism) and invited institutions.",
+      "Open to students of The ICFAI University, Sikkim (all departments) and of every college and university across Sikkim, on registration.",
       "Valid student ID required."
     ],
     registrationFee: "Free",
@@ -595,7 +595,7 @@ export const EVENTS = [
     shortDesc: "A campus-wide clue-solving and team-strategy quest. Decode cryptic riddles, explore allowed campus zones, and uncover hidden tech tokens.",
     fullDesc: "Tech Hunt turns the ICFAI University Sikkim campus into a high-octane quest arena. Teams decipher multi-layered technical ciphers, QR-coded clue stations, and logic puzzles to navigate across permitted zones and retrieve the final artifact.",
     icon: "compass",
-    image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1000&q=80",
+    image: "/images/photos/treasure-map.jpg",
     isITOnly: false,
     date: "Day 2 - November 2026",
     time: "01:30 PM - 04:30 PM [TBC]",
@@ -656,7 +656,7 @@ export const EVENTS = [
       { criteria: "Clue Integrity & Fair Play", weight: "30%", description: "Strict adherence to permitted zones and zero penalties/clue violations." }
     ],
     eligibility: [
-      "Open to students of ICFAI University, Sikkim across all departments and invited institutions.",
+      "Open to students of The ICFAI University, Sikkim (all departments) and of every college and university across Sikkim, on registration.",
       "Must carry a valid college/university ID card at all times."
     ],
     registrationFee: "Free",
@@ -680,7 +680,7 @@ export const EVENTS = [
     shortDesc: "A squad/team battle-royale tournament in Battlegrounds Mobile India featuring tactical rotations, gunplay, and survival points.",
     fullDesc: "The premier esports battle royale tournament of INNOVISION 2026. Squads drop onto Erangel and Miramar to compete under official tournament point matrices. Survival instincts, zone rotations, gunplay accuracy, and squad communication decide who takes the podium.",
     icon: "gamepad-2",
-    image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1000&q=80",
+    image: "/images/games/bgmi.jpg",
     isITOnly: false,
     date: "Day 1 & Day 2 - November 2026",
     time: "11:00 AM - 05:00 PM [TBC]",
@@ -741,7 +741,7 @@ export const EVENTS = [
       { criteria: "Finish / Kill Points", weight: "30%", description: "1 point awarded per verified in-game elimination." }
     ],
     eligibility: [
-      "Open to enrolled students of ICFAI University, Sikkim and invited external institutions.",
+      "Open to students of The ICFAI University, Sikkim (all departments) and of every college and university across Sikkim, on registration.",
       "All 4 squad members must carry valid institutional ID cards."
     ],
     registrationFee: "Free",
@@ -749,19 +749,19 @@ export const EVENTS = [
     maxSlots: 32
   },
   {
-    id: "event-mobile-legends",
-    slug: "mobile-legends",
-    aliases: ["mlbb", "mlbb-mystic-clash"],
-    title: "Mobile Legends",
+    id: "event-moba-legends",
+    slug: "moba-legends",
+    aliases: ["mobile-legends", "mlbb", "mlbb-mystic-clash", "moba-legends-5v5"],
+    title: "MOBA Legends: 5v5",
     track: "C. Esports and Gaming Arena",
     category: "all",
     categoryLabel: "Esports Arena",
     genre: "5v5 MOBA Mobile Esports",
     tagline: "A 5v5 MOBA mobile esports competition.",
     shortDesc: "A 5v5 MOBA mobile esports competition. Each team has five players competing in official draft pick format.",
-    fullDesc: "Mobile Legends brings fast-paced 5v5 MOBA strategy to INNOVISION 2026. Teams execute strategic hero bans and draft picks, coordinate lane pressure, and conquer objectives across the Land of Dawn to destroy the enemy base.",
+    fullDesc: "MOBA Legends: 5v5 brings fast-paced 5v5 MOBA strategy to INNOVISION 2026. Teams execute strategic hero bans and draft picks, coordinate lane pressure, and conquer objectives across the Land of Dawn to destroy the enemy base.",
     icon: "swords",
-    image: "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1000&q=80",
+    image: "/images/games/moba-legends.jpg",
     isITOnly: false,
     date: "Day 1 - November 2026",
     time: "12:00 PM - 05:00 PM [TBC]",
@@ -796,7 +796,7 @@ export const EVENTS = [
       second: "Silver Medal and Runner-Up Certificate",
       all: "Official Certificate of Participation",
       perks: [
-        "Mobile Legends Champions Trophy",
+        "MOBA Legends Champions Trophy",
         "Podium Medal Ceremony on Grand Auditorium Stage"
       ]
     },
@@ -822,7 +822,7 @@ export const EVENTS = [
       { criteria: "Tournament Bracket Advancement", weight: "20%", description: "Match progression through the official bracket system." }
     ],
     eligibility: [
-      "Open to all students of ICFAI University, Sikkim and invited colleges.",
+      "Open to students of The ICFAI University, Sikkim (all departments) and of every college and university across Sikkim, on registration.",
       "Valid student ID required for all 5 team members."
     ],
     registrationFee: "Free",
@@ -842,7 +842,7 @@ export const EVENTS = [
     shortDesc: "A 1v1 football gaming showdown on console or mobile. Tactical formations, dribbling skills, and clutch penalty shootouts.",
     fullDesc: "E-Football brings the drama of the football pitch to the digital arena. Competitors go head-to-head in 1v1 knockout matches where tactical formations, precision passing, defensive discipline, and penalty composure decide the champion.",
     icon: "trophy",
-    image: "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=1000&q=80",
+    image: "/images/games/efootball.jpg",
     isITOnly: false,
     date: "Day 2 - November 2026",
     time: "10:00 AM - 02:00 PM [TBC]",
@@ -902,7 +902,7 @@ export const EVENTS = [
       { criteria: "Match Score", weight: "100%", description: "Final goals scored at full-time (or extra time / penalties in knockout)." }
     ],
     eligibility: [
-      "Open to all students of ICFAI University, Sikkim and invited colleges.",
+      "Open to students of The ICFAI University, Sikkim (all departments) and of every college and university across Sikkim, on registration.",
       "Valid student ID required."
     ],
     registrationFee: "Free",
@@ -926,7 +926,7 @@ export const EVENTS = [
     shortDesc: "Short-form video storytelling, editing and cinematography around campus or event themes. Creative visual pacing and engaging reel narrative.",
     fullDesc: "Frame Flick is the modern visual storytelling arena of INNOVISION 2026. Creators capture the vibrant energy, tech exhibits, and spirited moments across the campus, crafting compelling vertical short videos that highlight the festival theme.",
     icon: "video",
-    image: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1000&q=80",
+    image: "/images/photos/video-edit.jpg",
     isITOnly: false,
     date: "Day 1 & Day 2 - November 2026",
     time: "Fest Window Submission [TBC]",
@@ -989,7 +989,7 @@ export const EVENTS = [
       { criteria: "Cinematography & Framing", weight: "25%", description: "Composition, lighting quality, camera movement, and visual aesthetic." }
     ],
     eligibility: [
-      "Open to all students of ICFAI University, Sikkim across all departments and invited institutions.",
+      "Open to students of The ICFAI University, Sikkim (all departments) and of every college and university across Sikkim, on registration.",
       "Valid student ID required."
     ],
     registrationFee: "Free",
@@ -1009,7 +1009,7 @@ export const EVENTS = [
     shortDesc: "An on-the-spot or theme-based digital photography contest. Capture candid moments, architectural beauty, and human emotion.",
     fullDesc: "Photography at INNOVISION 2026 invites visual artists to document the essence of innovation, culture, and human interaction. Capture unscripted, high-impact moments that tell a complete story through lighting, composition, and visual framing.",
     icon: "camera",
-    image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1000&q=80",
+    image: "/images/photos/camera.jpg",
     isITOnly: false,
     date: "Day 1 & Day 2 - November 2026",
     time: "On-the-Spot Submission [TBC]",
@@ -1072,7 +1072,7 @@ export const EVENTS = [
       { criteria: "Technical Quality & Lighting", weight: "30%", description: "Sharpness, exposure control, dynamic range, and focus." }
     ],
     eligibility: [
-      "Open to all students of ICFAI University, Sikkim across all departments and invited institutions.",
+      "Open to students of The ICFAI University, Sikkim (all departments) and of every college and university across Sikkim, on registration.",
       "Valid student ID required."
     ],
     registrationFee: "Free",
@@ -1092,7 +1092,7 @@ export const EVENTS = [
     shortDesc: "A traditional or creative visual art showcase. Expressive original artwork created on the spot based on announced themes.",
     fullDesc: "The Painting Competition at INNOVISION 2026 brings together traditional and contemporary visual artists. Express your creative interpretation of innovation, ecology, and imagination on canvas or paper in an inspiring live studio setting.",
     icon: "palette",
-    image: "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=1000&q=80",
+    image: "/images/photos/painting.jpg",
     isITOnly: false,
     date: "Day 2 - November 2026",
     time: "10:30 AM - 01:30 PM [TBC]",
@@ -1149,7 +1149,7 @@ export const EVENTS = [
       { criteria: "Overall Visual Impact & Finish", weight: "25%", description: "Aesthetic appeal, presentation quality, and completeness." }
     ],
     eligibility: [
-      "Open to all students of ICFAI University, Sikkim across all departments and invited institutions.",
+      "Open to students of The ICFAI University, Sikkim (all departments) and of every college and university across Sikkim, on registration.",
       "Valid student ID required."
     ],
     registrationFee: "Free",

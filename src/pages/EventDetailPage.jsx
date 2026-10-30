@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { getEventBySlug } from '../data/events';
@@ -9,20 +9,12 @@ import { EventRulesSection } from '../components/event/EventRulesSection';
 import { EventRegistrationForm } from '../components/event/EventRegistrationForm';
 import { RelatedEvents } from '../components/event/RelatedEvents';
 import { Seo } from '../components/common/Seo';
-import { globalLenisInstance } from '../hooks/useLenis';
 import { ArrowLeft, AlertCircle } from 'lucide-react';
 
 export const EventDetailPage = () => {
   const { slug } = useParams();
   const event = getEventBySlug(slug);
 
-  useEffect(() => {
-    // Scroll to top immediately on slug change
-    if (globalLenisInstance) {
-      globalLenisInstance.scrollTo(0, { immediate: true });
-    }
-    window.scrollTo(0, 0);
-  }, [slug]);
 
   if (!event) {
     return (
