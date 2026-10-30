@@ -34,7 +34,7 @@ export const App = () => {
       <main id="main" className="flex-grow relative z-10">
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/events/:slug" element={<Legacy><EventDetailPage /></Legacy>} />
+          <Route path="/events/:slug" element={<EventDetailPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/passes" element={<Legacy><MyRegistrationsPage /></Legacy>} />
           <Route path="*" element={<Legacy><NotFoundPage /></Legacy>} />

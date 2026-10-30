@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Sparkles, Users } from 'lucide-react';
 import { EVENTS, getRelatedEvents } from '../../data/events';
-import { TiltCard } from '../common/TiltCard';
+import { cleanTbc } from '../../data/eventUtils';
 
 export const RelatedEvents = ({ currentSlug }) => {
   const navigate = useNavigate();
@@ -14,24 +14,24 @@ export const RelatedEvents = ({ currentSlug }) => {
   const relatedEvents = getRelatedEvents(currentSlug, 3);
 
   return (
-    <div className="space-y-16 pt-8 border-t border-white/[0.08]">
+    <div className="space-y-16 pt-12 border-t border-gray-200">
       
       {/* Previous / Next Event Buttons */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {/* Previous */}
         <Link
           to={`/events/${prevEvent.slug}`}
-          className="p-5 rounded-2xl bg-[#0D111C]/80 border border-white/[0.08] hover:border-white/20 group transition-all flex items-center justify-between"
+          className="p-5 rounded-2xl bg-white border border-gray-200 shadow-sm hover:border-gray-300 hover:shadow-md group transition-all flex items-center justify-between"
         >
-          <div className="flex items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-white/[0.04] text-slate-400 group-hover:text-white transition-colors">
+          <div className="flex items-center gap-3.5">
+            <div className="p-2.5 rounded-xl bg-gray-50 border border-gray-200 text-gray-600 group-hover:text-gray-900 transition-colors">
               <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
             </div>
             <div>
-              <span className="font-mono text-[10px] uppercase tracking-wider text-slate-400 block">
-                ← PREVIOUS EVENT
+              <span className="text-[10px] uppercase tracking-wider text-gray-500 font-semibold block">
+                ← Previous Event
               </span>
-              <span className="font-display text-lg sm:text-xl font-bold text-white group-hover:text-blue-300 transition-colors">
+              <span className="font-heading text-base sm:text-lg font-bold text-gray-900 group-hover:text-marigold-600 transition-colors">
                 {prevEvent.title}
               </span>
             </div>
@@ -41,17 +41,17 @@ export const RelatedEvents = ({ currentSlug }) => {
         {/* Next */}
         <Link
           to={`/events/${nextEvent.slug}`}
-          className="p-5 rounded-2xl bg-[#0D111C]/80 border border-white/[0.08] hover:border-white/20 group transition-all flex items-center justify-between text-right"
+          className="p-5 rounded-2xl bg-white border border-gray-200 shadow-sm hover:border-gray-300 hover:shadow-md group transition-all flex items-center justify-between text-right"
         >
           <div className="flex flex-col flex-1 items-end">
-            <span className="font-mono text-[10px] uppercase tracking-wider text-slate-400 block">
-              NEXT EVENT →
+            <span className="text-[10px] uppercase tracking-wider text-gray-500 font-semibold block">
+              Next Event →
             </span>
-            <span className="font-display text-lg sm:text-xl font-bold text-white group-hover:text-blue-300 transition-colors">
+            <span className="font-heading text-base sm:text-lg font-bold text-gray-900 group-hover:text-marigold-600 transition-colors">
               {nextEvent.title}
             </span>
           </div>
-          <div className="p-2.5 rounded-xl bg-white/[0.04] text-slate-400 group-hover:text-white transition-colors ml-3">
+          <div className="p-2.5 rounded-xl bg-gray-50 border border-gray-200 text-gray-600 group-hover:text-gray-900 transition-colors ml-3.5">
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </div>
         </Link>
@@ -60,15 +60,15 @@ export const RelatedEvents = ({ currentSlug }) => {
       {/* Related Events Row */}
       <div className="space-y-6">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-blue-400" />
-            <h3 className="font-display text-2xl sm:text-3xl font-bold uppercase tracking-wide">
-              <span className="text-white">RELATED</span> <span className="text-blue-400">EVENTS</span>
+          <div className="flex items-center gap-2.5">
+            <Sparkles className="w-5 h-5 text-marigold-600" />
+            <h3 className="font-heading text-2xl sm:text-3xl font-extrabold text-gray-900 tracking-tight">
+              Related Events
             </h3>
           </div>
           <Link
             to="/#events"
-            className="font-mono text-xs text-blue-400 hover:text-white hover:underline flex items-center gap-1 transition-colors"
+            className="text-xs font-semibold text-marigold-600 hover:underline flex items-center gap-1 transition-colors"
           >
             <span>View All 12 Events</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -77,47 +77,49 @@ export const RelatedEvents = ({ currentSlug }) => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {relatedEvents.map((event) => (
-            <TiltCard
+            <div
               key={event.id}
               onClick={() => navigate(`/events/${event.slug}`)}
-              className="rounded-2xl bg-[#0D111C]/80 border border-white/[0.08] hover:border-white/20 cursor-pointer flex flex-col justify-between group overflow-hidden shadow-lg transition-all"
+              className="rounded-3xl bg-white border border-gray-200 shadow-sm hover:shadow-xl hover:-translate-y-1 cursor-pointer flex flex-col justify-between group overflow-hidden transition-all duration-300"
             >
               {/* Photo Thumbnail */}
-              <div className="relative w-full h-32 overflow-hidden bg-slate-950">
+              <div className="relative w-full aspect-[16/10] overflow-hidden bg-gray-100">
                 <img
                   src={event.image}
                   alt={event.title}
                   loading="lazy"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter brightness-90"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0D111C] via-transparent to-transparent" />
-                <span className={`absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded text-[9px] font-mono font-bold uppercase backdrop-blur-md ${
+                <span className={`absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-semibold shadow-xs ${
                   event.isITOnly
-                    ? 'bg-blue-600/90 text-white border border-blue-400/30'
-                    : 'bg-slate-900/80 text-slate-200 border border-white/20'
+                    ? 'bg-blue-600 text-white'
+                    : 'bg-white/90 backdrop-blur-md text-gray-800 border border-gray-200'
                 }`}>
                   {event.categoryLabel}
                 </span>
               </div>
 
-              <div className="p-5 flex flex-col flex-1 justify-between">
+              <div className="p-5 sm:p-6 flex flex-col flex-1 justify-between">
                 <div>
-                  <h4 className="font-display text-xl font-bold text-white group-hover:text-blue-300 transition-colors mb-1">
+                  <h4 className="font-heading text-xl font-bold text-gray-900 group-hover:text-marigold-600 transition-colors mb-1.5">
                     {event.title}
                   </h4>
-                  <p className="font-body text-xs text-slate-400 line-clamp-2 mb-4">
+                  <p className="text-xs sm:text-sm text-gray-600 line-clamp-2 leading-relaxed mb-4">
                     {event.shortDesc}
                   </p>
                 </div>
 
-                <div className="pt-3 border-t border-white/[0.06] flex items-center justify-between text-xs font-mono text-slate-400">
-                  <span>{event.teamSize.label}</span>
-                  <span className="text-slate-300 font-semibold group-hover:text-white transition-colors flex items-center gap-1">
-                    Details <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                <div className="pt-4 border-t border-gray-100 flex items-center justify-between text-xs">
+                  <span className="inline-flex items-center gap-1.5 text-gray-500 font-medium">
+                    <Users className="w-3.5 h-3.5" />
+                    {cleanTbc(event.teamSize.label)}
+                  </span>
+                  <span className="font-semibold text-marigold-600 flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
+                    Details <ArrowRight className="w-3.5 h-3.5" />
                   </span>
                 </div>
               </div>
-            </TiltCard>
+            </div>
           ))}
         </div>
       </div>

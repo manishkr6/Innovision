@@ -147,18 +147,6 @@ export const EventRegistrationForm = ({ event }) => {
         console.error('Failed to save to localStorage', err);
       }
 
-      /* 
-       * INTEGRATION PLACEHOLDER:
-       * You can seamlessly post registrationRecord to Web3Forms, Google Apps Script,
-       * or your custom API endpoint right here:
-       * 
-       * fetch('https://api.web3forms.com/submit', {
-       *   method: 'POST',
-       *   headers: { 'Content-Type': 'application/json' },
-       *   body: JSON.stringify({ access_key: 'YOUR_KEY_HERE', ...registrationRecord })
-       * });
-       */
-
       setSuccessData(registrationRecord);
       setIsSubmitting(false);
       setShowSuccessModal(true);
@@ -183,66 +171,66 @@ export const EventRegistrationForm = ({ event }) => {
     <section id="register" className="scroll-mt-36 space-y-10 mb-24">
       
       {/* Section Subheading */}
-      <div className="border-b border-white/[0.08] pb-4">
-        <span className="font-mono text-xs uppercase tracking-widest text-slate-400 block mb-1">
-          // SECTION 03
+      <div className="border-b border-gray-200 pb-4">
+        <span className="text-xs font-semibold text-marigold-600 uppercase tracking-wider block mb-1">
+          Section 03
         </span>
-        <h2 className="font-display text-3xl sm:text-4xl font-bold uppercase tracking-wide">
-          <span className="text-white">EVENT</span> <span className="text-blue-400">REGISTRATION</span>
+        <h2 className="font-heading text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight">
+          Event Registration
         </h2>
-        <p className="font-body text-xs sm:text-sm text-slate-400 mt-1">
+        <p className="text-xs sm:text-sm text-gray-600 mt-1.5 leading-relaxed">
           Fill out the participant roster below to secure your spot in {event.title}. Registrations close 24 hours prior to fest commencement.
         </p>
       </div>
 
       {/* Main Form Container */}
-      <div className="p-6 sm:p-10 rounded-3xl bg-[#0D111C]/85 backdrop-blur-xl border border-white/[0.08] shadow-2xl max-w-4xl mx-auto">
+      <div className="p-6 sm:p-10 rounded-3xl bg-white border border-gray-200 shadow-sm max-w-4xl mx-auto">
         <form onSubmit={handleSubmit} className="space-y-6">
           
           {/* Row 1: Full Name & Email */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div>
-              <label className="block font-mono text-xs uppercase tracking-wider text-slate-300 mb-2">
+              <label className="block text-xs uppercase tracking-wider font-semibold text-gray-700 mb-2">
                 Full Name *
               </label>
               <div className="relative">
-                <UserCheck className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
+                <UserCheck className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
                 <input
                   type="text"
                   value={formData.fullName}
                   onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                   placeholder="e.g. Karma Tashi Bhutia"
-                  className={`w-full pl-10 pr-4 py-3 rounded-xl bg-white/[0.03] border text-slate-100 font-body text-sm focus:outline-none transition-colors ${
-                    errors.fullName ? 'border-rose-500 focus:border-rose-400' : 'border-white/10 focus:border-white/30'
+                  className={`w-full pl-10 pr-4 py-3 rounded-xl bg-white border text-gray-900 placeholder:text-gray-400 text-sm focus:outline-none transition-colors ${
+                    errors.fullName ? 'border-rose-500 focus:border-rose-600' : 'border-gray-200 focus:border-gray-900'
                   }`}
                 />
               </div>
               {errors.fullName && (
-                <p className="mt-1 text-xs text-rose-400 font-body flex items-center gap-1">
-                  <AlertCircle className="w-3 h-3" /> {errors.fullName}
+                <p className="mt-1.5 text-xs text-rose-600 flex items-center gap-1 font-medium">
+                  <AlertCircle className="w-3.5 h-3.5" /> {errors.fullName}
                 </p>
               )}
             </div>
 
             <div>
-              <label className="block font-mono text-xs uppercase tracking-wider text-slate-300 mb-2">
+              <label className="block text-xs uppercase tracking-wider font-semibold text-gray-700 mb-2">
                 Email Address *
               </label>
               <div className="relative">
-                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
+                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
                 <input
                   type="email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   placeholder="name@student.icfai.edu"
-                  className={`w-full pl-10 pr-4 py-3 rounded-xl bg-white/[0.03] border text-slate-100 font-body text-sm focus:outline-none transition-colors ${
-                    errors.email ? 'border-rose-500 focus:border-rose-400' : 'border-white/10 focus:border-white/30'
+                  className={`w-full pl-10 pr-4 py-3 rounded-xl bg-white border text-gray-900 placeholder:text-gray-400 text-sm focus:outline-none transition-colors ${
+                    errors.email ? 'border-rose-500 focus:border-rose-600' : 'border-gray-200 focus:border-gray-900'
                   }`}
                 />
               </div>
               {errors.email && (
-                <p className="mt-1 text-xs text-rose-400 font-body flex items-center gap-1">
-                  <AlertCircle className="w-3 h-3" /> {errors.email}
+                <p className="mt-1.5 text-xs text-rose-600 flex items-center gap-1 font-medium">
+                  <AlertCircle className="w-3.5 h-3.5" /> {errors.email}
                 </p>
               )}
             </div>
@@ -251,47 +239,47 @@ export const EventRegistrationForm = ({ event }) => {
           {/* Row 2: Phone Number & Course */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div>
-              <label className="block font-mono text-xs uppercase tracking-wider text-slate-300 mb-2">
+              <label className="block text-xs uppercase tracking-wider font-semibold text-gray-700 mb-2">
                 WhatsApp / Phone Number *
               </label>
               <div className="relative">
-                <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
+                <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
                 <input
                   type="tel"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   placeholder="e.g. 9876543210"
-                  className={`w-full pl-10 pr-4 py-3 rounded-xl bg-white/[0.03] border text-slate-100 font-body text-sm focus:outline-none transition-colors ${
-                    errors.phone ? 'border-rose-500 focus:border-rose-400' : 'border-white/10 focus:border-white/30'
+                  className={`w-full pl-10 pr-4 py-3 rounded-xl bg-white border text-gray-900 placeholder:text-gray-400 text-sm focus:outline-none transition-colors ${
+                    errors.phone ? 'border-rose-500 focus:border-rose-600' : 'border-gray-200 focus:border-gray-900'
                   }`}
                 />
               </div>
               {errors.phone && (
-                <p className="mt-1 text-xs text-rose-400 font-body flex items-center gap-1">
-                  <AlertCircle className="w-3 h-3" /> {errors.phone}
+                <p className="mt-1.5 text-xs text-rose-600 flex items-center gap-1 font-medium">
+                  <AlertCircle className="w-3.5 h-3.5" /> {errors.phone}
                 </p>
               )}
             </div>
 
             <div>
-              <label className="block font-mono text-xs uppercase tracking-wider text-slate-300 mb-2">
+              <label className="block text-xs uppercase tracking-wider font-semibold text-gray-700 mb-2">
                 Course &amp; Semester *
               </label>
               <div className="relative">
-                <GraduationCap className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
+                <GraduationCap className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
                 <input
                   type="text"
                   value={formData.course}
                   onChange={(e) => setFormData({ ...formData, course: e.target.value })}
                   placeholder="e.g. BCA 3rd Sem / B.Tech CSE"
-                  className={`w-full pl-10 pr-4 py-3 rounded-xl bg-white/[0.03] border text-slate-100 font-body text-sm focus:outline-none transition-colors ${
-                    errors.course ? 'border-rose-500 focus:border-rose-400' : 'border-white/10 focus:border-white/30'
+                  className={`w-full pl-10 pr-4 py-3 rounded-xl bg-white border text-gray-900 placeholder:text-gray-400 text-sm focus:outline-none transition-colors ${
+                    errors.course ? 'border-rose-500 focus:border-rose-600' : 'border-gray-200 focus:border-gray-900'
                   }`}
                 />
               </div>
               {errors.course && (
-                <p className="mt-1 text-xs text-rose-400 font-body flex items-center gap-1">
-                  <AlertCircle className="w-3 h-3" /> {errors.course}
+                <p className="mt-1.5 text-xs text-rose-600 flex items-center gap-1 font-medium">
+                  <AlertCircle className="w-3.5 h-3.5" /> {errors.course}
                 </p>
               )}
             </div>
@@ -299,50 +287,50 @@ export const EventRegistrationForm = ({ event }) => {
 
           {/* Row 3: University Enrollment Number */}
           <div>
-            <label className="block font-mono text-xs uppercase tracking-wider text-slate-300 mb-2">
+            <label className="block text-xs uppercase tracking-wider font-semibold text-gray-700 mb-2">
               University Roll / Enrollment Number *
             </label>
             <div className="relative">
-              <Hash className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
+              <Hash className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
               <input
                 type="text"
                 value={formData.enrollmentNumber}
                 onChange={(e) => setFormData({ ...formData, enrollmentNumber: e.target.value })}
                 placeholder="e.g. IUS/2024/BCA/042"
-                className={`w-full pl-10 pr-4 py-3 rounded-xl bg-white/[0.03] border text-slate-100 font-body text-sm focus:outline-none transition-colors ${
-                  errors.enrollmentNumber ? 'border-rose-500 focus:border-rose-400' : 'border-white/10 focus:border-white/30'
+                className={`w-full pl-10 pr-4 py-3 rounded-xl bg-white border text-gray-900 placeholder:text-gray-400 text-sm focus:outline-none transition-colors ${
+                  errors.enrollmentNumber ? 'border-rose-500 focus:border-rose-600' : 'border-gray-200 focus:border-gray-900'
                 }`}
               />
             </div>
             {errors.enrollmentNumber && (
-              <p className="mt-1 text-xs text-rose-400 font-body flex items-center gap-1">
-                <AlertCircle className="w-3 h-3" /> {errors.enrollmentNumber}
+              <p className="mt-1.5 text-xs text-rose-600 flex items-center gap-1 font-medium">
+                <AlertCircle className="w-3.5 h-3.5" /> {errors.enrollmentNumber}
               </p>
             )}
           </div>
 
           {/* Team Fields: Only Shown for Team Events */}
           {isTeamEvent && (
-            <div className="pt-4 border-t border-white/[0.06] space-y-4">
+            <div className="pt-4 border-t border-gray-200 space-y-4">
               <div>
-                <label className="block font-mono text-xs uppercase tracking-wider text-slate-300 mb-2">
+                <label className="block text-xs uppercase tracking-wider font-semibold text-gray-700 mb-2">
                   Team Name *
                 </label>
                 <div className="relative">
-                  <Users className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
+                  <Users className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
                   <input
                     type="text"
                     value={formData.teamName}
                     onChange={(e) => setFormData({ ...formData, teamName: e.target.value })}
                     placeholder="e.g. Sikkim Cyber Ninjas"
-                    className={`w-full pl-10 pr-4 py-3 rounded-xl bg-white/[0.03] border text-slate-100 font-body text-sm focus:outline-none transition-colors ${
-                      errors.teamName ? 'border-rose-500 focus:border-rose-400' : 'border-white/10 focus:border-white/30'
+                    className={`w-full pl-10 pr-4 py-3 rounded-xl bg-white border text-gray-900 placeholder:text-gray-400 text-sm focus:outline-none transition-colors ${
+                      errors.teamName ? 'border-rose-500 focus:border-rose-600' : 'border-gray-200 focus:border-gray-900'
                     }`}
                   />
                 </div>
                 {errors.teamName && (
-                  <p className="mt-1 text-xs text-rose-400 font-body flex items-center gap-1">
-                    <AlertCircle className="w-3 h-3" /> {errors.teamName}
+                  <p className="mt-1.5 text-xs text-rose-600 flex items-center gap-1 font-medium">
+                    <AlertCircle className="w-3.5 h-3.5" /> {errors.teamName}
                   </p>
                 )}
               </div>
@@ -350,14 +338,14 @@ export const EventRegistrationForm = ({ event }) => {
               {/* Dynamic Additional Members */}
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <label className="font-mono text-xs uppercase tracking-wider text-slate-300">
+                  <label className="text-xs uppercase tracking-wider font-semibold text-gray-700">
                     Additional Teammates (Max {event.teamSize.max - 1})
                   </label>
                   {formData.teamMembers.length < event.teamSize.max - 1 && (
                     <button
                       type="button"
                       onClick={handleAddMember}
-                      className="inline-flex items-center gap-1 text-xs font-mono text-blue-400 hover:text-white transition-colors cursor-pointer"
+                      className="inline-flex items-center gap-1 text-xs font-semibold text-gray-900 hover:text-black transition-colors cursor-pointer"
                     >
                       <Plus className="w-3.5 h-3.5" />
                       Add Member
@@ -372,13 +360,13 @@ export const EventRegistrationForm = ({ event }) => {
                       value={member}
                       onChange={(e) => handleMemberChange(idx, e.target.value)}
                       placeholder={`Member #${idx + 2} Full Name & Roll No`}
-                      className="flex-1 px-4 py-2.5 rounded-xl bg-white/[0.03] border border-white/10 text-slate-100 font-body text-sm focus:outline-none focus:border-white/30 transition-colors"
+                      className="flex-1 px-4 py-2.5 rounded-xl bg-white border border-gray-200 text-gray-900 placeholder:text-gray-400 text-sm focus:outline-none focus:border-gray-900 transition-colors"
                     />
                     {formData.teamMembers.length > 1 && (
                       <button
                         type="button"
                         onClick={() => handleRemoveMember(idx)}
-                        className="p-2.5 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 transition-colors cursor-pointer"
+                        className="p-2.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200 transition-colors cursor-pointer"
                         title="Remove Member"
                       >
                         <Trash2 className="w-4 h-4" />
@@ -388,8 +376,8 @@ export const EventRegistrationForm = ({ event }) => {
                 ))}
 
                 {errors.teamMembers && (
-                  <p className="mt-1 text-xs text-rose-400 font-body flex items-center gap-1">
-                    <AlertCircle className="w-3 h-3" /> {errors.teamMembers}
+                  <p className="mt-1.5 text-xs text-rose-600 flex items-center gap-1 font-medium">
+                    <AlertCircle className="w-3.5 h-3.5" /> {errors.teamMembers}
                   </p>
                 )}
               </div>
@@ -398,24 +386,24 @@ export const EventRegistrationForm = ({ event }) => {
 
           {/* IT Student Declaration Checkbox */}
           {event.isITOnly && (
-            <div className="p-4 rounded-xl bg-blue-950/30 border border-blue-800/40">
+            <div className="p-4 rounded-xl bg-blue-50/70 border border-blue-200">
               <label className="flex items-start gap-3 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={formData.confirmedITStatus}
                   onChange={(e) => setFormData({ ...formData, confirmedITStatus: e.target.checked })}
-                  className="mt-1 w-4 h-4 rounded border-white/20 bg-black accent-blue-600 focus:ring-0"
+                  className="mt-1 w-4 h-4 rounded border-gray-300 text-black focus:ring-black accent-black"
                 />
-                <span className="font-body text-xs sm:text-sm text-slate-200">
-                  <span className="font-semibold text-blue-300 block mb-0.5">
+                <span className="text-xs sm:text-sm text-gray-700">
+                  <span className="font-semibold text-blue-900 block mb-0.5">
                     IT Student Eligibility Declaration:
                   </span>
                   I confirm that I am currently an enrolled, bonafide student in an IT / Computer Science / BCA / MCA / B.Tech program.
                 </span>
               </label>
               {errors.confirmedITStatus && (
-                <p className="mt-2 text-xs text-rose-400 font-body flex items-center gap-1">
-                  <AlertCircle className="w-3 h-3" /> {errors.confirmedITStatus}
+                <p className="mt-2 text-xs text-rose-600 flex items-center gap-1 font-medium">
+                  <AlertCircle className="w-3.5 h-3.5" /> {errors.confirmedITStatus}
                 </p>
               )}
             </div>
@@ -428,17 +416,17 @@ export const EventRegistrationForm = ({ event }) => {
                 type="checkbox"
                 checked={formData.agreedToRules}
                 onChange={(e) => setFormData({ ...formData, agreedToRules: e.target.checked })}
-                className="mt-1 w-4 h-4 rounded border-white/20 bg-black accent-blue-600 focus:ring-0"
+                className="mt-1 w-4 h-4 rounded border-gray-300 text-black focus:ring-black accent-black"
               />
-              <span className="font-body text-xs sm:text-sm text-slate-300">
+              <span className="text-xs sm:text-sm text-gray-600">
                 I have read, understood, and solemnly agree to adhere to the{' '}
-                <a href="#rules" className="text-blue-400 underline">Rules &amp; Regulations</a> of this event and the overarching{' '}
-                <a href="/#code-of-conduct" className="text-indigo-400 underline">INNOVISION 2026 Code of Conduct</a>.
+                <a href="#rules" className="text-marigold-600 underline font-semibold">Rules &amp; Regulations</a> of this event and the overarching{' '}
+                <a href="/#code-of-conduct" className="text-marigold-600 underline font-semibold">INNOVISION 2026 Code of Conduct</a>.
               </span>
             </label>
             {errors.agreedToRules && (
-              <p className="mt-2 text-xs text-rose-400 font-body flex items-center gap-1">
-                <AlertCircle className="w-3 h-3" /> {errors.agreedToRules}
+              <p className="mt-2 text-xs text-rose-600 flex items-center gap-1 font-medium">
+                <AlertCircle className="w-3.5 h-3.5" /> {errors.agreedToRules}
               </p>
             )}
           </div>
@@ -448,19 +436,19 @@ export const EventRegistrationForm = ({ event }) => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className={`w-full py-4 rounded-xl font-mono text-sm font-bold uppercase tracking-wider text-white transition-all shadow-lg shadow-blue-500/20 hover:shadow-blue-500/35 flex items-center justify-center gap-2 cursor-pointer ${
+              className={`w-full py-4 rounded-xl text-sm font-bold uppercase tracking-wider text-white transition-all shadow-sm flex items-center justify-center gap-2 cursor-pointer ${
                 isSubmitting
-                  ? 'bg-blue-600/50 cursor-not-allowed'
-                  : 'bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 hover:from-blue-500 hover:to-indigo-500'
+                  ? 'bg-gray-400 cursor-not-allowed'
+                  : 'bg-black hover:bg-gray-800'
               }`}
             >
               {isSubmitting ? (
                 <>
                   <Loader2 className="w-5 h-5 animate-spin text-white" />
-                  <span>TRANSMITTING REGISTRATION...</span>
+                  <span>Transmitting Registration...</span>
                 </>
               ) : (
-                <span>CONFIRM REGISTRATION &amp; ISSUE PASS</span>
+                <span>Confirm Registration &amp; Issue Pass</span>
               )}
             </button>
           </div>
