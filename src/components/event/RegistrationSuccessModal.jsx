@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import { 
@@ -7,11 +7,16 @@ import {
   Download, 
   X, 
   Calendar, 
-  MapPin
+  MapPin,
+  Loader2
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { FEST_INFO } from '../../data/events';
+import { downloadPassPdf } from '../../lib/passPdf';
 
 export const RegistrationSuccessModal = ({ isOpen, onClose, registrationData, event }) => {
+  const [downloadState, setDownloadState] = useState('idle');
+
   useEffect(() => {
     if (isOpen) {
       try {
@@ -29,9 +34,18 @@ export const RegistrationSuccessModal = ({ isOpen, onClose, registrationData, ev
 
   if (!isOpen || !registrationData) return null;
 
-  const handlePrint = () => {
-    window.print();
+  const handleDownload = async () => {
+    setDownloadState('working');
+    try {
+      await downloadPassPdf(registrationData);
+      setDownloadState('idle');
+    } catch (e) {
+      console.error(e);
+      setDownloadState('failed');
+    }
   };
+
+  const alreadyRegistered = registrationData.alreadyRegistered;
 
   return (
     <AnimatePresence>
@@ -67,10 +81,12 @@ export const RegistrationSuccessModal = ({ isOpen, onClose, registrationData, ev
           </div>
 
           <h3 className="font-heading text-2xl sm:text-3xl font-extrabold text-gray-900 tracking-tight">
-            Registration Confirmed!
+            {alreadyRegistered ? "You're Already Registered" : 'Registration Confirmed!'}
           </h3>
           <p className="text-xs sm:text-sm text-gray-600 mt-1">
-            Your spot for <span className="text-gray-900 font-semibold">{event.title}</span> has been confirmed.
+            {alreadyRegistered
+              ? <>Here is your existing pass for <span className="text-gray-900 font-semibold">{event.title}</span>.</>
+              : <>Your spot for <span className="text-gray-900 font-semibold">{event.title}</span> has been confirmed.</>}
           </p>
 
           {/* Digital Pass Card */}
@@ -96,12 +112,16 @@ export const RegistrationSuccessModal = ({ isOpen, onClose, registrationData, ev
                 <span className="font-semibold text-gray-900 text-right">{event.title}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-500">Candidate:</span>
+                <span className="text-gray-500">{registrationData.teamName ? 'Team leader:' : 'Participant:'}</span>
                 <span className="font-semibold text-gray-900">{registrationData.fullName}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-500">Enrollment / ID:</span>
                 <span className="font-mono text-gray-900">{registrationData.enrollmentNumber}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-500">College:</span>
+                <span className="text-gray-900 text-right">{registrationData.college}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-500">Course &amp; Semester:</span>
@@ -118,34 +138,30 @@ export const RegistrationSuccessModal = ({ isOpen, onClose, registrationData, ev
               <div className="pt-2 border-t border-gray-200 flex items-center justify-between text-xs text-gray-500 font-medium">
                 <div className="flex items-center gap-1">
                   <Calendar className="w-3.5 h-3.5 text-gray-400" />
-                  <span>{event.date.split('-')[0]}</span>
+                  <span>{FEST_INFO.dateString}</span>
                 </div>
                 <div className="flex items-center gap-1">
                   <MapPin className="w-3.5 h-3.5 text-gray-400" />
-                  <span className="max-w-[150px] truncate">{event.venue}</span>
+                  <span className="max-w-[190px] truncate">{FEST_INFO.university}</span>
                 </div>
               </div>
             </div>
 
-            {/* Bottom Barcode Aesthetic */}
-            <div className="mt-4 pt-3 border-t border-gray-200 flex items-center justify-between">
-              <div className="flex items-center gap-1 font-mono text-[9px] text-gray-400 tracking-widest">
-                <span>||| | | |||| || | || |||| | |</span>
-              </div>
-              <span className="font-mono text-[10px] text-gray-500">
-                SAVED TO LOCALSTORAGE
-              </span>
-            </div>
           </div>
+
+          <p className="mt-4 text-xs text-gray-500">
+            Save your pass now and bring it with a valid college ID. {registrationData.teamName && 'This one pass covers your whole team.'}
+          </p>
 
           {/* Action Buttons */}
           <div className="mt-6 flex flex-col sm:flex-row gap-3">
             <button
-              onClick={handlePrint}
-              className="flex-1 py-3 px-4 rounded-full bg-black hover:bg-gray-800 text-white text-xs font-semibold uppercase tracking-wider transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-sm"
+              onClick={handleDownload}
+              disabled={downloadState === 'working'}
+              className="flex-1 py-3 px-4 rounded-full bg-black hover:bg-gray-800 text-white text-xs font-semibold uppercase tracking-wider transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-sm disabled:bg-gray-400"
             >
-              <Download className="w-4 h-4" />
-              <span>Download / Print Pass</span>
+              {downloadState === 'working' ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
+              <span>Download Pass (PDF)</span>
             </button>
 
             <Link
@@ -156,6 +172,12 @@ export const RegistrationSuccessModal = ({ isOpen, onClose, registrationData, ev
               <span>View All My Passes</span>
             </Link>
           </div>
+
+          {downloadState === 'failed' && (
+            <p role="alert" className="mt-3 text-xs text-rose-600 font-medium">
+              The PDF could not be created. Your registration is saved: note your token {registrationData.id} and try again from My Passes.
+            </p>
+          )}
 
         </motion.div>
       </div>

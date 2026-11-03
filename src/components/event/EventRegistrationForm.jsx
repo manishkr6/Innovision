@@ -9,37 +9,49 @@ import {
   Plus, 
   Trash2, 
   Loader2, 
-  AlertCircle
+  AlertCircle,
+  Building2
 } from 'lucide-react';
 import { RegistrationSuccessModal } from './RegistrationSuccessModal';
+import { submitRegistration } from '../../lib/registrationApi';
+import { addPass } from '../../lib/passStore';
 
 export const EventRegistrationForm = ({ event }) => {
-  const isTeamEvent = (event.teamSize?.max || 1) > 1;
+  const minSize = event.teamSize?.min || 1;
+  const maxSize = event.teamSize?.max || 1;
+  const allowsTeam = maxSize > 1;
+  const requiresTeam = minSize > 1;
+  const requiredTeammates = minSize - 1;
 
-  // Form State
-  const [formData, setFormData] = useState({
+  const emptyForm = () => ({
     fullName: '',
     email: '',
     phone: '',
+    college: '',
     course: '',
     enrollmentNumber: '',
     teamName: '',
-    teamMembers: [''],
+    teamMembers: Array.from({ length: requiredTeammates }, () => ({ name: '', enrollment: '' })),
     agreedToRules: false,
     confirmedITStatus: false,
+    website: '', // spam trap: hidden from people, bots tend to fill it
   });
 
+  // Form State
+  const [formData, setFormData] = useState(emptyForm);
+
   const [errors, setErrors] = useState({});
+  const [submitError, setSubmitError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [successData, setSuccessData] = useState(null);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   // Dynamic team members management
   const handleAddMember = () => {
-    if (formData.teamMembers.length < event.teamSize.max - 1) {
+    if (formData.teamMembers.length < maxSize - 1) {
       setFormData(prev => ({
         ...prev,
-        teamMembers: [...prev.teamMembers, '']
+        teamMembers: [...prev.teamMembers, { name: '', enrollment: '' }]
       }));
     }
   };
@@ -51,10 +63,11 @@ export const EventRegistrationForm = ({ event }) => {
     }));
   };
 
-  const handleMemberChange = (idx, val) => {
-    const updated = [...formData.teamMembers];
-    updated[idx] = val;
-    setFormData(prev => ({ ...prev, teamMembers: updated }));
+  const handleMemberChange = (idx, field, val) => {
+    setFormData(prev => ({
+      ...prev,
+      teamMembers: prev.teamMembers.map((m, i) => (i === idx ? { ...m, [field]: val } : m))
+    }));
   };
 
   // Validation
@@ -71,8 +84,12 @@ export const EventRegistrationForm = ({ event }) => {
     }
 
     const phoneDigits = formData.phone.replace(/\D/g, '');
-    if (phoneDigits.length < 10) {
+    if (!/^[6-9]\d{9}$/.test(phoneDigits.replace(/^(?:91|0)(?=\d{10}$)/, ''))) {
       newErrors.phone = 'Please enter a valid 10-digit phone number.';
+    }
+
+    if (!formData.college.trim()) {
+      newErrors.college = 'Please enter your college or university.';
     }
 
     if (!formData.course.trim()) {
@@ -83,16 +100,22 @@ export const EventRegistrationForm = ({ event }) => {
       newErrors.enrollmentNumber = 'Please enter your university roll / enrollment number.';
     }
 
-    if (isTeamEvent) {
-      if (!formData.teamName.trim()) {
+    if (allowsTeam) {
+      const members = formData.teamMembers.map(m => ({ name: m.name.trim(), enrollment: m.enrollment.trim() }));
+      const filled = members.filter(m => m.name || m.enrollment);
+      const isTeamEntry = requiresTeam || filled.length > 0;
+
+      if (isTeamEntry && !formData.teamName.trim()) {
         newErrors.teamName = 'Please enter a team name.';
       }
 
-      // Check min team members
-      const validMembers = formData.teamMembers.filter(m => m.trim().length > 0);
-      const minAdditionalMembers = Math.max(0, event.teamSize.min - 1);
-      if (validMembers.length < minAdditionalMembers) {
-        newErrors.teamMembers = `This event requires at least ${event.teamSize.min} total members (Leader + ${minAdditionalMembers} member${minAdditionalMembers > 1 ? 's' : ''}).`;
+      const enrollments = [formData.enrollmentNumber, ...filled.map(m => m.enrollment)].map(v => v.trim().toUpperCase()).filter(Boolean);
+      if (filled.length < requiredTeammates) {
+        newErrors.teamMembers = `This event needs at least ${minSize} participants: the leader and ${requiredTeammates} teammate${requiredTeammates > 1 ? 's' : ''}.`;
+      } else if (filled.some(m => !m.name || !m.enrollment)) {
+        newErrors.teamMembers = 'Please give both a name and an enrollment number for every teammate.';
+      } else if (new Set(enrollments).size !== enrollments.length) {
+        newErrors.teamMembers = 'The same enrollment number is entered more than once.';
       }
     }
 
@@ -108,63 +131,64 @@ export const EventRegistrationForm = ({ event }) => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubmitError('');
 
     if (!validateForm()) {
       return;
     }
 
+    const members = allowsTeam
+      ? formData.teamMembers
+          .map(m => ({ name: m.name.trim(), enrollment: m.enrollment.trim() }))
+          .filter(m => m.name || m.enrollment)
+      : [];
+
+    const details = {
+      fullName: formData.fullName.trim(),
+      email: formData.email.trim(),
+      phone: formData.phone.trim(),
+      college: formData.college.trim(),
+      course: formData.course.trim(),
+      enrollmentNumber: formData.enrollmentNumber.trim(),
+      teamName: members.length > 0 ? formData.teamName.trim() : null,
+      teamMembers: members,
+    };
+
     setIsSubmitting(true);
+    try {
+      const result = await submitRegistration({
+        eventSlug: event.slug,
+        ...details,
+        members,
+        agreedToRules: formData.agreedToRules,
+        confirmedITStatus: formData.confirmedITStatus,
+        website: formData.website,
+      });
 
-    // Simulate transmission & registration generation
-    setTimeout(() => {
-      const generatedId = `IV26-${event.slug.toUpperCase().slice(0, 3)}-${Math.floor(1000 + Math.random() * 9000)}`;
-
+      // A repeat submission gets the details the sheet already holds, not what was just typed.
       const registrationRecord = {
-        id: generatedId,
+        ...details,
+        ...result.record,
+        id: result.token,
+        confirmed: true,
+        alreadyRegistered: result.duplicate === true,
         eventSlug: event.slug,
         eventTitle: event.title,
-        registeredAt: new Date().toISOString(),
-        fullName: formData.fullName.trim(),
-        email: formData.email.trim(),
-        phone: formData.phone.trim(),
-        course: formData.course.trim(),
-        enrollmentNumber: formData.enrollmentNumber.trim(),
-        teamName: isTeamEvent ? formData.teamName.trim() : null,
-        teamMembers: isTeamEvent ? formData.teamMembers.filter(m => m.trim().length > 0) : [],
-        venue: event.venue,
-        date: event.date,
-        time: event.time,
+        registeredAt: result.registeredAt,
       };
 
-      // Save to localStorage
-      try {
-        const existing = JSON.parse(localStorage.getItem('innovision_registrations') || '[]');
-        localStorage.setItem('innovision_registrations', JSON.stringify([...existing, registrationRecord]));
-        window.dispatchEvent(new Event('innovision_registration_added'));
-      } catch (err) {
-        console.error('Failed to save to localStorage', err);
-      }
-
+      addPass(registrationRecord);
       setSuccessData(registrationRecord);
-      setIsSubmitting(false);
       setShowSuccessModal(true);
-
-      // Reset form
-      setFormData({
-        fullName: '',
-        email: '',
-        phone: '',
-        course: '',
-        enrollmentNumber: '',
-        teamName: '',
-        teamMembers: [''],
-        agreedToRules: false,
-        confirmedITStatus: false,
-      });
+      setFormData(emptyForm());
       setErrors({});
-    }, 1200);
+    } catch (err) {
+      setSubmitError(err.message);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -184,14 +208,14 @@ export const EventRegistrationForm = ({ event }) => {
       </div>
 
       {/* Main Form Container */}
-      <div className="p-6 sm:p-10 rounded-3xl bg-white border border-gray-200 shadow-sm max-w-4xl mx-auto">
+      <div className="relative p-6 sm:p-10 rounded-3xl bg-white border border-gray-200 shadow-sm max-w-4xl mx-auto">
         <form onSubmit={handleSubmit} className="space-y-6">
           
           {/* Row 1: Full Name & Email */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div>
               <label className="block text-xs uppercase tracking-wider font-semibold text-gray-700 mb-2">
-                Full Name *
+                {requiresTeam ? 'Team Leader Full Name *' : 'Full Name *'}
               </label>
               <div className="relative">
                 <UserCheck className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
@@ -222,7 +246,7 @@ export const EventRegistrationForm = ({ event }) => {
                   type="email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  placeholder="name@student.icfai.edu"
+                  placeholder="name@example.com"
                   className={`w-full pl-10 pr-4 py-3 rounded-xl bg-white border text-gray-900 placeholder:text-gray-400 text-sm focus:outline-none transition-colors ${
                     errors.email ? 'border-rose-500 focus:border-rose-600' : 'border-gray-200 focus:border-gray-900'
                   }`}
@@ -285,7 +309,31 @@ export const EventRegistrationForm = ({ event }) => {
             </div>
           </div>
 
-          {/* Row 3: University Enrollment Number */}
+          {/* Row 3: College & Enrollment Number */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div>
+            <label className="block text-xs uppercase tracking-wider font-semibold text-gray-700 mb-2">
+              College / University *
+            </label>
+            <div className="relative">
+              <Building2 className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+              <input
+                type="text"
+                value={formData.college}
+                onChange={(e) => setFormData({ ...formData, college: e.target.value })}
+                placeholder="e.g. The ICFAI University, Sikkim"
+                className={`w-full pl-10 pr-4 py-3 rounded-xl bg-white border text-gray-900 placeholder:text-gray-400 text-sm focus:outline-none transition-colors ${
+                  errors.college ? 'border-rose-500 focus:border-rose-600' : 'border-gray-200 focus:border-gray-900'
+                }`}
+              />
+            </div>
+            {errors.college && (
+              <p className="mt-1.5 text-xs text-rose-600 flex items-center gap-1 font-medium">
+                <AlertCircle className="w-3.5 h-3.5" /> {errors.college}
+              </p>
+            )}
+          </div>
+
           <div>
             <label className="block text-xs uppercase tracking-wider font-semibold text-gray-700 mb-2">
               University Roll / Enrollment Number *
@@ -308,13 +356,28 @@ export const EventRegistrationForm = ({ event }) => {
               </p>
             )}
           </div>
+          </div>
 
-          {/* Team Fields: Only Shown for Team Events */}
-          {isTeamEvent && (
+          {/* Spam trap: invisible to people and skipped by keyboard and screen readers */}
+          <div className="absolute -left-[9999px]" aria-hidden="true">
+            <label>
+              Website
+              <input
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+                value={formData.website}
+                onChange={(e) => setFormData({ ...formData, website: e.target.value })}
+              />
+            </label>
+          </div>
+
+          {/* Team Fields: Only Shown for Events That Allow Teams */}
+          {allowsTeam && (
             <div className="pt-4 border-t border-gray-200 space-y-4">
               <div>
                 <label className="block text-xs uppercase tracking-wider font-semibold text-gray-700 mb-2">
-                  Team Name *
+                  {requiresTeam ? 'Team Name *' : 'Team Name (if entering as a team)'}
                 </label>
                 <div className="relative">
                   <Users className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
@@ -339,9 +402,11 @@ export const EventRegistrationForm = ({ event }) => {
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <label className="text-xs uppercase tracking-wider font-semibold text-gray-700">
-                    Additional Teammates (Max {event.teamSize.max - 1})
+                    {requiresTeam
+                      ? `Teammates (${minSize === maxSize ? maxSize - 1 : `${minSize - 1} to ${maxSize - 1}`})`
+                      : `Teammates (optional, up to ${maxSize - 1})`}
                   </label>
-                  {formData.teamMembers.length < event.teamSize.max - 1 && (
+                  {formData.teamMembers.length < maxSize - 1 && (
                     <button
                       type="button"
                       onClick={handleAddMember}
@@ -353,21 +418,37 @@ export const EventRegistrationForm = ({ event }) => {
                   )}
                 </div>
 
+                {!requiresTeam && formData.teamMembers.length === 0 && (
+                  <p className="text-xs text-gray-500">Entering alone? Leave this empty and you&apos;re registered as an individual.</p>
+                )}
+
                 {formData.teamMembers.map((member, idx) => (
-                  <div key={idx} className="flex items-center gap-2">
-                    <input
-                      type="text"
-                      value={member}
-                      onChange={(e) => handleMemberChange(idx, e.target.value)}
-                      placeholder={`Member #${idx + 2} Full Name & Roll No`}
-                      className="flex-1 px-4 py-2.5 rounded-xl bg-white border border-gray-200 text-gray-900 placeholder:text-gray-400 text-sm focus:outline-none focus:border-gray-900 transition-colors"
-                    />
-                    {formData.teamMembers.length > 1 && (
+                  <div key={idx} className="flex items-start gap-2">
+                    <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      <input
+                        type="text"
+                        value={member.name}
+                        onChange={(e) => handleMemberChange(idx, 'name', e.target.value)}
+                        placeholder={`Member ${idx + 2} full name`}
+                        aria-label={`Member ${idx + 2} full name`}
+                        className="w-full px-4 py-2.5 rounded-xl bg-white border border-gray-200 text-gray-900 placeholder:text-gray-400 text-sm focus:outline-none focus:border-gray-900 transition-colors"
+                      />
+                      <input
+                        type="text"
+                        value={member.enrollment}
+                        onChange={(e) => handleMemberChange(idx, 'enrollment', e.target.value)}
+                        placeholder={`Member ${idx + 2} enrollment no.`}
+                        aria-label={`Member ${idx + 2} enrollment number`}
+                        className="w-full px-4 py-2.5 rounded-xl bg-white border border-gray-200 text-gray-900 placeholder:text-gray-400 text-sm focus:outline-none focus:border-gray-900 transition-colors"
+                      />
+                    </div>
+                    {formData.teamMembers.length > requiredTeammates && (
                       <button
                         type="button"
                         onClick={() => handleRemoveMember(idx)}
                         className="p-2.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200 transition-colors cursor-pointer"
                         title="Remove Member"
+                        aria-label={`Remove member ${idx + 2}`}
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
@@ -433,6 +514,11 @@ export const EventRegistrationForm = ({ event }) => {
 
           {/* Submit Button */}
           <div className="pt-4">
+            {submitError && (
+              <p role="alert" className="mb-4 p-3 rounded-xl bg-rose-50 border border-rose-200 text-sm text-rose-700 flex items-start gap-2 font-medium">
+                <AlertCircle className="w-4 h-4 mt-0.5 shrink-0" /> <span>{submitError}</span>
+              </p>
+            )}
             <button
               type="submit"
               disabled={isSubmitting}
@@ -445,7 +531,7 @@ export const EventRegistrationForm = ({ event }) => {
               {isSubmitting ? (
                 <>
                   <Loader2 className="w-5 h-5 animate-spin text-white" />
-                  <span>Transmitting Registration...</span>
+                  <span>Saving your registration...</span>
                 </>
               ) : (
                 <span>Confirm Registration &amp; Issue Pass</span>
