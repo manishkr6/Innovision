@@ -1,4 +1,5 @@
 import React from 'react';
+import { FEST_INFO } from '../../data/events';
 import { 
   Trophy, 
   Layers, 
@@ -92,11 +93,7 @@ export const EventInfoSection = ({ event }) => {
               </div>
               <div className="pt-2 flex items-center justify-between">
                 <span className="text-gray-500">Date:</span>
-                <span className="font-semibold text-gray-900">{event.date.split('-')[0]}</span>
-              </div>
-              <div className="pt-2 flex items-center justify-between">
-                <span className="text-gray-500">Timing:</span>
-                <span className="font-semibold text-gray-900">{event.time}</span>
+                <span className="font-semibold text-gray-900">{FEST_INFO.dateString}</span>
               </div>
               <div className="pt-2 flex items-center justify-between">
                 <span className="text-gray-500">Venue:</span>
