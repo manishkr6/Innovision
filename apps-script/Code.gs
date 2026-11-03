@@ -9,8 +9,12 @@
 // Set to an ISO time such as '2026-11-19T09:00:00+05:30' to stop accepting registrations.
 var CLOSES_AT = null;
 
-// start/end are the provisional website timetable and drive the clash check. Events without
-// them (E-Football, Frame Flick, Photography) have no fixed time yet, so they never clash.
+// Off until the schedule is final: students may register for overlapping events, and the organisers
+// update participants later. Set to true to refuse overlaps once start/end below are final.
+var BLOCK_SCHEDULE_CLASHES = false;
+
+// start/end are the provisional website timetable. Events without them (E-Football, Frame Flick,
+// Photography) have no fixed time yet, so they never clash.
 var EVENTS = {
   'code-clash':    { tab: 'Code Clash',    prefix: 'COD', min: 1, max: 1, itOnly: true, start: '10:30', end: '13:30' },
   'web-hackathon': { tab: 'Web Hackathon', prefix: 'WEB', min: 2, max: 2, itOnly: true, start: '09:00', end: '17:30' },
@@ -213,7 +217,7 @@ function register_(body) {
     var clash = findClash_(rows, clean, event);
     if (clash) return clash;
 
-    var scheduleClash = findScheduleClash_(clean, body.eventSlug);
+    var scheduleClash = BLOCK_SCHEDULE_CLASHES ? findScheduleClash_(clean, body.eventSlug) : null;
     if (scheduleClash) return scheduleClash;
 
     var token = newToken_(event, rows);

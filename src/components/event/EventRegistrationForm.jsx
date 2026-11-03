@@ -211,7 +211,7 @@ export const EventRegistrationForm = ({ event }) => {
 
       {clashingEvents.length > 0 && (
         <p className="max-w-4xl mx-auto p-4 rounded-xl bg-amber-50 border border-amber-200 text-xs sm:text-sm text-amber-900 leading-relaxed">
-          You can enter as many events as you like if they don&apos;t clash. On the current provisional timetable, this event overlaps with {clashingEvents.map(e => splitTitle(e.title)[0]).join(', ')}, so you can enter only one of them.
+          On the current provisional timetable, this event overlaps with {clashingEvents.map(e => splitTitle(e.title)[0]).join(', ')}. You can still register for both. The schedule isn&apos;t final, and the organisers will update participants once it is.
         </p>
       )}
 

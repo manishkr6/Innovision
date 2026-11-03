@@ -23,7 +23,7 @@ Saving `Code.gs` does not change the live site. Use **Deploy → Manage deployme
 
 Team sizes live in `EVENTS` in `Code.gs` and in `teamSize` in `src/data/events.js`. Change both. To change a size after registrations have started, add columns by hand before the `Checked In` column, since `setupSheets` skips existing tabs.
 
-Event times live in `start`/`end` in `Code.gs` and in `slot` in `src/data/events.js`. Change both when the final schedule arrives. An event with no times can't clash with anything.
+Event times live in `start`/`end` in `Code.gs` and in `slot` in `src/data/events.js`. Change both when the final schedule arrives. An event with no times can't clash with anything. Overlapping registrations are allowed for now; once the schedule is final, set `BLOCK_SCHEDULE_CLASHES` to `true` if overlaps should be refused, and redeploy. Existing rows aren't rechecked, so contact any affected participants.
 
 Set `CLOSES_AT` at the top of `Code.gs` to stop accepting registrations at a set time.
 

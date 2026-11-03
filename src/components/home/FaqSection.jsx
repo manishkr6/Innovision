@@ -13,7 +13,7 @@ const FAQS = [
   },
   {
     q: 'Can I enter more than one event?',
-    a: "Yes, as many as you like, as long as their times don't clash. The registration form checks this against the current provisional timetable and tells you if there is an overlap.",
+    a: "Yes, as many as you like. The schedule isn't final yet, so you can register for any of them now. The organisers will update participants once it is, including if any of your events end up clashing.",
   },
   {
     q: 'When is my event?',
