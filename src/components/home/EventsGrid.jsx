@@ -1,8 +1,8 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, X, Users, ArrowRight, MapPin } from 'lucide-react';
+import { Search, X, Users, ArrowRight } from 'lucide-react';
 import { EVENTS } from '../../data/events';
-import { TRACKS, trackOf, cleanTbc, splitTitle, shortVenue } from '../../data/eventUtils';
+import { TRACKS, trackOf, cleanTbc, splitTitle } from '../../data/eventUtils';
 import { Reveal } from '../common/Reveal';
 
 export const EventsGrid = () => {
@@ -114,12 +114,6 @@ export const EventsGrid = () => {
                     <h3 className="mt-3 font-heading text-2xl font-bold text-ink leading-tight">{name}</h3>
                     {sub && <p className="text-sm font-medium text-ink-muted">{sub}</p>}
                     <p className="mt-3 text-sm text-ink-soft leading-relaxed line-clamp-2">{event.tagline}</p>
-                    <div className="mt-4 text-sm text-ink-muted">
-                      <p className="flex items-center gap-2 truncate">
-                        <MapPin className="w-4 h-4 shrink-0" />
-                        <span className="truncate">{shortVenue(event)}</span>
-                      </p>
-                    </div>
                     <div className="mt-auto pt-5 border-t border-ink-line/70 flex items-center justify-between text-sm">
                       <span className="inline-flex items-center gap-1.5 text-ink-muted">
                         <Users className="w-4 h-4" />

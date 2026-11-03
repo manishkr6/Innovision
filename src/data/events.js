@@ -19,7 +19,7 @@ export const FEST_INFO = {
   department: "Department of Information Technology",
   association: "Institution's Innovation Council (Ministry of Education Initiative)",
   venue: "The ICFAI University, Sikkim, Ranka Road, Lower Sichey, Gangtok, Sikkim – 737101",
-  shortVenue: "N.J. Yasaswy Auditorium & FST Labs",
+  shortVenue: "N.J. Yasaswy Auditorium",
   city: "Gangtok, Sikkim",
   dateString: "November 2026",
   // 20 Nov is proposed, not official. Set true once confirmed to drop the "proposed" wording.
@@ -58,7 +58,7 @@ export const FACULTY_COORDINATORS = [
     department: "Faculty of Science & Technology",
     phone: "+91 8250835009",
     cleanPhone: "918250835009",
-    email: "ajit.karki@iusikkim.edu.in",
+    email: "ajitkarki@iusikkim.edu.in",
     avatarColor: "from-cyan-500 to-blue-600"
   },
   {
@@ -201,7 +201,7 @@ export const EVENTS = [
     time: "10:30 AM - 01:30 PM",
     // Provisional website timetable, used for clash checks. Keep in step with EVENTS in apps-script/Code.gs.
     slot: { start: "10:30", end: "13:30" },
-    venue: "Advanced Computing Lab, Faculty of Science & Technology",
+    venue: "To be updated",
     teamSize: {
       min: 1,
       max: 1,
@@ -258,7 +258,7 @@ export const EVENTS = [
     time: "09:00 AM - 05:30 PM",
     // Provisional website timetable, used for clash checks. Keep in step with EVENTS in apps-script/Code.gs.
     slot: { start: "09:00", end: "17:30" },
-    venue: "Main Computer Center & Innovation Lab, FST",
+    venue: "To be updated",
     teamSize: {
       min: 2,
       max: 2,
@@ -316,7 +316,7 @@ export const EVENTS = [
     time: "02:00 PM - 04:30 PM",
     // Provisional website timetable, used for clash checks. Keep in step with EVENTS in apps-script/Code.gs.
     slot: { start: "14:00", end: "16:30" },
-    venue: "N.J. Yasaswy Auditorium (Main Hall)",
+    venue: "To be updated",
     teamSize: {
       min: 2,
       max: 2,
@@ -371,7 +371,7 @@ export const EVENTS = [
     time: "11:00 AM - 01:00 PM",
     // Provisional website timetable, used for clash checks. Keep in step with EVENTS in apps-script/Code.gs.
     slot: { start: "11:00", end: "13:00" },
-    venue: "Computer Lab 2, Faculty of Science & Technology",
+    venue: "To be updated",
     teamSize: {
       min: 1,
       max: 1,
@@ -431,7 +431,7 @@ export const EVENTS = [
     time: "01:30 PM - 05:00 PM",
     // Provisional website timetable, used for clash checks. Keep in step with EVENTS in apps-script/Code.gs.
     slot: { start: "13:30", end: "17:00" },
-    venue: "N.J. Yasaswy Auditorium Stage",
+    venue: "To be updated",
     teamSize: {
       min: 1,
       max: 2,
@@ -544,7 +544,7 @@ export const EVENTS = [
     time: "11:00 AM - 05:00 PM",
     // Provisional website timetable, used for clash checks. Keep in step with EVENTS in apps-script/Code.gs.
     slot: { start: "11:00", end: "17:00" },
-    venue: "Student Activity Center (SAC) Esports Arena",
+    venue: "To be updated",
     teamSize: {
       min: 4,
       max: 4,
@@ -601,7 +601,7 @@ export const EVENTS = [
     time: "12:00 PM - 05:00 PM",
     // Provisional website timetable, used for clash checks. Keep in step with EVENTS in apps-script/Code.gs.
     slot: { start: "12:00", end: "17:00" },
-    venue: "SAC Esports Zone",
+    venue: "To be updated",
     teamSize: {
       min: 5,
       max: 5,
@@ -659,7 +659,7 @@ export const EVENTS = [
     time: "To be announced",
     // Provisional website timetable, used for clash checks. Keep in step with EVENTS in apps-script/Code.gs.
     slot: null,
-    venue: "To be announced",
+    venue: "To be updated",
     teamSize: {
       min: 1,
       max: 1,
@@ -720,7 +720,7 @@ export const EVENTS = [
     time: "To be announced",
     // Provisional website timetable, used for clash checks. Keep in step with EVENTS in apps-script/Code.gs.
     slot: null,
-    venue: "To be announced",
+    venue: "To be updated",
     teamSize: {
       min: 1,
       max: 1,
@@ -777,7 +777,7 @@ export const EVENTS = [
     time: "To be announced",
     // Provisional website timetable, used for clash checks. Keep in step with EVENTS in apps-script/Code.gs.
     slot: null,
-    venue: "To be announced",
+    venue: "To be updated",
     teamSize: {
       min: 1,
       max: 1,
@@ -833,7 +833,7 @@ export const EVENTS = [
     time: "10:30 AM - 01:30 PM",
     // Provisional website timetable, used for clash checks. Keep in step with EVENTS in apps-script/Code.gs.
     slot: { start: "10:30", end: "13:30" },
-    venue: "FST Central Courtyard & Art Studio",
+    venue: "To be updated",
     teamSize: {
       min: 1,
       max: 1,

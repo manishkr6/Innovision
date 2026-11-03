@@ -100,8 +100,12 @@ export const EventInfoSection = ({ event }) => {
                 <span className="text-gray-500">Timing:</span>
                 <span className="font-semibold text-gray-900 text-right">{timeLabel(event)}</span>
               </div>
+              <div className="pt-2 flex items-center justify-between gap-3">
+                <span className="text-gray-500">Main programme:</span>
+                <span className="font-semibold text-gray-900 text-right">{FEST_INFO.shortVenue}</span>
+              </div>
               <div className="pt-2 flex items-center justify-between">
-                <span className="text-gray-500">Venue:</span>
+                <span className="text-gray-500">Event venue:</span>
                 <span className="font-semibold text-gray-900 text-right max-w-[180px] truncate">{event.venue}</span>
               </div>
               <div className="pt-2 flex items-center justify-between">
