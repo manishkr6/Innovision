@@ -2,6 +2,7 @@ import React from 'react';
 import { HeroSection } from '../components/home/HeroSection';
 import { MarqueeStrip } from '../components/home/MarqueeStrip';
 import { AboutSection } from '../components/home/AboutSection';
+import { LastYearSection } from '../components/home/LastYearSection';
 import { EsportsSpotlight } from '../components/home/EsportsSpotlight';
 import { EventsGrid } from '../components/home/EventsGrid';
 import { ParticipateSection } from '../components/home/ParticipateSection';
@@ -20,6 +21,7 @@ export const HomePage = () => (
     <HeroSection />
     <MarqueeStrip />
     <AboutSection />
+    <LastYearSection />
     <EsportsSpotlight />
     <EventsGrid />
     <ParticipateSection />
