@@ -2,7 +2,7 @@ import React from 'react';
 import { Reveal } from '../common/Reveal';
 
 const PHOTOS = [
-  { src: '/images/innovision-2025/audience.jpg', alt: 'Students and guests seated in the auditorium at INNOVISION 2025' },
+  { src: '/images/innovision-2025/painting.jpg', alt: 'A student painting during the competition at INNOVISION 2025' },
   { src: '/images/innovision-2025/team.jpg', alt: 'Students and faculty of the organising team with a framed certificate' },
   { src: '/images/innovision-2025/recognition.jpg', alt: 'A certificate being presented on stage at INNOVISION 2025' },
 ];

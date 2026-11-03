@@ -32,9 +32,9 @@ export const HeroSection = () => {
   return (
     <section id="home" className="relative min-h-[100svh] flex items-end overflow-hidden bg-night">
       <img
-        src="/images/photos/hero-crowd.jpg"
-        alt="Festival crowd with hands raised under warm stage lights"
-        className="absolute inset-0 w-full h-full object-cover object-[center_30%]"
+        src="/images/innovision-2025/audience.jpg"
+        alt="Students filling the auditorium at INNOVISION 2025"
+        className="absolute inset-0 w-full h-full object-cover object-[center_65%]"
         fetchpriority="high"
       />
       {/* Even dark wash first so the bright spotlight beams never sit behind text, then depth gradients */}
