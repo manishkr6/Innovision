@@ -68,7 +68,7 @@ export const FACULTY_COORDINATORS = [
     department: "Faculty of Science & Technology",
     phone: "+91 9563213089",
     cleanPhone: "919563213089",
-    email: "rahul.shah@iusikkim.edu.in",
+    email: "rahulshah@iusikkim.edu.in",
     avatarColor: "from-purple-500 to-indigo-600"
   },
   {
@@ -78,7 +78,7 @@ export const FACULTY_COORDINATORS = [
     department: "Faculty of Science & Technology",
     phone: "+91 7866094216",
     cleanPhone: "917866094216",
-    email: "subodh.adhikari@iusikkim.edu.in",
+    email: "",
     avatarColor: "from-blue-500 to-cyan-600"
   },
   {
@@ -88,7 +88,7 @@ export const FACULTY_COORDINATORS = [
     department: "Faculty of Science & Technology",
     phone: "+91 9083924727",
     cleanPhone: "919083924727",
-    email: "diksha.giri@iusikkim.edu.in",
+    email: "dikshagiri@iusikkim.edu.in",
     avatarColor: "from-pink-500 to-purple-600"
   },
   {
@@ -98,7 +98,7 @@ export const FACULTY_COORDINATORS = [
     department: "Institution's Innovation Council",
     phone: "+91 9706225826",
     cleanPhone: "919706225826",
-    email: "nishant.chaki@iusikkim.edu.in",
+    email: "",
     avatarColor: "from-emerald-500 to-teal-600"
   }
 ];
