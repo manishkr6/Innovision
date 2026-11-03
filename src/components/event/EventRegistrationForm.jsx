@@ -520,6 +520,10 @@ export const EventRegistrationForm = ({ event }) => {
             )}
           </div>
 
+          <p className="text-xs text-gray-500 leading-relaxed">
+            Privacy: your details are stored in a Google Sheet that only the organising team can access, and are used only to run INNOVISION 2026. Scanning your pass shows your name, team and event, never your phone number, email or enrollment number.
+          </p>
+
           {/* Submit Button */}
           <div className="pt-4">
             {submitError && (
