@@ -35,7 +35,7 @@ export const Footer = () => {
               </span>
             </div>
             <p className="mt-4 text-sm leading-relaxed max-w-sm">
-              The annual IT &amp; cultural fest of the {FEST_INFO.faculty}, {FEST_INFO.university}.
+              The annual IT, technical, gaming &amp; creative fest of the {FEST_INFO.faculty}, {FEST_INFO.university}.
             </p>
             <p className="mt-4 text-xs text-white/70 max-w-sm">
               In association with the Institution's Innovation Council — a Ministry of Education initiative, Govt. of
@@ -79,7 +79,7 @@ export const Footer = () => {
         </div>
 
         <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between text-xs text-white/70">
-          <p>© 2026 {FEST_INFO.faculty}, {FEST_INFO.university}. Photos via Unsplash.</p>
+          <p>© 2026 {FEST_INFO.faculty}, {FEST_INFO.university}. Event photos via Unsplash.</p>
           <button onClick={() => scrollTo(0)} className="inline-flex items-center gap-1.5 hover:text-white">
             <ArrowUp className="w-3.5 h-3.5" /> Back to top
           </button>

@@ -15,8 +15,8 @@ import { Seo } from '../components/common/Seo';
 export const HomePage = () => (
   <>
     <Seo
-      title="INNOVISION 2026 | Annual IT & Cultural Fest"
-      description="Join INNOVISION 2026, the annual IT & cultural fest of the Faculty of Science & Technology, The ICFAI University, Sikkim in association with Institution's Innovation Council."
+      title="INNOVISION 2026 | Annual IT & Creative Fest"
+      description="Join INNOVISION 2026, the annual IT, technical, gaming & creative fest of the Faculty of Science & Technology, The ICFAI University, Sikkim in association with Institution's Innovation Council."
     />
     <HeroSection />
     <MarqueeStrip />
