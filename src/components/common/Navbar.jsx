@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Ticket, ChevronRight } from 'lucide-react';
 import { useLenis } from '../../hooks/useLenis';
+import { getPasses } from '../../lib/passStore';
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -26,12 +27,7 @@ export const Navbar = () => {
   // Check saved registrations count in localStorage
   useEffect(() => {
     const updateCount = () => {
-      try {
-        const stored = JSON.parse(localStorage.getItem('innovision_registrations') || '[]');
-        setRegCount(stored.length);
-      } catch (e) {
-        setRegCount(0);
-      }
+      setRegCount(getPasses().length);
     };
     updateCount();
     window.addEventListener('storage', updateCount);
@@ -110,7 +106,7 @@ export const Navbar = () => {
   };
 
   // Transparent over the hero photo / dark pages; solid paper bar once scrolled or on light pages
-  const solid = isScrolled || mobileMenuOpen || location.pathname === '/contact' || location.pathname.startsWith('/events/');
+  const solid = isScrolled || mobileMenuOpen || location.pathname === '/contact' || location.pathname === '/passes' || location.pathname.startsWith('/events/');
 
   return (
     <header

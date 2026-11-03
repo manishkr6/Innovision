@@ -4,12 +4,20 @@ import { Reveal } from '../common/Reveal';
 // Answers restate the official rules (CODE_OF_CONDUCT) and event data — keep them in sync if those change
 const FAQS = [
   {
+    q: 'Is there an entry fee?',
+    a: 'No. Entry to every competition is free.',
+  },
+  {
     q: 'Who can take part?',
     a: 'Any currently enrolled student from a college or university anywhere in Sikkim is welcome — just register for the event. That includes students of The ICFAI University, Sikkim from every department.',
   },
   {
     q: 'Can I enter more than one event?',
-    a: "Yes, as long as the events don't clash. The organisers can't move an event to fit individual clashes.",
+    a: "Yes, as many as you like. The schedule isn't final yet, so you can register for any of them now. The organisers will update participants once it is, including if any of your events end up clashing.",
+  },
+  {
+    q: 'When is my event?',
+    a: 'Each event page shows its current provisional timing. The final schedule will be published here once it is confirmed.',
   },
   {
     q: 'What should I bring?',

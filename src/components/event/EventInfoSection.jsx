@@ -1,4 +1,6 @@
 import React from 'react';
+import { FEST_INFO } from '../../data/events';
+import { timeLabel } from '../../data/eventUtils';
 import { 
   Trophy, 
   Layers, 
@@ -39,7 +41,7 @@ export const EventInfoSection = ({ event }) => {
           </div>
 
           {/* Rounds Breakdown */}
-          <div className="space-y-4">
+          {event.rounds.length > 0 && <div className="space-y-4">
             <h3 className="font-heading text-2xl font-bold text-gray-900 tracking-tight flex items-center gap-2.5">
               <Layers className="w-5 h-5 text-gray-900" />
               <span>Tournament Format</span>{' '}
@@ -73,7 +75,7 @@ export const EventInfoSection = ({ event }) => {
                 </div>
               ))}
             </div>
-          </div>
+          </div>}
         </div>
 
         {/* Right 1 Col: Quick Facts & Coordinator Cards */}
@@ -92,14 +94,18 @@ export const EventInfoSection = ({ event }) => {
               </div>
               <div className="pt-2 flex items-center justify-between">
                 <span className="text-gray-500">Date:</span>
-                <span className="font-semibold text-gray-900">{event.date.split('-')[0]}</span>
+                <span className="font-semibold text-gray-900">{FEST_INFO.dateString}</span>
               </div>
-              <div className="pt-2 flex items-center justify-between">
+              <div className="pt-2 flex items-center justify-between gap-3">
                 <span className="text-gray-500">Timing:</span>
-                <span className="font-semibold text-gray-900">{event.time}</span>
+                <span className="font-semibold text-gray-900 text-right">{timeLabel(event)}</span>
+              </div>
+              <div className="pt-2 flex items-center justify-between gap-3">
+                <span className="text-gray-500">Main programme:</span>
+                <span className="font-semibold text-gray-900 text-right">{FEST_INFO.shortVenue}</span>
               </div>
               <div className="pt-2 flex items-center justify-between">
-                <span className="text-gray-500">Venue:</span>
+                <span className="text-gray-500">Event venue:</span>
                 <span className="font-semibold text-gray-900 text-right max-w-[180px] truncate">{event.venue}</span>
               </div>
               <div className="pt-2 flex items-center justify-between">

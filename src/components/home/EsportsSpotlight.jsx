@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, Users, MapPin } from 'lucide-react';
+import { ArrowUpRight, Users } from 'lucide-react';
 import { EVENTS } from '../../data/events';
-import { cleanTbc, shortVenue } from '../../data/eventUtils';
+import { cleanTbc } from '../../data/eventUtils';
 import { Reveal } from '../common/Reveal';
 
 const esports = EVENTS.filter((e) => e.track.startsWith('C.'));
@@ -14,12 +14,12 @@ export const EsportsSpotlight = () => (
         <div>
           <p className="text-sm font-semibold text-marigold-400">Esports Arena</p>
           <h2 className="mt-2 font-heading text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.05]">
-            Squad up. The big screen is waiting.
+            Squad up. Medals are on the line.
           </h2>
         </div>
         <p className="max-w-md text-white/70">
-          Three titles, knockout brackets and a grand final played live in the auditorium. Bring your own device and
-          your best squad.
+          BGMI, MOBA Legends and E-Football. Free to enter, gold and silver to win. Match formats follow with the event
+          guidelines, so get your squad registered now.
         </p>
       </Reveal>
 
@@ -44,12 +44,6 @@ export const EsportsSpotlight = () => (
                 <ArrowUpRight className="w-5 h-5 shrink-0 text-white/70 group-hover:text-marigold-400 transition-colors" />
               </div>
               <p className="mt-2 text-sm text-white/70 line-clamp-2">{event.shortDesc}</p>
-              <div className="mt-4 text-sm text-white/70">
-                <p className="flex items-center gap-2">
-                  <MapPin className="w-4 h-4 text-marigold-400" />
-                  {shortVenue(event)}
-                </p>
-              </div>
               <div className="mt-auto pt-5 flex flex-wrap gap-2 text-xs font-medium">
                 <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1">
                   <Users className="w-3.5 h-3.5" />

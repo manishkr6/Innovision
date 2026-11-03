@@ -23,6 +23,8 @@ import {
   Sparkles
 } from 'lucide-react';
 import { useLenis } from '../../hooks/useLenis';
+import { FEST_INFO } from '../../data/events';
+import { timeLabel } from '../../data/eventUtils';
 
 const iconMap = {
   'code': Code,
@@ -126,15 +128,15 @@ export const EventHero = ({ event }) => {
             <div className="pt-2 flex flex-wrap gap-2.5 sm:gap-3 text-xs font-medium text-gray-700">
               <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-gray-50 border border-gray-200">
                 <Calendar className="w-4 h-4 text-gray-500" />
-                <span>{event.date}</span>
+                <span>{FEST_INFO.dateString}</span>
               </div>
               <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-gray-50 border border-gray-200">
                 <Clock className="w-4 h-4 text-gray-500" />
-                <span>{event.time}</span>
+                <span>{timeLabel(event)}</span>
               </div>
               <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-gray-50 border border-gray-200">
                 <MapPin className="w-4 h-4 text-gray-500" />
-                <span>{event.venue}</span>
+                <span>Venue: {event.venue}</span>
               </div>
               <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-gray-50 border border-gray-200">
                 <Users className="w-4 h-4 text-gray-500" />

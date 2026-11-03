@@ -52,8 +52,8 @@ export const AboutSection = () => (
           {FEST_INFO.university}, organised in association with the {FEST_INFO.association}.
         </p>
         <p className="mt-4 text-ink-soft leading-relaxed">
-          From algorithm sprints and hackathons to BGMI squads on the big screen and live painting, there's a stage for
-          every kind of talent — and medals for the best of them.
+          From coding and hackathons to BGMI squads and on-the-spot painting, there's a competition for every kind of
+          talent, and medals for the best of them.
         </p>
 
         <dl className="mt-10 grid grid-cols-3 gap-3 sm:gap-4">

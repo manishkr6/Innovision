@@ -1,196 +1,135 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { 
-  Ticket, 
-  Trash2, 
-  Download, 
-  Calendar, 
-  MapPin, 
-  ArrowLeft, 
-  Sparkles,
-  Users
-} from 'lucide-react';
+import { Ticket, Trash2, Download, ArrowLeft, Loader2 } from 'lucide-react';
 import { Seo } from '../components/common/Seo';
-import { TiltCard } from '../components/common/TiltCard';
+import { FEST_INFO } from '../data/events';
+import { getPasses, removePass } from '../lib/passStore';
+import { downloadPassPdf } from '../lib/passPdf';
 
-export const MyRegistrationsPage = () => {
-  const [passes, setPasses] = useState([]);
+const Detail = ({ label, children }) => (
+  <div>
+    <span className="block text-xs text-gray-500">{label}</span>
+    <span className="font-semibold text-gray-900 break-words">{children}</span>
+  </div>
+);
 
-  useEffect(() => {
+const PassCard = ({ pass, onRemove }) => {
+  const [downloadState, setDownloadState] = useState('idle');
+
+  const handleDownload = async () => {
+    setDownloadState('working');
     try {
-      const stored = JSON.parse(localStorage.getItem('innovision_registrations') || '[]');
-      setPasses(stored);
+      await downloadPassPdf(pass);
+      setDownloadState('idle');
     } catch (e) {
-      setPasses([]);
+      console.error(e);
+      setDownloadState('failed');
     }
-  }, []);
-
-  const handleRemove = (registrationId) => {
-    if (window.confirm('Are you sure you want to remove this pass from your device?')) {
-      const updated = passes.filter(p => (p.id || p.registrationId) !== registrationId);
-      setPasses(updated);
-      localStorage.setItem('innovision_registrations', JSON.stringify(updated));
-      window.dispatchEvent(new Event('innovision_registration_added'));
-    }
-  };
-
-  const handlePrint = () => {
-    window.print();
   };
 
   return (
-    <div className="relative min-h-screen pt-28 pb-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto z-10">
-      <Seo 
-        title="My Registered Passes" 
-        description="View and download your digital event admission passes for INNOVISION 2026."
+    <article className="p-6 sm:p-8 rounded-3xl bg-white border border-gray-200 shadow-sm">
+      <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 pb-4 mb-4 border-b border-dashed border-gray-200">
+        <div>
+          <h2 className="font-heading text-2xl font-extrabold text-gray-900 tracking-tight">{pass.eventTitle}</h2>
+          <span className="font-mono text-sm font-bold text-marigold-600">{pass.id}</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={handleDownload}
+            disabled={downloadState === 'working'}
+            className="px-4 py-2.5 rounded-full bg-black hover:bg-gray-800 disabled:bg-gray-400 text-white text-xs font-semibold uppercase tracking-wider flex items-center gap-2 cursor-pointer transition-colors"
+          >
+            {downloadState === 'working' ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
+            <span>Download PDF</span>
+          </button>
+          <button
+            onClick={() => onRemove(pass.id)}
+            className="p-2.5 rounded-full bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-600 cursor-pointer transition-colors"
+            title="Remove from this device"
+            aria-label={`Remove ${pass.eventTitle} pass from this device`}
+          >
+            <Trash2 className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+
+      {downloadState === 'failed' && (
+        <p role="alert" className="mb-4 text-xs text-rose-600 font-medium">The PDF could not be created. Please try again.</p>
+      )}
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-sm">
+        {pass.teamName && <Detail label="Team">{pass.teamName}</Detail>}
+        <Detail label={pass.teamName ? 'Team leader' : 'Participant'}>{pass.fullName}</Detail>
+        <Detail label="Enrollment no.">{pass.enrollmentNumber}</Detail>
+        <Detail label="College">{pass.college}</Detail>
+        <Detail label="Course">{pass.course}</Detail>
+        <Detail label="When">{FEST_INFO.dateString}</Detail>
+      </div>
+
+      {pass.teamMembers?.length > 0 && (
+        <div className="mt-4 pt-4 border-t border-gray-200">
+          <span className="block text-xs text-gray-500 mb-2">Teammates</span>
+          <ul className="flex flex-wrap gap-2 text-xs text-gray-700">
+            {pass.teamMembers.map((member) => (
+              <li key={member.enrollment} className="px-2.5 py-1 rounded-md bg-gray-50 border border-gray-200">
+                {member.name} ({member.enrollment})
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </article>
+  );
+};
+
+export const MyRegistrationsPage = () => {
+  const [passes, setPasses] = useState(getPasses);
+
+  const handleRemove = (id) => {
+    if (window.confirm('Remove this pass from this device? This does not cancel your registration.')) {
+      setPasses(removePass(id));
+    }
+  };
+
+  return (
+    <div className="min-h-screen pt-28 pb-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+      <Seo
+        title="My Passes"
+        description="View and download your event passes for INNOVISION 2026."
       />
 
-      <div className="mb-8 flex items-center justify-between">
-        <Link
-          to="/"
-          className="inline-flex items-center gap-2 font-mono text-xs text-slate-400 hover:text-white transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          <span>BACK TO HOME HUB</span>
-        </Link>
+      <Link to="/" className="inline-flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+        <ArrowLeft className="w-4 h-4" />
+        <span>Back to home</span>
+      </Link>
 
-        {passes.length > 0 && (
-          <button
-            onClick={handlePrint}
-            className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-semibold flex items-center gap-2 transition-colors cursor-pointer shadow-md shadow-blue-500/20"
-          >
-            <Download className="w-4 h-4" />
-            <span>Print All Passes</span>
-          </button>
-        )}
-      </div>
-
-      <div className="text-center mb-12">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/10 text-slate-400 font-mono text-xs uppercase tracking-widest mb-3">
-          <Ticket className="w-3.5 h-3.5 text-blue-400" />
-          <span>// CANDIDATE PORTFOLIO</span>
-        </div>
-        <h1 className="font-display text-4xl sm:text-5xl font-black uppercase tracking-wide">
-          <span className="text-white">MY EVENT</span> <span className="text-blue-400">PASSES</span>{' '}
-          <span className="text-slate-400 text-2xl sm:text-3xl font-mono font-normal">({passes.length})</span>
-        </h1>
-        <p className="mt-2 font-body text-slate-400 text-sm">
-          Digital verification passes stored on your current device browser session.
-        </p>
-      </div>
+      <h1 className="mt-6 font-heading text-4xl sm:text-5xl font-extrabold text-gray-900 tracking-tight">
+        My Passes {passes.length > 0 && <span className="text-gray-400 font-bold">({passes.length})</span>}
+      </h1>
+      <p className="mt-2 mb-10 text-sm text-gray-600 leading-relaxed">
+        Passes are kept on this device. Lost one, or on a new device? Register again with the same enrollment number and email to get your original pass back.
+      </p>
 
       {passes.length === 0 ? (
-        <div className="text-center py-16 p-8 rounded-3xl bg-[#0D111C]/80 border border-white/[0.08] max-w-md mx-auto space-y-4">
-          <div className="w-16 h-16 mx-auto rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-center text-slate-500">
-            <Ticket className="w-8 h-8" />
-          </div>
-          <h3 className="font-display text-2xl font-bold text-white">
-            No Passes Found
-          </h3>
-          <p className="font-body text-xs sm:text-sm text-slate-400">
-            You haven&apos;t registered for any events yet. Explore our 12 events catalog and confirm your slot!
-          </p>
+        <div className="text-center py-16 px-8 rounded-3xl bg-white border border-gray-200">
+          <Ticket className="w-10 h-10 mx-auto text-gray-400" />
+          <h2 className="mt-4 font-heading text-2xl font-extrabold text-gray-900">No passes on this device</h2>
+          <p className="mt-2 text-sm text-gray-600">Choose an event and register to get your pass.</p>
           <Link
             to="/#events"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-bold uppercase tracking-wider shadow-md shadow-blue-500/20"
+            className="mt-6 inline-flex px-6 py-3 rounded-full bg-black hover:bg-gray-800 text-white text-xs font-semibold uppercase tracking-wider transition-colors"
           >
-            <Sparkles className="w-4 h-4" />
-            <span>Explore &amp; Register</span>
+            Browse events
           </Link>
         </div>
       ) : (
         <div className="space-y-6">
-          {passes.map((pass) => {
-            const passId = pass.id || pass.registrationId;
-            return (
-              <TiltCard
-                key={passId}
-                className="p-6 sm:p-8 rounded-2xl bg-[#0D111C]/85 border border-white/[0.08] hover:border-white/20 transition-all relative overflow-hidden shadow-xl"
-              >
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-dashed border-white/10 gap-4 mb-4">
-                  <div>
-                    <span className="font-mono text-xs text-slate-400 uppercase tracking-widest block mb-1">
-                      CONFIRMED CANDIDATE PASS
-                    </span>
-                    <h3 className="font-display text-2xl sm:text-3xl font-bold text-white">
-                      {pass.eventTitle}
-                    </h3>
-                  </div>
-
-                  <div className="flex items-center gap-3">
-                    <span className="font-mono text-sm font-bold text-blue-300 px-3 py-1 rounded-lg bg-blue-500/10 border border-blue-500/30">
-                      {passId}
-                    </span>
-                    <button
-                      onClick={() => handleRemove(passId)}
-                      className="p-2 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/20 text-rose-400 transition-colors cursor-pointer"
-                      title="Remove Pass"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
-                  </div>
-                </div>
-
-                {/* Pass Data Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 font-body text-xs sm:text-sm mb-4">
-                  <div>
-                    <span className="text-slate-400 block text-[11px] font-mono">PARTICIPANT:</span>
-                    <span className="font-semibold text-white">{pass.fullName}</span>
-                  </div>
-                  <div>
-                    <span className="text-slate-400 block text-[11px] font-mono">ENROLLMENT NO:</span>
-                    <span className="font-mono text-slate-200">{pass.enrollmentNumber}</span>
-                  </div>
-                  <div>
-                    <span className="text-slate-400 block text-[11px] font-mono">COURSE:</span>
-                    <span className="text-slate-200">{pass.course}</span>
-                  </div>
-                  {pass.teamName && (
-                    <div>
-                      <span className="text-slate-400 block text-[11px] font-mono">SQUAD NAME:</span>
-                      <span className="font-semibold text-white">{pass.teamName}</span>
-                    </div>
-                  )}
-                  <div>
-                    <span className="text-slate-400 block text-[11px] font-mono">VENUE:</span>
-                    <span className="text-slate-200">{pass.venue}</span>
-                  </div>
-                  <div>
-                    <span className="text-slate-400 block text-[11px] font-mono">TIMING:</span>
-                    <span className="text-slate-200">{pass.date} ({pass.time})</span>
-                  </div>
-                </div>
-
-                {/* Additional Team Members if any */}
-                {pass.teamMembers && pass.teamMembers.length > 0 && (
-                  <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.06] mb-4">
-                    <span className="font-mono text-[11px] text-slate-400 uppercase tracking-wider block mb-1">
-                      TEAM MEMBERS:
-                    </span>
-                    <div className="flex flex-wrap gap-2 text-xs font-body text-slate-300">
-                      {pass.teamMembers.map((m, idx) => (
-                        <span key={idx} className="px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/10">
-                          {m}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Bottom Barcode Aesthetic */}
-                <div className="pt-3 border-t border-white/[0.06] flex items-center justify-between">
-                  <div className="font-mono text-[9px] text-slate-500 tracking-widest">
-                    ||| | | |||| || | || |||| | | ||| |
-                  </div>
-                  <span className="font-mono text-[10px] text-slate-400">
-                    VERIFIED INNOVISION ADMISSION TOKEN
-                  </span>
-                </div>
-              </TiltCard>
-            );
-          })}
+          {passes.map((pass) => <PassCard key={pass.id} pass={pass} onRemove={handleRemove} />)}
         </div>
       )}
     </div>
   );
 };
+
+export default MyRegistrationsPage;

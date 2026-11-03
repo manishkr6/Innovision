@@ -60,7 +60,7 @@ export const EventDetailPage = () => {
         <EventRulesSection event={event} />
 
         {/* 2c. Event Registration Form */}
-        <EventRegistrationForm event={event} />
+        <EventRegistrationForm key={event.slug} event={event} />
 
         {/* Bottom Navigation & Related Events */}
         <RelatedEvents currentSlug={event.slug} />

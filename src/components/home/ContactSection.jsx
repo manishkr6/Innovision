@@ -55,10 +55,10 @@ export const ContactSection = () => (
         ))}
       </div>
 
-      <div className="mt-12 grid lg:grid-cols-[2fr_1fr] gap-6">
-        <div>
+      <div className="mt-12 grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-6">
+        <div className="min-w-0">
           <h3 className="text-sm font-semibold text-ink-muted">Student committee</h3>
-          <ul className="mt-4 grid sm:grid-cols-2 gap-3">
+          <ul className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
             {STUDENT_REPRESENTATIVES.map((s) => (
               <li key={s.id} className="flex items-center gap-3 rounded-2xl bg-white border border-ink-line p-3.5">
                 <span className="w-10 h-10 shrink-0 rounded-full bg-paper-deep text-ink-soft text-sm font-bold flex items-center justify-center">

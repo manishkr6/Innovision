@@ -33,7 +33,7 @@ export const CountdownTimer = () => {
   return (
     <div className="w-full rounded-3xl bg-paper/95 backdrop-blur p-5 sm:p-6 shadow-2xl shadow-black/30">
       <p className="text-sm font-semibold text-ink-soft">
-        {timeLeft ? 'The fest begins in' : 'INNOVISION 2026 is live!'}
+        {timeLeft ? (FEST_INFO.dateConfirmed ? 'The fest begins in' : 'Countdown to the proposed date') : 'INNOVISION 2026 is live!'}
       </p>
       {timeLeft && (
         <div className="mt-3 grid grid-cols-4 gap-2 sm:gap-3">

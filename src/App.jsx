@@ -10,7 +10,7 @@ import { MyRegistrationsPage } from './pages/MyRegistrationsPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { useSmoothScrollSetup } from './hooks/useLenis';
 
-// Pages not yet redesigned keep their original dark styling until the registration phase
+// The 404 page keeps its original dark styling until it is redesigned
 const Legacy = ({ children }) => (
   <div className="bg-cyber-dark text-slate-100 font-body min-h-screen">{children}</div>
 );
@@ -36,7 +36,7 @@ export const App = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/events/:slug" element={<EventDetailPage />} />
           <Route path="/contact" element={<ContactPage />} />
-          <Route path="/passes" element={<Legacy><MyRegistrationsPage /></Legacy>} />
+          <Route path="/passes" element={<MyRegistrationsPage />} />
           <Route path="*" element={<Legacy><NotFoundPage /></Legacy>} />
         </Routes>
       </main>

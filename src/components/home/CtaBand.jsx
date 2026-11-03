@@ -13,16 +13,16 @@ export const CtaBand = () => {
         <div className="relative grid md:grid-cols-[1.5fr_1fr] gap-8 items-center">
           <div>
             <h2 className="font-heading text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.05]">
-              Your stage is set.
+              Somebody is walking away with gold. Why not you?
             </h2>
-            <p className="mt-3 text-lg text-white">Pick your event and register before the deadline.</p>
+            <p className="mt-3 text-lg text-white">Entry is free. Pick your event and register now.</p>
           </div>
           <div className="flex flex-col sm:flex-row md:flex-col lg:flex-row gap-3 md:justify-end">
             <button
               onClick={() => goToSection('#events')}
               className="inline-flex items-center justify-center gap-2 rounded-full bg-ink hover:bg-ink-soft px-7 py-3.5 font-semibold transition-colors"
             >
-              Browse events <ArrowRight className="w-4 h-4" />
+              Register free <ArrowRight className="w-4 h-4" />
             </button>
             <button
               onClick={() => goToSection('#contact')}

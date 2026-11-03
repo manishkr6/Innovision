@@ -24,7 +24,7 @@ export const HeroSection = () => {
       : { initial: { opacity: 0, y: 24 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.7, delay, ease: 'easeOut' } };
 
   const facts = [
-    { icon: Calendar, text: festDate },
+    { icon: Calendar, text: FEST_INFO.dateConfirmed ? festDate : `${festDate} (proposed)` },
     { icon: MapPin, text: FEST_INFO.city },
     { icon: Trophy, text: `${EVENTS.length} events · 4 tracks` },
   ];
@@ -32,9 +32,9 @@ export const HeroSection = () => {
   return (
     <section id="home" className="relative min-h-[100svh] flex items-end overflow-hidden bg-night">
       <img
-        src="/images/photos/hero-crowd.jpg"
-        alt="Festival crowd with hands raised under warm stage lights"
-        className="absolute inset-0 w-full h-full object-cover object-[center_30%]"
+        src="/images/innovision-2025/audience.jpg"
+        alt="Students filling the auditorium at INNOVISION 2025"
+        className="absolute inset-0 w-full h-full object-cover object-[center_65%]"
         fetchpriority="high"
       />
       {/* Even dark wash first so the bright spotlight beams never sit behind text, then depth gradients */}
@@ -53,6 +53,9 @@ export const HeroSection = () => {
                 </span>
                 Registrations open
               </span>
+              <span className="inline-flex items-center rounded-full bg-marigold-500 px-4 py-1.5 text-xs sm:text-sm font-semibold text-white">
+                Free entry
+              </span>
               <span className="inline-flex items-center rounded-full bg-night/60 backdrop-blur border border-white/20 px-4 py-1.5 text-xs sm:text-sm font-medium text-white">
                 {FEST_INFO.faculty} · {FEST_INFO.university}
               </span>
@@ -67,7 +70,7 @@ export const HeroSection = () => {
             </motion.h1>
 
             <motion.p {...fadeUp(0.2)} className="mt-5 max-w-xl text-lg sm:text-xl text-white leading-relaxed [text-shadow:0_1px_12px_rgba(0,0,0,0.5)]">
-              {FEST_INFO.tagline}. Code, competition, esports and creativity — open to students across Sikkim.
+              Twelve competitions. Gold and silver on the line. Free to enter, and open to every student in Sikkim. Are you in?
             </motion.p>
 
             <motion.ul {...fadeUp(0.3)} className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-white/90">
@@ -84,7 +87,7 @@ export const HeroSection = () => {
                 onClick={() => goToSection('#events')}
                 className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-marigold-500 hover:bg-marigold-600 text-white font-semibold shadow-lg shadow-black/20 transition-colors"
               >
-                Explore the events
+                Register free
                 <ArrowRight className="w-4 h-4" />
               </button>
               <button

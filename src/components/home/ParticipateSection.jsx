@@ -3,9 +3,9 @@ import { MousePointerClick, ClipboardCheck, Ticket, IdCard, Medal, Award, Scroll
 import { Reveal } from '../common/Reveal';
 
 const STEPS = [
-  { icon: MousePointerClick, title: 'Pick your event', text: 'Browse the 12 competitions and check the team size and rules.' },
-  { icon: ClipboardCheck, title: 'Register online', text: 'Fill the short form on the event page before the registration deadline.' },
-  { icon: Ticket, title: 'Keep your digital pass', text: 'Your pass appears under “My Passes”. Print it or keep it on your phone.' },
+  { icon: MousePointerClick, title: 'Pick your events', text: 'Browse the 12 competitions and enter as many as you like.' },
+  { icon: ClipboardCheck, title: 'Register online', text: 'Fill the short form on the event page. Entry is free.' },
+  { icon: Ticket, title: 'Keep your digital pass', text: 'Download your PDF pass with its token and QR code, or find it under “My Passes”.' },
   { icon: IdCard, title: 'Report with your college ID', text: 'Arrive at the venue on time. Late arrivals may be refused entry.' },
 ];
 
@@ -14,7 +14,7 @@ const PRIZES = [
   { icon: Medal, tone: 'bg-marigold-100 text-marigold-700', title: 'Gold medal', text: "1st place, plus a Winner's Certificate" },
   { icon: Medal, tone: 'bg-stone-200 text-stone-700', title: 'Silver medal', text: '2nd place, plus a Runner-Up Certificate' },
   { icon: ScrollText, tone: 'bg-flag-green/15 text-flag-green', title: 'Certificate for everyone', text: 'Every participant gets an official certificate' },
-  { icon: Mic2, tone: 'bg-flag-blue/15 text-flag-blue', title: 'On the big stage', text: 'Medals presented at the auditorium ceremony' },
+  { icon: Mic2, tone: 'bg-flag-blue/15 text-flag-blue', title: 'Awards for the whole team', text: 'Every registered member of a winning team is awarded' },
 ];
 
 export const ParticipateSection = () => (
@@ -58,7 +58,7 @@ export const ParticipateSection = () => (
             </li>
           ))}
         </ul>
-        <p className="mt-6 text-xs text-white/70">Team awards are given to every registered member. Judges' decisions are final.</p>
+        <p className="mt-6 text-xs text-white/70">Judges' decisions are final.</p>
       </Reveal>
     </div>
   </section>
