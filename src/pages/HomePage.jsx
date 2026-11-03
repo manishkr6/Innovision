@@ -10,6 +10,7 @@ import { CodeOfConduct } from '../components/home/CodeOfConduct';
 import { FaqSection } from '../components/home/FaqSection';
 import { ContactSection } from '../components/home/ContactSection';
 import { CtaBand } from '../components/home/CtaBand';
+import { MobileRegisterBar } from '../components/home/MobileRegisterBar';
 import { Seo } from '../components/common/Seo';
 
 export const HomePage = () => (
@@ -31,5 +32,6 @@ export const HomePage = () => (
     <div className="bg-paper-deep/60 pt-4">
       <CtaBand />
     </div>
+    <MobileRegisterBar />
   </>
 );

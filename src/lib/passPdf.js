@@ -1,4 +1,5 @@
 import { FEST_INFO } from '../data/events';
+import { passVerifyUrl } from './registrationApi';
 
 const INK = [28, 25, 23];
 const MUTED = [107, 114, 128];
@@ -7,7 +8,7 @@ const ACCENT = [194, 65, 12];
 // Libraries load on demand so they stay out of the initial page bundle.
 export const buildPassPdf = async (pass) => {
   const [{ jsPDF }, QRCode] = await Promise.all([import('jspdf'), import('qrcode')]);
-  const qr = await QRCode.toDataURL(pass.id, { errorCorrectionLevel: 'M', margin: 1, width: 400 });
+  const qr = await QRCode.toDataURL(passVerifyUrl(pass.id), { errorCorrectionLevel: 'M', margin: 1, width: 400 });
 
   const doc = new jsPDF({ unit: 'mm', format: 'a5' });
   const width = doc.internal.pageSize.getWidth();
@@ -60,7 +61,7 @@ export const buildPassPdf = async (pass) => {
   y += 2;
   doc.setDrawColor(209, 213, 219).line(margin, y, width - margin, y);
   doc.setFont('helvetica', 'normal').setFontSize(8.5).setTextColor(...MUTED);
-  const note = `Show this pass and a valid college/university ID card at the event. ${hasTeam ? 'This one pass covers the whole team; every member must carry their own ID. ' : ''}Registered ${pass.registeredAt} IST.`;
+  const note = `Scan the QR code to verify this pass. Show it with a valid college/university ID card at the event. ${hasTeam ? 'This one pass covers the whole team; every member must carry their own ID. ' : ''}Registered ${pass.registeredAt} IST.`;
   doc.text(doc.splitTextToSize(note, contentWidth), margin, y + 5);
 
   return doc;

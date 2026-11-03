@@ -1,6 +1,10 @@
 const ENDPOINT = import.meta.env.VITE_REGISTRATION_URL;
 const TIMEOUT_MS = 45000;
 
+// What a pass QR code opens. Falls back to the bare token if no script URL is configured.
+export const passVerifyUrl = (token) =>
+  ENDPOINT ? `${ENDPOINT}?token=${encodeURIComponent(token)}` : token;
+
 export class RegistrationError extends Error {
   constructor(message, code) {
     super(message);

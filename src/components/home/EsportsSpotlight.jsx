@@ -14,12 +14,12 @@ export const EsportsSpotlight = () => (
         <div>
           <p className="text-sm font-semibold text-marigold-400">Esports Arena</p>
           <h2 className="mt-2 font-heading text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.05]">
-            Squad up. The big screen is waiting.
+            Squad up. Medals are on the line.
           </h2>
         </div>
         <p className="max-w-md text-white/70">
-          Three titles, knockout brackets and a grand final played live in the auditorium. Bring your own device and
-          your best squad.
+          BGMI, MOBA Legends and E-Football. Free to enter, gold and silver to win. Match formats follow with the event
+          guidelines, so get your squad registered now.
         </p>
       </Reveal>
 

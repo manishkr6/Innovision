@@ -53,6 +53,9 @@ export const HeroSection = () => {
                 </span>
                 Registrations open
               </span>
+              <span className="inline-flex items-center rounded-full bg-marigold-500 px-4 py-1.5 text-xs sm:text-sm font-semibold text-white">
+                Free entry
+              </span>
               <span className="inline-flex items-center rounded-full bg-night/60 backdrop-blur border border-white/20 px-4 py-1.5 text-xs sm:text-sm font-medium text-white">
                 {FEST_INFO.faculty} · {FEST_INFO.university}
               </span>
@@ -67,7 +70,7 @@ export const HeroSection = () => {
             </motion.h1>
 
             <motion.p {...fadeUp(0.2)} className="mt-5 max-w-xl text-lg sm:text-xl text-white leading-relaxed [text-shadow:0_1px_12px_rgba(0,0,0,0.5)]">
-              {FEST_INFO.tagline}. Code, competition, esports and creativity — open to students across Sikkim.
+              Twelve competitions. Gold and silver on the line. Free to enter, and open to every student in Sikkim. Are you in?
             </motion.p>
 
             <motion.ul {...fadeUp(0.3)} className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-white/90">
@@ -84,7 +87,7 @@ export const HeroSection = () => {
                 onClick={() => goToSection('#events')}
                 className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-marigold-500 hover:bg-marigold-600 text-white font-semibold shadow-lg shadow-black/20 transition-colors"
               >
-                Explore the events
+                Register free
                 <ArrowRight className="w-4 h-4" />
               </button>
               <button
