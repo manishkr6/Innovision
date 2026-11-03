@@ -30,8 +30,7 @@ export const FEST_INFO = {
     { label: "Official Events", value: 12, suffix: "" },
     { label: "Fest Tracks", value: 4, suffix: " (Tech, Strategy, Esports, Arts)" },
     { label: "Grand Stage", value: 1, suffix: " Auditorium" },
-    { label: "Podium Medals", value: 24, suffix: " (Gold & Silver)" },
-    { label: "Expected Footfall", value: 1500, suffix: "+" }
+    { label: "Podium Medals", value: 24, suffix: " (Gold & Silver)" }
   ],
   marqueeItems: [
     "Code Clash",
