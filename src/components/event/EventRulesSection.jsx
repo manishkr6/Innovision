@@ -91,6 +91,10 @@ export const EventRulesSection = ({ event }) => {
             })}
           </div>
 
+          <p className="text-xs sm:text-sm text-gray-500 leading-relaxed">
+            Event coordinators may add detailed instructions on the day.
+          </p>
+
           {/* General Rules if present */}
           {event.generalRules && event.generalRules.length > 0 && (
             <div className="mt-8 p-6 rounded-2xl bg-white border border-gray-200 shadow-sm space-y-3">
@@ -139,7 +143,7 @@ export const EventRulesSection = ({ event }) => {
               {event.isITOnly && (
                 <div className="p-3.5 rounded-xl bg-blue-50 border border-blue-200 text-xs text-blue-900 flex items-start gap-2.5 mt-2">
                   <AlertCircle className="w-4 h-4 text-blue-700 shrink-0 mt-0.5" />
-                  <span className="font-medium">Restricted to Faculty of Science &amp; Technology (BCA, MCA, B.Tech CSE/IT, B.Sc IT) students only.</span>
+                  <span className="font-medium">This event is for IT students only.</span>
                 </div>
               )}
             </div>
@@ -181,6 +185,10 @@ export const EventRulesSection = ({ event }) => {
                 );
               })}
             </div>
+
+            {judgingList.length === 0 && (
+              <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">Judging criteria will be announced by the organisers.</p>
+            )}
 
             <div className="pt-3 border-t border-gray-100 text-[11px] text-gray-500 font-medium">
               Judges&apos; scores and decisions are final and binding for all participants.

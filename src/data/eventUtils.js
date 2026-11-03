@@ -1,4 +1,5 @@
 // Presentation helpers shared by the homepage sections (events grid, esports spotlight)
+import { EVENTS } from './events';
 
 // Track letter (from event.track, e.g. "C. Esports and Gaming Arena") -> label + prayer-flag colour classes
 export const TRACKS = {
@@ -20,3 +21,11 @@ export const splitTitle = (title) => {
 
 // "Advanced Computing Lab, Faculty of Science & Technology" -> "Advanced Computing Lab"
 export const shortVenue = (event) => event.venue.split(/,| \(/)[0];
+
+export const timeLabel = (event) => (event.slot ? `${event.time} (provisional)` : event.time);
+
+// Events whose provisional slot overlaps this one. The fest is one day, so only times are compared.
+export const getClashingEvents = (event) =>
+  event.slot
+    ? EVENTS.filter((other) => other.slug !== event.slug && other.slot && other.slot.start < event.slot.end && event.slot.start < other.slot.end)
+    : [];

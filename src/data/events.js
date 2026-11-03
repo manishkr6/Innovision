@@ -19,7 +19,7 @@ export const FEST_INFO = {
   department: "Department of Information Technology",
   association: "Institution's Innovation Council (Ministry of Education Initiative)",
   venue: "The ICFAI University, Sikkim, Ranka Road, Lower Sichey, Gangtok, Sikkim – 737101",
-  shortVenue: "N.J. Yasaswya Auditorium & FST Labs",
+  shortVenue: "N.J. Yasaswy Auditorium & FST Labs",
   city: "Gangtok, Sikkim",
   dateString: "November 2026",
   // 20 Nov is proposed, not official. Set true once confirmed to drop the "proposed" wording.
@@ -193,42 +193,26 @@ export const EVENTS = [
     categoryLabel: "Technical Track",
     genre: "Algorithmic Problem-Solving & Programming Logic",
     tagline: "An algorithmic problem-solving and programming-logic challenge.",
-    shortDesc: "An algorithmic problem-solving and programming-logic challenge where developers solve rigorous computational problems under strict time and penalty constraints.",
-    fullDesc: "Code Clash is the premier algorithmic challenge of INNOVISION 2026, hosted by the Department of Information Technology. Participants tackle computational challenges requiring deep mastery of data structures, algorithmic design, and edge-case handling. Solutions are evaluated on correctness, time taken, and penalty points.",
+    shortDesc: "An algorithmic problem-solving and programming-logic challenge. One hour, your own code, and the ranking comes down to problems solved, time taken and penalties.",
+    fullDesc: "Code Clash is the coding competition of INNOVISION 2026. You compete alone for one hour on algorithmic and programming-logic problems, in C/C++, Java or Python.",
     icon: "code",
     image: "/images/photos/coding.jpg",
     isITOnly: true,
-    date: "Day 1 - November 2026",
-    time: "10:30 AM - 01:30 PM [TBC]",
+    time: "10:30 AM - 01:30 PM",
+    // Provisional website timetable, used for clash checks. Keep in step with EVENTS in apps-script/Code.gs.
+    slot: { start: "10:30", end: "13:30" },
     venue: "Advanced Computing Lab, Faculty of Science & Technology",
     teamSize: {
       min: 1,
       max: 1,
       label: "Individual Entry"
     },
-    rounds: [
-      {
-        roundNumber: 1,
-        title: "Speed Algorithmic Sprint",
-        duration: "60 Minutes",
-        description: "Solve rapid-fire algorithmic problems using C, C++, Java, or Python. Solutions evaluated automatically on correctness and execution time."
-      },
-      {
-        roundNumber: 2,
-        title: "Complex Logic & Optimization",
-        duration: "90 Minutes",
-        description: "Tackle high-complexity algorithmic and optimization challenges under live leaderboard conditions. Ranking determined by problems solved, time taken, and penalties."
-      }
-    ],
+    rounds: [],
     prizes: {
       first: "Gold Medal and Winner’s Certificate",
       second: "Silver Medal and Runner-Up Certificate",
       all: "Official Certificate of Participation",
-      perks: [
-        "Official FST Department of Information Technology Commendation",
-        "Podium Medal Ceremony on Grand Auditorium Stage",
-        "Institution's Innovation Council Merit Recognition"
-      ]
+      perks: []
     },
     coordinators: {
       faculty: "Mr. Rahul Shah",
@@ -237,11 +221,9 @@ export const EVENTS = [
       studentPhone: "+91 8159846675"
     },
     rules: [
+      "Individual event. Duration: 1 hour.",
       "Participants must write their own solutions. Sharing code, or using the internet, AI tools or pre-written solutions, is not allowed unless the organisers say so before the event.",
-      "Allowed programming languages: C, C++, Java, and Python on designated lab systems.",
-      "Ranking criteria: based on problems solved, time taken, and penalties for incorrect submissions.",
-      "Participants must report at the venue at the time announced for the event. Late arrivals may be refused entry.",
-      "Plagiarism, copying, use of unfair means or impersonation is strictly prohibited and results in immediate disqualification."
+      "Languages allowed: C/C++ (GCC) with VS Code or Dev C++, Java (Oracle JDK 21) with VS Code or Sublime Text, and Python 3 with VS Code or Jupyter Notebook."
     ],
     generalRules: [
       "Every participant must be a currently enrolled student and carry a valid college/university ID card at all times.",
@@ -249,13 +231,9 @@ export const EVENTS = [
       "All participants must follow the INNOVISION 2026 Code of Conduct.",
       "Protests must be made in writing by the participant/team leader within the announced timeframe; judges' marking decisions are final."
     ],
-    judgingCriteria: [
-      { criteria: "Problems Correctly Solved", weight: "50%", description: "Total count of algorithmic test cases and problem statements successfully cleared." },
-      { criteria: "Time Taken", weight: "30%", description: "Cumulative time taken to submit verified solutions." },
-      { criteria: "Penalty Minimization", weight: "20%", description: "Accuracy of submissions with minimal penalty points for failed runs." }
-    ],
+    judgingCriteria: [{"criteria": "Problems solved"}, {"criteria": "Time taken"}, {"criteria": "Penalties"}],
     eligibility: [
-      "Open to students of The ICFAI University, Sikkim (all departments) and of every college and university across Sikkim, on registration.",
+      "Open to IT students (IT, Computer Science, BCA, MCA, B.Tech) of The ICFAI University, Sikkim and of every college and university across Sikkim, on registration.",
       "Must carry a valid college/university identity card at all times."
     ],
     registrationFee: "Free",
@@ -272,48 +250,26 @@ export const EVENTS = [
     categoryLabel: "Technical Track",
     genre: "Full-Stack & Web Innovation",
     tagline: "A team event in which teams solve real-world problems over a full day, run as a small hackathon.",
-    shortDesc: "A team event in which teams solve real-world problems over a full day, run as a small hackathon. Work must be done during the event and demonstrated to the jury.",
-    fullDesc: "The Web Hackathon is an intensive full-day team engineering competition. Teams are given the problem statement at the start of the event. All work must be conducted on site during the event window. At the conclusion, teams must demonstrate and present their live working prototype to the evaluation panel.",
+    shortDesc: "A team event in which teams of two solve real-world problems over a full day, run as a small hackathon, then demonstrate what they built.",
+    fullDesc: "The Web Hackathon is a full-day team event run as a small hackathon. Teams of two get the problem statement at the start, do all their work during the event, and present or demonstrate it at the end.",
     icon: "globe",
     image: "/images/photos/team-laptop.jpg",
     isITOnly: true,
-    date: "Day 2 - November 2026",
-    time: "09:00 AM - 05:30 PM [TBC]",
+    time: "09:00 AM - 05:30 PM",
+    // Provisional website timetable, used for clash checks. Keep in step with EVENTS in apps-script/Code.gs.
+    slot: { start: "09:00", end: "17:30" },
     venue: "Main Computer Center & Innovation Lab, FST",
     teamSize: {
       min: 2,
       max: 2,
       label: "Team of 2"
     },
-    rounds: [
-      {
-        roundNumber: 1,
-        title: "Problem Statement Release & Architecture",
-        duration: "1 Hour",
-        description: "Problem statements announced at kickoff. Teams submit their architecture diagram, tech stack choice, and MVP plan."
-      },
-      {
-        roundNumber: 2,
-        title: "Full-Day Build Sprint & Mentorship",
-        duration: "5.5 Hours",
-        description: "Continuous hands-on web application development. Mentors conduct checkpoint reviews during the build."
-      },
-      {
-        roundNumber: 3,
-        title: "Live Prototype Demo & Presentation",
-        duration: "2 Hours",
-        description: "Teams present their live working solution followed by technical Q&A before the judging committee."
-      }
-    ],
+    rounds: [],
     prizes: {
       first: "Gold Medal and Winner’s Certificate",
       second: "Silver Medal and Runner-Up Certificate",
       all: "Official Certificate of Participation",
-      perks: [
-        "Incubation and project guidance through Institution's Innovation Council (IIC)",
-        "Grand Stage Medal Ceremony and Winner Team Citation",
-        "Official FST Department of Information Technology Showcase"
-      ]
+      perks: []
     },
     coordinators: {
       faculty: "Mr. Ajit Karki",
@@ -323,9 +279,8 @@ export const EVENTS = [
     },
     rules: [
       "Teams are given the problem statement at the start of the event.",
-      "Work must be done during the event. Pre-built projects or pre-written full solutions are strictly prohibited.",
-      "Teams must present or demonstrate their work at the end to the judging panel.",
-      "Participants must bring their own laptops, development devices, and accessories.",
+      "Work must be done during the event.",
+      "Teams present or demonstrate their work at the end.",
       "Each team must name one team leader as the point of contact."
     ],
     generalRules: [
@@ -334,13 +289,9 @@ export const EVENTS = [
       "Team members cannot be changed after the registration deadline unless the organisers approve it.",
       "Damage to university property or equipment is the responsibility of the team who caused it."
     ],
-    judgingCriteria: [
-      { criteria: "Innovation & Practical Applicability", weight: "35%", description: "Novelty of approach and real-world effectiveness in addressing the problem statement." },
-      { criteria: "Technical Implementation & Code Quality", weight: "35%", description: "Architecture, database/API integration, responsiveness, and clean code practices." },
-      { criteria: "Live Demo & Jury Defense", weight: "30%", description: "Clarity of presentation, functional feature walkthrough, and jury Q&A answers." }
-    ],
+    judgingCriteria: [],
     eligibility: [
-      "Open to students of The ICFAI University, Sikkim (all departments) and of every college and university across Sikkim, on registration.",
+      "Open to IT students (IT, Computer Science, BCA, MCA, B.Tech) of The ICFAI University, Sikkim and of every college and university across Sikkim, on registration.",
       "Must carry a valid college/university identity card at all times."
     ],
     registrationFee: "Free",
@@ -356,48 +307,27 @@ export const EVENTS = [
     category: "all",
     categoryLabel: "Open to All Departments",
     genre: "Tech Trivia & General Aptitude",
-    tagline: "Tech trivia, general IT aptitude, and rapid-fire quiz rounds.",
-    shortDesc: "Tech trivia, general IT aptitude, and rapid-fire quiz rounds testing computing milestones, tech history, and logical puzzles.",
-    fullDesc: "Brain Spark is the dynamic IT and fun quiz of INNOVISION 2026. Designed to test agility, knowledge, and quick thinking across computer science breakthroughs, emerging technology, industry milestones, and rapid-fire logic puzzles.",
+    tagline: "Tech trivia, general aptitude, and rapid-fire rounds.",
+    shortDesc: "Tech trivia, general aptitude, and rapid-fire rounds. Bring a partner and find out who knows the most.",
+    fullDesc: "Brain Spark is the IT and fun quiz of INNOVISION 2026, played in teams of two across tech trivia, general aptitude and rapid-fire rounds.",
     icon: "lightbulb",
     image: "/images/photos/quiz.jpg",
     isITOnly: false,
-    date: "Day 1 - November 2026",
-    time: "02:00 PM - 04:30 PM [TBC]",
-    venue: "N.J. Yasaswya Auditorium (Main Hall)",
+    time: "02:00 PM - 04:30 PM",
+    // Provisional website timetable, used for clash checks. Keep in step with EVENTS in apps-script/Code.gs.
+    slot: { start: "14:00", end: "16:30" },
+    venue: "N.J. Yasaswy Auditorium (Main Hall)",
     teamSize: {
       min: 2,
       max: 2,
       label: "Team of 2"
     },
-    rounds: [
-      {
-        roundNumber: 1,
-        title: "Preliminary Aptitude & Tech Screening",
-        duration: "30 Minutes",
-        description: "Written screening round covering core IT knowledge, tech trivia, and logic puzzles to determine the top finalist teams."
-      },
-      {
-        roundNumber: 2,
-        title: "Audio-Visual & Tech Milestone Buzzer Round",
-        duration: "45 Minutes",
-        description: "Stage buzzer round identifying tech pioneers, historic computing hardware, brands, and innovation trivia."
-      },
-      {
-        roundNumber: 3,
-        title: "Rapid Fire Face-Off",
-        duration: "30 Minutes",
-        description: "60-second high-pressure rapid fire round for final Gold and Silver podium rankings."
-      }
-    ],
+    rounds: [],
     prizes: {
       first: "Gold Medal and Winner’s Certificate",
       second: "Silver Medal and Runner-Up Certificate",
       all: "Official Certificate of Participation",
-      perks: [
-        "Departmental Commendation",
-        "Podium Medal Ceremony on Grand Auditorium Stage"
-      ]
+      perks: []
     },
     coordinators: {
       faculty: "Mr. Rahul Shah",
@@ -406,20 +336,15 @@ export const EVENTS = [
       studentPhone: "+91 8159846675"
     },
     rules: [
-      "Questions cover tech trivia, general IT aptitude, computer history, and rapid-fire logic puzzles.",
-      "No mobile phones, internet access, smartwatches, or outside aids allowed during the quiz rounds.",
-      "The Quiz Master’s decision on questions, scoring, and point allocations is absolute and final.",
-      "Prompting from audience or unauthorized collaboration leads to immediate team disqualification."
+      "No mobile phones or other aids are allowed during the quiz.",
+      "The quiz master’s decision on an answer is final."
     ],
     generalRules: [
       "Every participant must carry and present a valid college/university ID card.",
       "Participants must report at the venue at the announced time. Late arrivals may be refused entry.",
       "All participants must follow the INNOVISION 2026 Code of Conduct."
     ],
-    judgingCriteria: [
-      { criteria: "Accuracy of Answers", weight: "60%", description: "Points accumulated through correct answers across preliminary and stage rounds." },
-      { criteria: "Speed & Buzzer Timing", weight: "40%", description: "Fastest response time on buzzer rounds without incurring negative penalties." }
-    ],
+    judgingCriteria: [],
     eligibility: [
       "Open to students of The ICFAI University, Sikkim (all departments) and of every college and university across Sikkim, on registration.",
       "Must carry a valid college/university ID card at all times."
@@ -437,42 +362,27 @@ export const EVENTS = [
     category: "all",
     categoryLabel: "Open to All Departments",
     genre: "Typing Speed & Accuracy",
-    tagline: "A typing-speed, words-per-minute (WPM) and accuracy contest.",
-    shortDesc: "A typing-speed, words-per-minute (WPM) and accuracy contest on standardized keyboard testing software.",
-    fullDesc: "Type Race evaluates keyboard speed, muscle memory, and precision accuracy under pressure. Competitors type across complex passages and technical syntax to achieve the highest net Words Per Minute (WPM) with strict accuracy benchmarks.",
+    tagline: "A typing accuracy and word-per-minute (WPM) contest.",
+    shortDesc: "A typing accuracy and word-per-minute (WPM) contest. No team, no excuses: just you and the keyboard.",
+    fullDesc: "Type Race tests how fast and how accurately you can type. It is an individual event scored on accuracy and words per minute.",
     icon: "keyboard",
     image: "/images/photos/typing.jpg",
     isITOnly: false,
-    date: "Day 2 - November 2026",
-    time: "11:00 AM - 01:00 PM [TBC]",
+    time: "11:00 AM - 01:00 PM",
+    // Provisional website timetable, used for clash checks. Keep in step with EVENTS in apps-script/Code.gs.
+    slot: { start: "11:00", end: "13:00" },
     venue: "Computer Lab 2, Faculty of Science & Technology",
     teamSize: {
       min: 1,
       max: 1,
       label: "Individual Entry"
     },
-    rounds: [
-      {
-        roundNumber: 1,
-        title: "Preliminary Heat Benchmark",
-        duration: "15 Minutes",
-        description: "3 standardized 2-minute typing passages. Top typists with highest net WPM advance to the championship."
-      },
-      {
-        roundNumber: 2,
-        title: "Championship Heat",
-        duration: "20 Minutes",
-        description: "Finalists compete on complex alphanumeric and programming passages for the Gold and Silver medals."
-      }
-    ],
+    rounds: [],
     prizes: {
       first: "Gold Medal and Winner’s Certificate",
       second: "Silver Medal and Runner-Up Certificate",
       all: "Official Certificate of Participation",
-      perks: [
-        "Fastest Typist of INNOVISION 2026 Title",
-        "Podium Medal Ceremony on Grand Auditorium Stage"
-      ]
+      perks: []
     },
     coordinators: {
       faculty: "Mr. Subodh Adhikari",
@@ -481,20 +391,16 @@ export const EVENTS = [
       studentPhone: "+91 8927436941"
     },
     rules: [
-      "Individual speed typing competition conducted on standardized testing software.",
-      "Scoring is determined by highest net words per minute (WPM) subject to a minimum 95% accuracy benchmark.",
-      "Use of macros, external auto-type scripting, copy-paste tricks, or automated typing tools results in instant disqualification.",
-      "Standard university keyboards provided; participants may bring personal keyboards subject to coordinator verification."
+      "Individual event.",
+      "Participants must type on the system or keyboard provided, if the organisers provide one."
     ],
     generalRules: [
-      "Participants must carry their valid college/university ID card at all times.",
-      "Late reporting forfeits the participant's assigned heat slot.",
-      "Decisions of event coordinators and test monitors are final."
+      "Every participant must carry a valid college/university ID card at all times.",
+      "Participants must report at the announced time. Late arrivals may be refused entry.",
+      "All participants must follow the INNOVISION 2026 Code of Conduct.",
+      "The judges’ decisions are final."
     ],
-    judgingCriteria: [
-      { criteria: "Net Words Per Minute (WPM)", weight: "70%", description: "Official net typing speed calculated after deducting typing errors." },
-      { criteria: "Keystroke Accuracy Percentage", weight: "30%", description: "Proportion of error-free characters typed during the round." }
-    ],
+    judgingCriteria: [{"criteria": "Typing accuracy"}, {"criteria": "Words per minute (WPM)"}],
     eligibility: [
       "Open to students of The ICFAI University, Sikkim (all departments) and of every college and university across Sikkim, on registration.",
       "Must carry a valid college/university ID card."
@@ -517,41 +423,26 @@ export const EVENTS = [
     categoryLabel: "Open to All Departments",
     genre: "Startup Pitch & Business Strategy",
     tagline: "Startup pitching, business-plan presentation & entrepreneurial innovation challenge.",
-    shortDesc: "Startup pitching, business-plan presentation and entrepreneurial innovation challenge. Pitch original business ideas to a jury of founders and faculty.",
-    fullDesc: "NextPreneur is the flagship entrepreneurship and business-pitching challenge of INNOVISION 2026, held in association with Institution's Innovation Council (Ministry of Education Initiative). Student founders present original business plans, market models, and prototype solutions to an expert panel.",
+    shortDesc: "Startup pitching, business-plan presentation and entrepreneurial innovation challenge. Enter alone or as a team of two.",
+    fullDesc: "NextPreneur is the entrepreneurship challenge of INNOVISION 2026, covering startup pitching and business-plan presentation. Bring your own idea and enter alone or as a team of two.",
     icon: "compass",
     image: "/images/photos/mic-stage.jpg",
     isITOnly: false,
-    date: "Day 1 - November 2026",
-    time: "01:30 PM - 05:00 PM [TBC]",
-    venue: "N.J. Yasaswya Auditorium Stage",
+    time: "01:30 PM - 05:00 PM",
+    // Provisional website timetable, used for clash checks. Keep in step with EVENTS in apps-script/Code.gs.
+    slot: { start: "13:30", end: "17:00" },
+    venue: "N.J. Yasaswy Auditorium Stage",
     teamSize: {
       min: 1,
       max: 2,
       label: "Individual or Team of 2"
     },
-    rounds: [
-      {
-        roundNumber: 1,
-        title: "Executive Pitch Deck Submission",
-        duration: "Advance",
-        description: "Submission of slide deck covering problem statement, customer segment, revenue model, and feasibility."
-      },
-      {
-        roundNumber: 2,
-        title: "Live Grand Stage Pitch & Jury Q&A",
-        duration: "7 Mins Pitch + 3 Mins Q&A",
-        description: "Live pitch presentation in front of the judging panel and auditorium audience followed by defense."
-      }
-    ],
+    rounds: [],
     prizes: {
       first: "Gold Medal and Winner’s Certificate",
       second: "Silver Medal and Runner-Up Certificate",
       all: "Official Certificate of Participation",
-      perks: [
-        "Incubation and mentorship pathway via Institution's Innovation Council (IIC)",
-        "Grand Stage Medal Ceremony and Certificate of Innovation"
-      ]
+      perks: []
     },
     coordinators: {
       faculty: "Mr. Nishant Chaki",
@@ -560,22 +451,14 @@ export const EVENTS = [
       studentPhone: "+91 9907187423"
     },
     rules: [
-      "The idea and the presentation must be the participant’s or team’s own original work.",
-      "Pitch deck structure must cover problem, market, solution, revenue model, and execution roadmap.",
-      "Participants must present on stage within the allotted time limit followed by jury Q&A.",
-      "Plagiarized pitch decks or copying existing established business plans results in instant disqualification."
+      "The idea and the presentation must be the participant’s or team’s own work."
     ],
     generalRules: [
       "Each team must name one team leader as the point of contact.",
       "Participants must carry a valid college/university ID card at all times.",
       "Judges' decisions on evaluation criteria are final."
     ],
-    judgingCriteria: [
-      { criteria: "Originality & Value Proposition", weight: "30%", description: "Uniqueness of idea and real market problem being solved." },
-      { criteria: "Business Model & Financial Viability", weight: "30%", description: "Clear monetization strategy, unit economics, and feasibility." },
-      { criteria: "Presentation Delivery", weight: "20%", description: "Clarity, slide aesthetics, stage presence, and storytelling." },
-      { criteria: "Jury Q&A Defense", weight: "20%", description: "Confidence and depth of responses to jury cross-examination." }
-    ],
+    judgingCriteria: [],
     eligibility: [
       "Open to students of The ICFAI University, Sikkim (all departments) and of every college and university across Sikkim, on registration.",
       "Valid student ID required."
@@ -594,47 +477,26 @@ export const EVENTS = [
     categoryLabel: "Open to All Departments",
     genre: "Campus Clue-Solving & Strategy Quest",
     tagline: "A campus-wide clue-solving and team-strategy quest.",
-    shortDesc: "A campus-wide clue-solving and team-strategy quest. Decode cryptic riddles, explore allowed campus zones, and uncover hidden tech tokens.",
-    fullDesc: "Tech Hunt turns the ICFAI University Sikkim campus into a high-octane quest arena. Teams decipher multi-layered technical ciphers, QR-coded clue stations, and logic puzzles to navigate across permitted zones and retrieve the final artifact.",
+    shortDesc: "A campus-wide clue-solving and team-strategy quest. Five players, one campus, and every clue leads to the next.",
+    fullDesc: "Tech Hunt is the treasure hunt of INNOVISION 2026: a campus-wide clue-solving and team-strategy quest for teams of five.",
     icon: "compass",
     image: "/images/photos/treasure-map.jpg",
     isITOnly: false,
-    date: "Day 2 - November 2026",
-    time: "01:30 PM - 04:30 PM [TBC]",
-    venue: "Campus-Wide (Briefing at Auditorium)",
+    time: "01:30 PM - 04:30 PM",
+    // Provisional website timetable, used for clash checks. Keep in step with EVENTS in apps-script/Code.gs.
+    slot: { start: "13:30", end: "16:30" },
+    venue: "Campus-Wide",
     teamSize: {
       min: 5,
       max: 5,
       label: "Team of 5"
     },
-    rounds: [
-      {
-        roundNumber: 1,
-        title: "The Decryption Cipher",
-        duration: "30 Minutes",
-        description: "Solve initial cryptic logic and cipher challenges to unlock the first campus waypoint coordinate."
-      },
-      {
-        roundNumber: 2,
-        title: "Campus Clue Navigation",
-        duration: "90 Minutes",
-        description: "Follow sequential stations across permitted campus zones without damaging or disturbing campus fixtures."
-      },
-      {
-        roundNumber: 3,
-        title: "Final Artifact Retrieval",
-        duration: "30 Minutes",
-        description: "Assemble decoded clue pieces to locate and present the final Tech Hunt treasure."
-      }
-    ],
+    rounds: [],
     prizes: {
       first: "Gold Medal and Winner’s Certificate",
       second: "Silver Medal and Runner-Up Certificate",
       all: "Official Certificate of Participation",
-      perks: [
-        "Tech Hunt Champions Trophy",
-        "Podium Medal Ceremony on Grand Auditorium Stage"
-      ]
+      perks: []
     },
     coordinators: {
       faculty: "Mr. Subodh Adhikari",
@@ -643,20 +505,15 @@ export const EVENTS = [
       studentPhone: "+91 8116368690"
     },
     rules: [
-      "Teams must stay strictly within the areas of the campus that the organisers allow, and must not damage or remove anything while following clues.",
-      "Teams must not share clues with, or take clues from, other teams (leads to immediate disqualification of all involved teams).",
-      "Running in restricted lab zones or disturbing ongoing university lectures is prohibited.",
-      "All clue checkpoints must be validated by checkpoint volunteers in sequential order."
+      "Teams must stay within the areas of the campus that the organisers allow and must not damage or remove anything while following clues.",
+      "Teams must not share clues with or take clues from other teams."
     ],
     generalRules: [
       "Each team must name one team leader as the point of contact.",
       "Damage to university property is the responsibility of the person or team who caused it.",
       "All participants must follow the INNOVISION 2026 Code of Conduct."
     ],
-    judgingCriteria: [
-      { criteria: "Time of Final Submission", weight: "70%", description: "Fastest team to present all verified clues and the final artifact." },
-      { criteria: "Clue Integrity & Fair Play", weight: "30%", description: "Strict adherence to permitted zones and zero penalties/clue violations." }
-    ],
+    judgingCriteria: [],
     eligibility: [
       "Open to students of The ICFAI University, Sikkim (all departments) and of every college and university across Sikkim, on registration.",
       "Must carry a valid college/university ID card at all times."
@@ -678,48 +535,27 @@ export const EVENTS = [
     category: "all",
     categoryLabel: "Esports Arena",
     genre: "Squad Battle Royale Esports",
-    tagline: "A squad/team battle-royale tournament.",
-    shortDesc: "A squad/team battle-royale tournament in Battlegrounds Mobile India featuring tactical rotations, gunplay, and survival points.",
-    fullDesc: "The premier esports battle royale tournament of INNOVISION 2026. Squads drop onto Erangel and Miramar to compete under official tournament point matrices. Survival instincts, zone rotations, gunplay accuracy, and squad communication decide who takes the podium.",
+    tagline: "A squad battle-royale tournament.",
+    shortDesc: "A squad battle-royale tournament in Battlegrounds Mobile India. Four players, one squad, and a gold medal for each of you if you win.",
+    fullDesc: "The BGMI Tournament is the squad battle-royale event of INNOVISION 2026, for squads of four. Number of matches, points system and device rules will be announced by the organisers.",
     icon: "gamepad-2",
     image: "/images/games/bgmi.jpg",
     isITOnly: false,
-    date: "Day 1 & Day 2 - November 2026",
-    time: "11:00 AM - 05:00 PM [TBC]",
+    time: "11:00 AM - 05:00 PM",
+    // Provisional website timetable, used for clash checks. Keep in step with EVENTS in apps-script/Code.gs.
+    slot: { start: "11:00", end: "17:00" },
     venue: "Student Activity Center (SAC) Esports Arena",
     teamSize: {
       min: 4,
       max: 4,
       label: "Squad of 4"
     },
-    rounds: [
-      {
-        roundNumber: 1,
-        title: "Group Stage Qualifiers",
-        duration: "2 Matches",
-        description: "Registered squads play seeded group lobbies. Top scoring squads advance based on placement and kill points."
-      },
-      {
-        roundNumber: 2,
-        title: "Semi-Finals Bracket",
-        duration: "2 Matches",
-        description: "Intense clashes across Erangel and Miramar to qualify for the 16-squad Grand Finals lobby."
-      },
-      {
-        roundNumber: 3,
-        title: "Grand Finals Spectator Lobby",
-        duration: "3 Matches",
-        description: "Live-projected finals in the auditorium with live shoutcasting to decide the Gold and Silver medals."
-      }
-    ],
+    rounds: [],
     prizes: {
       first: "Gold Medal and Winner’s Certificate",
       second: "Silver Medal and Runner-Up Certificate",
       all: "Official Certificate of Participation",
-      perks: [
-        "BGMI Champions Trophy",
-        "Podium Medal Ceremony on Grand Auditorium Stage"
-      ]
+      perks: []
     },
     coordinators: {
       faculty: "Mr. Rahul Shah",
@@ -730,18 +566,15 @@ export const EVENTS = [
     rules: [
       "Cheating, hacking, use of third-party tools, teaming up with opponents, and deliberate disconnection are not allowed and lead to disqualification.",
       "Players must be present at the time of their match. A team or player who is absent after the waiting time loses the match by walkover.",
-      "Players must use their real registered names and their own accounts. Account sharing is not allowed.",
-      "Mobile phones only. Emulators, iPads/tablets, triggers, and modified game files are strictly banned."
+      "Players must use their real registered names and their own accounts. Account sharing is not allowed."
     ],
     generalRules: [
-      "Every participant must carry and present a valid college/university ID card.",
-      "Decisions of tournament referees and the organising committee are final.",
-      "All participants must follow the INNOVISION 2026 Code of Conduct."
+      "Every participant must carry a valid college/university ID card at all times.",
+      "Participants must report at the announced time. Late arrivals may be refused entry.",
+      "All participants must follow the INNOVISION 2026 Code of Conduct.",
+      "The judges’ decisions are final."
     ],
-    judgingCriteria: [
-      { criteria: "Official Tournament Placement Points", weight: "70%", description: "Points earned for squad finish rank per match." },
-      { criteria: "Finish / Kill Points", weight: "30%", description: "1 point awarded per verified in-game elimination." }
-    ],
+    judgingCriteria: [],
     eligibility: [
       "Open to students of The ICFAI University, Sikkim (all departments) and of every college and university across Sikkim, on registration.",
       "All 4 squad members must carry valid institutional ID cards."
@@ -760,47 +593,26 @@ export const EVENTS = [
     categoryLabel: "Esports Arena",
     genre: "5v5 MOBA Mobile Esports",
     tagline: "A 5v5 MOBA mobile esports competition.",
-    shortDesc: "A 5v5 MOBA mobile esports competition. Each team has five players competing in official draft pick format.",
-    fullDesc: "MOBA Legends: 5v5 brings fast-paced 5v5 MOBA strategy to INNOVISION 2026. Teams execute strategic hero bans and draft picks, coordinate lane pressure, and conquer objectives across the Land of Dawn to destroy the enemy base.",
+    shortDesc: "A 5v5 MOBA mobile esports competition. Each team has five players.",
+    fullDesc: "MOBA Legends: 5v5 is the 5v5 mobile esports competition of INNOVISION 2026. Each team has five players. Substitutes, match format and draft rules will be announced by the organisers.",
     icon: "swords",
     image: "/images/games/moba-legends.jpg",
     isITOnly: false,
-    date: "Day 1 - November 2026",
-    time: "12:00 PM - 05:00 PM [TBC]",
+    time: "12:00 PM - 05:00 PM",
+    // Provisional website timetable, used for clash checks. Keep in step with EVENTS in apps-script/Code.gs.
+    slot: { start: "12:00", end: "17:00" },
     venue: "SAC Esports Zone",
     teamSize: {
       min: 5,
       max: 5,
       label: "Team of 5 Players"
     },
-    rounds: [
-      {
-        roundNumber: 1,
-        title: "Single-Elimination Knockouts",
-        duration: "Best of 1",
-        description: "Official tournament draft mode. Winning teams advance through the knockout bracket."
-      },
-      {
-        roundNumber: 2,
-        title: "Semi-Finals",
-        duration: "Best of 3",
-        description: "Best-of-3 draft series testing tactical flexibility and deep hero pools."
-      },
-      {
-        roundNumber: 3,
-        title: "Championship Final",
-        duration: "Best of 3",
-        description: "Grand Finals clash broadcast on live display for the championship title."
-      }
-    ],
+    rounds: [],
     prizes: {
       first: "Gold Medal and Winner’s Certificate",
       second: "Silver Medal and Runner-Up Certificate",
       all: "Official Certificate of Participation",
-      perks: [
-        "MOBA Legends Champions Trophy",
-        "Podium Medal Ceremony on Grand Auditorium Stage"
-      ]
+      perks: []
     },
     coordinators: {
       faculty: "Mr. Rahul Shah",
@@ -809,20 +621,18 @@ export const EVENTS = [
       studentPhone: "+91 7001156203"
     },
     rules: [
-      "Each team has five players. Substitutes, match format and draft rules follow official tournament guidelines.",
-      "Cheating, hacking, use of third-party tools, teaming up with opponents and deliberate disconnection are not allowed and lead to disqualification.",
+      "Each team has five players.",
+      "Cheating, hacking, use of third-party tools, teaming up with opponents, and deliberate disconnection are not allowed and lead to disqualification.",
       "Players must be present at the time of their match. A team or player who is absent after the waiting time loses the match by walkover.",
       "Players must use their real registered names and their own accounts. Account sharing is not allowed."
     ],
     generalRules: [
-      "Valid college/university ID card mandatory for every player.",
-      "Participants must bring their own smartphones and chargers.",
-      "Referee decisions regarding match disconnections and remakes are final."
+      "Every participant must carry a valid college/university ID card at all times.",
+      "Participants must report at the announced time. Late arrivals may be refused entry.",
+      "All participants must follow the INNOVISION 2026 Code of Conduct.",
+      "The judges’ decisions are final."
     ],
-    judgingCriteria: [
-      { criteria: "Match Victory (Base Destruction)", weight: "80%", description: "Official in-game victory condition through destroying the opposing core." },
-      { criteria: "Tournament Bracket Advancement", weight: "20%", description: "Match progression through the official bracket system." }
-    ],
+    judgingCriteria: [],
     eligibility: [
       "Open to students of The ICFAI University, Sikkim (all departments) and of every college and university across Sikkim, on registration.",
       "Valid student ID required for all 5 team members."
@@ -841,47 +651,26 @@ export const EVENTS = [
     categoryLabel: "Esports Arena",
     genre: "1v1 Football Gaming Showdown",
     tagline: "A 1v1 football gaming showdown on console or mobile.",
-    shortDesc: "A 1v1 football gaming showdown on console or mobile. Tactical formations, dribbling skills, and clutch penalty shootouts.",
-    fullDesc: "E-Football brings the drama of the football pitch to the digital arena. Competitors go head-to-head in 1v1 knockout matches where tactical formations, precision passing, defensive discipline, and penalty composure decide the champion.",
+    shortDesc: "A 1v1 football gaming showdown on console or mobile. Just you, your opponent and the scoreline.",
+    fullDesc: "E-Football is the 1v1 football gaming showdown of INNOVISION 2026, on console or mobile. Platform, match length and format will be announced with the event guidelines.",
     icon: "trophy",
     image: "/images/games/efootball.jpg",
     isITOnly: false,
-    date: "Day 2 - November 2026",
-    time: "10:00 AM - 02:00 PM [TBC]",
-    venue: "SAC Gaming Zone",
+    time: "To be announced",
+    // Provisional website timetable, used for clash checks. Keep in step with EVENTS in apps-script/Code.gs.
+    slot: null,
+    venue: "To be announced",
     teamSize: {
       min: 1,
       max: 1,
       label: "Individual (1v1)"
     },
-    rounds: [
-      {
-        roundNumber: 1,
-        title: "Knockout Bracket Heats",
-        duration: "10 Mins Match",
-        description: "1v1 single-elimination heats with standardized authentic club teams."
-      },
-      {
-        roundNumber: 2,
-        title: "Quarter & Semi-Finals",
-        duration: "12 Mins Match",
-        description: "Competitive bracket matches with extra time and penalty shootouts enabled."
-      },
-      {
-        roundNumber: 3,
-        title: "Grand Finals Showdown",
-        duration: "15 Mins Match",
-        description: "Auditorium-streamed final to determine the Gold and Silver medalists."
-      }
-    ],
+    rounds: [],
     prizes: {
       first: "Gold Medal and Winner’s Certificate",
       second: "Silver Medal and Runner-Up Certificate",
       all: "Official Certificate of Participation",
-      perks: [
-        "E-Football Champion Trophy",
-        "Podium Medal Ceremony on Grand Auditorium Stage"
-      ]
+      perks: []
     },
     coordinators: {
       faculty: "Mr. Subodh Adhikari",
@@ -890,19 +679,17 @@ export const EVENTS = [
       studentPhone: "+91 7001156203"
     },
     rules: [
-      "1v1 virtual football competition in knockout format.",
-      "Cheating, hacking, use of third-party tools, glitch exploitation, and deliberate disconnection are not allowed and lead to disqualification.",
-      "Players must be present at the time of their match. Absence after the waiting time loses the match by walkover.",
+      "Cheating, hacking, use of third-party tools, teaming up with opponents, and deliberate disconnection are not allowed and lead to disqualification.",
+      "Players must be present at the time of their match. A team or player who is absent after the waiting time loses the match by walkover.",
       "Players must use their real registered names and their own accounts. Account sharing is not allowed."
     ],
     generalRules: [
-      "Participants must carry a valid college/university ID card.",
-      "Standard controller profiles permitted.",
-      "Decisions of tournament referees are final."
+      "Every participant must carry a valid college/university ID card at all times.",
+      "Participants must report at the announced time. Late arrivals may be refused entry.",
+      "All participants must follow the INNOVISION 2026 Code of Conduct.",
+      "The judges’ decisions are final."
     ],
-    judgingCriteria: [
-      { criteria: "Match Score", weight: "100%", description: "Final goals scored at full-time (or extra time / penalties in knockout)." }
-    ],
+    judgingCriteria: [],
     eligibility: [
       "Open to students of The ICFAI University, Sikkim (all departments) and of every college and university across Sikkim, on registration.",
       "Valid student ID required."
@@ -925,47 +712,26 @@ export const EVENTS = [
     categoryLabel: "Creative Arts Track",
     genre: "Short-Form Video Storytelling & Editing",
     tagline: "Short-form video storytelling, editing and cinematography around campus or event themes.",
-    shortDesc: "Short-form video storytelling, editing and cinematography around campus or event themes. Creative visual pacing and engaging reel narrative.",
-    fullDesc: "Frame Flick is the modern visual storytelling arena of INNOVISION 2026. Creators capture the vibrant energy, tech exhibits, and spirited moments across the campus, crafting compelling vertical short videos that highlight the festival theme.",
+    shortDesc: "Short-form video storytelling, editing and cinematography around campus or event themes.",
+    fullDesc: "Frame Flick is the reel-making competition of INNOVISION 2026: short-form video storytelling, editing and cinematography around campus or event themes. Theme, video length and format will be announced by the organisers.",
     icon: "video",
     image: "/images/photos/video-edit.jpg",
     isITOnly: false,
-    date: "Day 1 & Day 2 - November 2026",
-    time: "Fest Window Submission [TBC]",
-    venue: "Campus-Wide (Submission to Media Desk)",
+    time: "To be announced",
+    // Provisional website timetable, used for clash checks. Keep in step with EVENTS in apps-script/Code.gs.
+    slot: null,
+    venue: "To be announced",
     teamSize: {
       min: 1,
       max: 1,
       label: "Individual Entry"
     },
-    rounds: [
-      {
-        roundNumber: 1,
-        title: "Theme Release & Campus Cinematography",
-        duration: "Day 1 - Day 2",
-        description: "Campus filming capturing the vibrant energy, events, and atmosphere of INNOVISION 2026."
-      },
-      {
-        roundNumber: 2,
-        title: "Post-Production, Color Grading & Submission",
-        duration: "By Deadline",
-        description: "Video editing, sound design, beat-syncing, and submission of the final vertical MP4 reel."
-      },
-      {
-        roundNumber: 3,
-        title: "Auditorium Premiere & Jury Evaluation",
-        duration: "Closing Ceremony",
-        description: "Top-selected reels premiered on the auditorium big screen before the awards announcement."
-      }
-    ],
+    rounds: [],
     prizes: {
       first: "Gold Medal and Winner’s Certificate",
       second: "Silver Medal and Runner-Up Certificate",
       all: "Official Certificate of Participation",
-      perks: [
-        "Feature on Official University Social Media Channels",
-        "Podium Medal Ceremony on Grand Auditorium Stage"
-      ]
+      perks: []
     },
     coordinators: {
       faculty: "Mrs. Diksha Giri",
@@ -974,22 +740,17 @@ export const EVENTS = [
       studentPhone: "+91 9811241243"
     },
     rules: [
-      "The video must be original work created by the participant.",
-      "Music, footage or images used must be ones the participant has the legal right or license to use.",
-      "Content that is offensive, hateful or inappropriate is strictly prohibited (see Code of Conduct).",
-      "All primary footage must be shot on campus during the festival window.",
-      "Submitted videos must adhere to standard vertical 9:16 aspect ratio."
+      "The video must be original. Music, footage or images used must be ones the participant has the right to use.",
+      "Content that is offensive, hateful or inappropriate is not allowed (see Code of Conduct).",
+      "Participants are required to bring their own clothing and accessories."
     ],
     generalRules: [
-      "Participants must carry a valid college/university ID card.",
-      "Safe filming practices: dangerous stunts or disruption of campus classes is forbidden.",
-      "Decisions of the creative jury panel are final."
+      "Every participant must carry a valid college/university ID card at all times.",
+      "Participants must report at the announced time. Late arrivals may be refused entry.",
+      "All participants must follow the INNOVISION 2026 Code of Conduct.",
+      "The judges’ decisions are final."
     ],
-    judgingCriteria: [
-      { criteria: "Creativity & Storytelling", weight: "40%", description: "Narrative hook, creative pacing, and compelling portrayal of the festival." },
-      { criteria: "Editing & Sound Design", weight: "35%", description: "Cut transitions, beat-matching, audio clarity, and color grading." },
-      { criteria: "Cinematography & Framing", weight: "25%", description: "Composition, lighting quality, camera movement, and visual aesthetic." }
-    ],
+    judgingCriteria: [],
     eligibility: [
       "Open to students of The ICFAI University, Sikkim (all departments) and of every college and university across Sikkim, on registration.",
       "Valid student ID required."
@@ -1008,47 +769,26 @@ export const EVENTS = [
     categoryLabel: "Creative Arts Track",
     genre: "Digital Photography Contest",
     tagline: "An on-the-spot or theme-based digital photography contest.",
-    shortDesc: "An on-the-spot or theme-based digital photography contest. Capture candid moments, architectural beauty, and human emotion.",
-    fullDesc: "Photography at INNOVISION 2026 invites visual artists to document the essence of innovation, culture, and human interaction. Capture unscripted, high-impact moments that tell a complete story through lighting, composition, and visual framing.",
+    shortDesc: "An on-the-spot or theme-based digital photography contest. One frame could take the gold.",
+    fullDesc: "Photography is the digital photography contest of INNOVISION 2026. Format, number of entries, equipment and editing rules will be announced by the organisers.",
     icon: "camera",
     image: "/images/photos/camera.jpg",
     isITOnly: false,
-    date: "Day 1 & Day 2 - November 2026",
-    time: "On-the-Spot Submission [TBC]",
-    venue: "Campus-Wide (Exhibition at Foyer)",
+    time: "To be announced",
+    // Provisional website timetable, used for clash checks. Keep in step with EVENTS in apps-script/Code.gs.
+    slot: null,
+    venue: "To be announced",
     teamSize: {
       min: 1,
       max: 1,
       label: "Individual Entry"
     },
-    rounds: [
-      {
-        roundNumber: 1,
-        title: "Theme Briefing & Campus Shoot",
-        duration: "Day 1",
-        description: "Official photography theme announced. Participants capture candid campus and fest moments."
-      },
-      {
-        roundNumber: 2,
-        title: "Curated Selection & Digital Submission",
-        duration: "Day 2 Morning",
-        description: "Submit uncompressed high-resolution digital entries with intact EXIF metadata."
-      },
-      {
-        roundNumber: 3,
-        title: "Gallery Exhibition & Jury Review",
-        duration: "Day 2 Afternoon",
-        description: "Curated entries displayed in the exhibition foyer and evaluated by professional jury."
-      }
-    ],
+    rounds: [],
     prizes: {
       first: "Gold Medal and Winner’s Certificate",
       second: "Silver Medal and Runner-Up Certificate",
       all: "Official Certificate of Participation",
-      perks: [
-        "Foyer Gallery Exhibition of Winning Photograph",
-        "Podium Medal Ceremony on Grand Auditorium Stage"
-      ]
+      perks: []
     },
     coordinators: {
       faculty: "Mrs. Diksha Giri",
@@ -1057,22 +797,16 @@ export const EVENTS = [
       studentPhone: "+91 9811241243"
     },
     rules: [
-      "Photographs must be taken by the participant during the event.",
-      "Photographs of people must be taken with their informed consent.",
-      "Basic color correction and cropping allowed; generative AI tools, composites, or heavy manipulations are disallowed.",
-      "Original EXIF metadata must be preserved in the submitted image file.",
-      "Participants must bring their own camera or smartphone."
+      "Photographs must be taken by the participants.",
+      "Photographs of people must be taken with their consent."
     ],
     generalRules: [
       "Every participant must carry a valid college/university ID card at all times.",
-      "Respect privacy and follow university guidelines in all campus areas.",
-      "Decisions of the photography jury are final."
+      "Participants must report at the announced time. Late arrivals may be refused entry.",
+      "All participants must follow the INNOVISION 2026 Code of Conduct.",
+      "The judges’ decisions are final."
     ],
-    judgingCriteria: [
-      { criteria: "Composition & Framing", weight: "35%", description: "Rule of thirds, balance, visual depth, and artistic perspective." },
-      { criteria: "Storytelling & Thematic Resonance", weight: "35%", description: "Emotional depth and connection to fest theme." },
-      { criteria: "Technical Quality & Lighting", weight: "30%", description: "Sharpness, exposure control, dynamic range, and focus." }
-    ],
+    judgingCriteria: [],
     eligibility: [
       "Open to students of The ICFAI University, Sikkim (all departments) and of every college and university across Sikkim, on registration.",
       "Valid student ID required."
@@ -1091,41 +825,26 @@ export const EVENTS = [
     categoryLabel: "Creative Arts Track",
     genre: "Visual Art Showcase",
     tagline: "A traditional or creative visual art showcase.",
-    shortDesc: "A traditional or creative visual art showcase. Expressive original artwork created on the spot based on announced themes.",
-    fullDesc: "The Painting Competition at INNOVISION 2026 brings together traditional and contemporary visual artists. Express your creative interpretation of innovation, ecology, and imagination on canvas or paper in an inspiring live studio setting.",
+    shortDesc: "A traditional or creative visual art showcase, painted on the spot and judged on your own work.",
+    fullDesc: "The Painting Competition is the visual art showcase of INNOVISION 2026, open to traditional and creative work. Theme, medium, sheet size and materials will be announced by the organisers.",
     icon: "palette",
     image: "/images/photos/painting.jpg",
     isITOnly: false,
-    date: "Day 2 - November 2026",
-    time: "10:30 AM - 01:30 PM [TBC]",
+    time: "10:30 AM - 01:30 PM",
+    // Provisional website timetable, used for clash checks. Keep in step with EVENTS in apps-script/Code.gs.
+    slot: { start: "10:30", end: "13:30" },
     venue: "FST Central Courtyard & Art Studio",
     teamSize: {
       min: 1,
       max: 1,
       label: "Individual Entry"
     },
-    rounds: [
-      {
-        roundNumber: 1,
-        title: "Theme Release & On-the-Spot Painting",
-        duration: "3 Hours",
-        description: "Theme revealed at kickoff. Artists create their original masterpiece on the spot."
-      },
-      {
-        roundNumber: 2,
-        title: "Foyer Art Exhibition & Jury Review",
-        duration: "1 Hour",
-        description: "Completed artwork displayed for fest attendees and evaluated by fine arts faculty."
-      }
-    ],
+    rounds: [],
     prizes: {
       first: "Gold Medal and Winner’s Certificate",
       second: "Silver Medal and Runner-Up Certificate",
       all: "Official Certificate of Participation",
-      perks: [
-        "Foyer Art Exhibition of Winning Artwork",
-        "Podium Medal Ceremony on Grand Auditorium Stage"
-      ]
+      perks: []
     },
     coordinators: {
       faculty: "Mrs. Diksha Giri",
@@ -1134,22 +853,15 @@ export const EVENTS = [
       studentPhone: "+91 7085310218"
     },
     rules: [
-      "The artwork must be done on the spot and be the participant’s own original work.",
-      "Theme will be announced by the organisers at the commencement of the competition.",
-      "Mediums allowed: watercolor, acrylic, poster color, charcoal, or mixed media on standard sheets.",
-      "Pre-drawn outlines, stencils, or tracing sheets are strictly prohibited.",
-      "Artwork must be completed within the stipulated duration."
+      "The artwork must be done on the spot and be the participant’s own work."
     ],
     generalRules: [
-      "Participants must carry a valid college/university ID card.",
-      "Late arrivals will not receive extra time.",
-      "Decisions of the fine arts jury are final."
+      "Every participant must carry a valid college/university ID card at all times.",
+      "Participants must report at the announced time. Late arrivals may be refused entry.",
+      "All participants must follow the INNOVISION 2026 Code of Conduct.",
+      "The judges’ decisions are final."
     ],
-    judgingCriteria: [
-      { criteria: "Creativity & Original Interpretation", weight: "40%", description: "Uniqueness of vision and creative interpretation of the announced theme." },
-      { criteria: "Artistic Technique & Medium Skill", weight: "35%", description: "Brushwork, color harmony, texture, and shading." },
-      { criteria: "Overall Visual Impact & Finish", weight: "25%", description: "Aesthetic appeal, presentation quality, and completeness." }
-    ],
+    judgingCriteria: [],
     eligibility: [
       "Open to students of The ICFAI University, Sikkim (all departments) and of every college and university across Sikkim, on registration.",
       "Valid student ID required."
