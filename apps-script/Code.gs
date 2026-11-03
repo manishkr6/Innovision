@@ -80,12 +80,59 @@ function lookupToken_(rawToken) {
         eventName: event.tab,
         name: String(rows[r][COL.NAME]),
         team: String(rows[r][COL.TEAM]),
-        checkedIn: mark !== '' && mark !== 'false' && mark !== 'no'
+        checkedIn: mark !== '' && mark !== 'false' && mark !== 'no',
+        sheet: sheet,
+        rowNumber: r + 2,
+        checkedInColumn: checkedInCol + 1
       };
     }
     break;
   }
   return { valid: false, token: token };
+}
+
+var PIN_MAX_FAILURES = 5;
+var PIN_LOCK_SECONDS = 900;
+
+/**
+ * Called from the verification page. Marks a pass checked in if the coordinator PIN is right.
+ * The PIN lives in Script Properties as COORDINATOR_PIN. Wrong tries lock that token for 15 minutes,
+ * which stops anyone guessing the PIN from their own pass without locking coordinators out of others.
+ */
+function checkIn(rawToken, rawPin) {
+  var expected = PropertiesService.getScriptProperties().getProperty('COORDINATOR_PIN');
+  if (!/^\d{5}$/.test(expected || '')) return { ok: false, message: 'Check-in is not set up yet. Contact the organisers.' };
+
+  var pass = lookupToken_(rawToken);
+  if (!pass.valid) return { ok: false, message: 'This is not a valid pass.' };
+
+  var cache = CacheService.getScriptCache();
+  var failKey = 'pinfail:' + pass.token;
+  var failures = Number(cache.get(failKey)) || 0;
+  if (failures >= PIN_MAX_FAILURES) return { ok: false, message: 'Too many wrong PINs for this pass. Try again in 15 minutes.' };
+  if (String(rawPin) !== expected) {
+    cache.put(failKey, String(failures + 1), PIN_LOCK_SECONDS);
+    return { ok: false, message: 'Wrong PIN.' };
+  }
+  cache.remove(failKey);
+
+  var lock = LockService.getScriptLock();
+  try {
+    lock.waitLock(25000);
+  } catch (err) {
+    return { ok: false, message: 'The system is busy. Please try again.' };
+  }
+  try {
+    pass = lookupToken_(rawToken); // re-read under the lock: rows may have moved or been checked in
+    if (!pass.valid) return { ok: false, message: 'This is not a valid pass.' };
+    if (pass.checkedIn) return { ok: true, alreadyCheckedIn: true };
+    var at = Utilities.formatDate(new Date(), 'Asia/Kolkata', 'HH:mm');
+    pass.sheet.getRange(pass.rowNumber, pass.checkedInColumn).setValue('Yes, ' + at);
+    SpreadsheetApp.flush();
+    return { ok: true, alreadyCheckedIn: false };
+  } finally {
+    lock.releaseLock();
+  }
 }
 
 // Public page: anyone holding the pass can open it, so never add phone, email or enrollment here.
@@ -94,17 +141,31 @@ function verifyPage_(result) {
     ? [['Event', result.eventName], result.team ? ['Team', result.team] : null, [result.team ? 'Team leader' : 'Participant', result.name], ['Check-in', result.checkedIn ? 'Already checked in' : 'Not checked in yet']]
     : [];
   var details = rows.filter(Boolean).map(function (row) {
-    return '<tr><th>' + escapeHtml_(row[0]) + '</th><td>' + escapeHtml_(row[1]) + '</td></tr>';
+    return '<tr><th>' + escapeHtml_(row[0]) + '</th><td' + (row[0] === 'Check-in' ? ' id="c"' : '') + '>' + escapeHtml_(row[1]) + '</td></tr>';
   }).join('');
   var colour = !result.valid ? '#B91C1C' : result.checkedIn ? '#B45309' : '#15803D';
   var heading = !result.valid ? 'Not a valid pass' : result.checkedIn ? 'Valid pass: already checked in' : 'Valid pass';
   var note = result.valid ? 'Confirm the name against a valid college ID.' : 'This token is not in the INNOVISION 2026 registrations. Please contact the event coordinator.';
+  // JSON is safe inside the script tag once "<" is escaped, so a token can't close the tag.
+  var checkInForm = result.valid && !result.checkedIn
+    ? '<form id="f"><label for="pin">Coordinator PIN</label><input id="pin" type="password" inputmode="numeric" maxlength="5" autocomplete="off" required>' +
+      '<button id="b" type="submit">Check in</button></form><p id="m" role="alert"></p>' +
+      '<script>var T=' + JSON.stringify(result.token).replace(/</g, '\\u003c') + ';var g=function(i){return document.getElementById(i)};' +
+      'g("f").addEventListener("submit",function(e){e.preventDefault();g("b").disabled=true;g("m").textContent="Checking...";' +
+      'var d=function(t){g("m").textContent=t;g("b").disabled=false};' +
+      'google.script.run.withSuccessHandler(function(r){if(!r.ok){g("pin").value="";return d(r.message)}' +
+      'g("f").style.display="none";g("m").textContent="";g("h").textContent=r.alreadyCheckedIn?"Valid pass: already checked in":"Checked in";' +
+      'g("c").textContent=r.alreadyCheckedIn?"Already checked in":"Checked in just now";g("top").style.background=r.alreadyCheckedIn?"#B45309":"#1D4ED8"})' +
+      '.withFailureHandler(function(){d("Could not reach the sheet. Please try again.")}).checkIn(T,g("pin").value)})</script>'
+    : '';
   var html = '<style>body{margin:0;font-family:Arial,sans-serif;color:#1C1917;background:#FAF7F2}' +
     '.head{padding:28px 20px;color:#fff;background:' + colour + '}h1{margin:0;font-size:26px}p{margin:6px 0 0}' +
     '.body{padding:20px}table{width:100%;border-collapse:collapse}th,td{padding:10px 0;text-align:left;border-bottom:1px solid #E7E5E4;font-size:16px}' +
-    'th{width:38%;color:#6B7280;font-weight:normal}.token{font-family:monospace;font-size:15px;margin-bottom:12px}.note{color:#6B7280;font-size:14px;margin-top:16px}</style>' +
-    '<div class="head"><p>INNOVISION 2026</p><h1>' + heading + '</h1></div>' +
-    '<div class="body"><div class="token">' + escapeHtml_(result.token) + '</div><table>' + details + '</table><p class="note">' + note + '</p></div>';
+    'th{width:38%;color:#6B7280;font-weight:normal}.token{font-family:monospace;font-size:15px;margin-bottom:12px}.note{color:#6B7280;font-size:14px;margin-top:16px}form{margin-top:20px}label{display:block;font-size:14px;margin-bottom:6px}' +
+    'input{width:100%;box-sizing:border-box;padding:12px;font-size:20px;letter-spacing:6px;border:1px solid #A8A29E;border-radius:8px}' +
+    'button{width:100%;margin-top:10px;padding:13px;font-size:16px;font-weight:bold;color:#fff;background:#1C1917;border:0;border-radius:8px}#m{color:#B91C1C;font-size:14px}</style>' +
+    '<div class="head" id="top"><p>INNOVISION 2026</p><h1 id="h">' + heading + '</h1></div>' +
+    '<div class="body"><div class="token">' + escapeHtml_(result.token) + '</div><table>' + details + '</table><p class="note">' + note + '</p>' + checkInForm + '</div>';
   return HtmlService.createHtmlOutput(html).setTitle('INNOVISION 2026 pass check').addMetaTag('viewport', 'width=device-width, initial-scale=1');
 }
 

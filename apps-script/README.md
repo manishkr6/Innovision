@@ -11,6 +11,12 @@ Registrations go into one Google Sheets workbook with one tab per event. This ta
 
 "Anyone" in step 4 only lets people call the script; it does not give access to the spreadsheet.
 
+## Coordinator PIN
+
+The PIN is listed as `COORDINATOR_PIN` in `.env.local`, which is not committed. The script can't read that file, so copy it across: in Apps Script open **Project Settings → Script Properties → Add script property**, with the name `COORDINATOR_PIN` and the 5-digit PIN as the value.
+
+Share it with coordinators privately, not in a group where students are. To change it, update the script property; the new PIN works immediately with no redeploy. Update `.env.local` too so the record stays right. Never add a `VITE_` prefix or put it on Vercel: anything named `VITE_` is published in the site's public code.
+
 ## Changing the script
 
 Saving `Code.gs` does not change the live site. Use **Deploy → Manage deployments → Edit → New version**, which keeps the same URL.
@@ -31,6 +37,6 @@ Set `CLOSES_AT` at the top of `Code.gs` to stop accepting registrations at a set
 
 ## Fest day
 
-Scan a pass's QR code with any phone camera. It opens a page that checks the token against the sheet and shows **Valid pass** or **Not a valid pass**, with the event, name and check-in status. Compare the name with the student's college ID, then search for the token in the event's tab (Ctrl+F) and type `Yes` under `Checked In`. Scanning never checks anyone in by itself.
+Scan a pass's QR code with any phone camera. It opens a page that checks the token against the sheet and shows **Valid pass** or **Not a valid pass**, with the event, name and check-in status. Compare the name with the student's college ID, then enter the 5-digit coordinator PIN on that page and tap **Check in**. The sheet's `Checked In` column fills in with the time. Scanning alone never checks anyone in, and five wrong PINs lock that pass for 15 minutes.
 
 The page is public to anyone with the pass, so it deliberately hides phone numbers, emails and enrollment numbers. Keep the same deployment when you update the script, or QR codes on passes already issued will stop working. Downloading **File → Download → Microsoft Excel** gives an `.xlsx` copy at any time.
