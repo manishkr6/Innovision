@@ -22,6 +22,8 @@ export const FEST_INFO = {
   shortVenue: "N.J. Yasaswya Auditorium & FST Labs",
   city: "Gangtok, Sikkim",
   dateString: "November 2026",
+  // 20 Nov is proposed, not official. Set true once confirmed to drop the "proposed" wording.
+  dateConfirmed: false,
   // Live countdown timer target timestamp (ISO format)
   countdownTarget: "2026-11-20T09:00:00+05:30",
   stats: [
@@ -202,7 +204,7 @@ export const EVENTS = [
     teamSize: {
       min: 1,
       max: 1,
-      label: "Individual Entry [TBC]"
+      label: "Individual Entry"
     },
     rounds: [
       {
@@ -280,8 +282,8 @@ export const EVENTS = [
     venue: "Main Computer Center & Innovation Lab, FST",
     teamSize: {
       min: 2,
-      max: 4,
-      label: "Team Event [TBC]"
+      max: 2,
+      label: "Team of 2"
     },
     rounds: [
       {
@@ -366,7 +368,7 @@ export const EVENTS = [
     teamSize: {
       min: 2,
       max: 2,
-      label: "Team of 2 [TBC]"
+      label: "Team of 2"
     },
     rounds: [
       {
@@ -447,7 +449,7 @@ export const EVENTS = [
     teamSize: {
       min: 1,
       max: 1,
-      label: "Individual Entry [TBC]"
+      label: "Individual Entry"
     },
     rounds: [
       {
@@ -525,8 +527,8 @@ export const EVENTS = [
     venue: "N.J. Yasaswya Auditorium Stage",
     teamSize: {
       min: 1,
-      max: 4,
-      label: "Individual or Team [TBC]"
+      max: 2,
+      label: "Individual or Team of 2"
     },
     rounds: [
       {
@@ -558,9 +560,9 @@ export const EVENTS = [
       studentPhone: "+91 9907187423"
     },
     rules: [
-      "The idea and the presentation must be the team’s own original work.",
+      "The idea and the presentation must be the participant’s or team’s own original work.",
       "Pitch deck structure must cover problem, market, solution, revenue model, and execution roadmap.",
-      "Teams must present on stage within the allotted time limit followed by jury Q&A.",
+      "Participants must present on stage within the allotted time limit followed by jury Q&A.",
       "Plagiarized pitch decks or copying existing established business plans results in instant disqualification."
     ],
     generalRules: [
@@ -601,9 +603,9 @@ export const EVENTS = [
     time: "01:30 PM - 04:30 PM [TBC]",
     venue: "Campus-Wide (Briefing at Auditorium)",
     teamSize: {
-      min: 3,
-      max: 4,
-      label: "Team Event [TBC]"
+      min: 5,
+      max: 5,
+      label: "Team of 5"
     },
     rounds: [
       {
@@ -688,7 +690,7 @@ export const EVENTS = [
     teamSize: {
       min: 4,
       max: 4,
-      label: "Squad Event [TBC]"
+      label: "Squad of 4"
     },
     rounds: [
       {
@@ -769,7 +771,7 @@ export const EVENTS = [
     teamSize: {
       min: 5,
       max: 5,
-      label: "Team of 5 Players [TBC]"
+      label: "Team of 5 Players"
     },
     rounds: [
       {
@@ -850,7 +852,7 @@ export const EVENTS = [
     teamSize: {
       min: 1,
       max: 1,
-      label: "Individual (1v1) [TBC]"
+      label: "Individual (1v1)"
     },
     rounds: [
       {
@@ -933,8 +935,8 @@ export const EVENTS = [
     venue: "Campus-Wide (Submission to Media Desk)",
     teamSize: {
       min: 1,
-      max: 2,
-      label: "Individual or Team [TBC]"
+      max: 1,
+      label: "Individual Entry"
     },
     rounds: [
       {
@@ -972,7 +974,7 @@ export const EVENTS = [
       studentPhone: "+91 9811241243"
     },
     rules: [
-      "The video must be original work created by the participant or team.",
+      "The video must be original work created by the participant.",
       "Music, footage or images used must be ones the participant has the legal right or license to use.",
       "Content that is offensive, hateful or inappropriate is strictly prohibited (see Code of Conduct).",
       "All primary footage must be shot on campus during the festival window.",
@@ -1017,7 +1019,7 @@ export const EVENTS = [
     teamSize: {
       min: 1,
       max: 1,
-      label: "Individual Entry [TBC]"
+      label: "Individual Entry"
     },
     rounds: [
       {
@@ -1100,7 +1102,7 @@ export const EVENTS = [
     teamSize: {
       min: 1,
       max: 1,
-      label: "Individual Entry [TBC]"
+      label: "Individual Entry"
     },
     rounds: [
       {

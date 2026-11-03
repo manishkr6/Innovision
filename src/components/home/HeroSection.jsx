@@ -24,7 +24,7 @@ export const HeroSection = () => {
       : { initial: { opacity: 0, y: 24 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.7, delay, ease: 'easeOut' } };
 
   const facts = [
-    { icon: Calendar, text: festDate },
+    { icon: Calendar, text: FEST_INFO.dateConfirmed ? festDate : `${festDate} (proposed)` },
     { icon: MapPin, text: FEST_INFO.city },
     { icon: Trophy, text: `${EVENTS.length} events · 4 tracks` },
   ];
