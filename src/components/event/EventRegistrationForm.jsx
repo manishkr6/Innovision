@@ -15,6 +15,7 @@ import {
 import { RegistrationSuccessModal } from './RegistrationSuccessModal';
 import { submitRegistration } from '../../lib/registrationApi';
 import { addPass } from '../../lib/passStore';
+import { getClashingEvents, splitTitle } from '../../data/eventUtils';
 
 export const EventRegistrationForm = ({ event }) => {
   const minSize = event.teamSize?.min || 1;
@@ -22,6 +23,7 @@ export const EventRegistrationForm = ({ event }) => {
   const allowsTeam = maxSize > 1;
   const requiresTeam = minSize > 1;
   const requiredTeammates = minSize - 1;
+  const clashingEvents = getClashingEvents(event);
 
   const emptyForm = () => ({
     fullName: '',
@@ -203,9 +205,15 @@ export const EventRegistrationForm = ({ event }) => {
           Event Registration
         </h2>
         <p className="text-xs sm:text-sm text-gray-600 mt-1.5 leading-relaxed">
-          Fill out the participant roster below to secure your spot in {event.title}. Registrations close 24 hours prior to fest commencement.
+          Entry is free. Fill in your details below to secure your spot in {event.title}.
         </p>
       </div>
+
+      {clashingEvents.length > 0 && (
+        <p className="max-w-4xl mx-auto p-4 rounded-xl bg-amber-50 border border-amber-200 text-xs sm:text-sm text-amber-900 leading-relaxed">
+          You can enter as many events as you like if they don&apos;t clash. On the current provisional timetable, this event overlaps with {clashingEvents.map(e => splitTitle(e.title)[0]).join(', ')}, so you can enter only one of them.
+        </p>
+      )}
 
       {/* Main Form Container */}
       <div className="relative p-6 sm:p-10 rounded-3xl bg-white border border-gray-200 shadow-sm max-w-4xl mx-auto">

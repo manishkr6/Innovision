@@ -9,19 +9,21 @@
 // Set to an ISO time such as '2026-11-19T09:00:00+05:30' to stop accepting registrations.
 var CLOSES_AT = null;
 
+// start/end are the provisional website timetable and drive the clash check. Events without
+// them (E-Football, Frame Flick, Photography) have no fixed time yet, so they never clash.
 var EVENTS = {
-  'code-clash':    { tab: 'Code Clash',    prefix: 'COD', min: 1, max: 1, itOnly: true },
-  'web-hackathon': { tab: 'Web Hackathon', prefix: 'WEB', min: 2, max: 2, itOnly: true },
-  'brain-spark':   { tab: 'Brain Spark',   prefix: 'BRA', min: 2, max: 2 },
-  'type-race':     { tab: 'Type Race',     prefix: 'TYP', min: 1, max: 1 },
-  'nextpreneur':   { tab: 'NextPreneur',   prefix: 'NEX', min: 1, max: 2 },
-  'tech-hunt':     { tab: 'Tech Hunt',     prefix: 'TEC', min: 5, max: 5 },
-  'bgmi':          { tab: 'BGMI',          prefix: 'BGM', min: 4, max: 4 },
-  'moba-legends':  { tab: 'MOBA Legends',  prefix: 'MOB', min: 5, max: 5 },
+  'code-clash':    { tab: 'Code Clash',    prefix: 'COD', min: 1, max: 1, itOnly: true, start: '10:30', end: '13:30' },
+  'web-hackathon': { tab: 'Web Hackathon', prefix: 'WEB', min: 2, max: 2, itOnly: true, start: '09:00', end: '17:30' },
+  'brain-spark':   { tab: 'Brain Spark',   prefix: 'BRA', min: 2, max: 2, start: '14:00', end: '16:30' },
+  'type-race':     { tab: 'Type Race',     prefix: 'TYP', min: 1, max: 1, start: '11:00', end: '13:00' },
+  'nextpreneur':   { tab: 'NextPreneur',   prefix: 'NEX', min: 1, max: 2, start: '13:30', end: '17:00' },
+  'tech-hunt':     { tab: 'Tech Hunt',     prefix: 'TEC', min: 5, max: 5, start: '13:30', end: '16:30' },
+  'bgmi':          { tab: 'BGMI',          prefix: 'BGM', min: 4, max: 4, start: '11:00', end: '17:00' },
+  'moba-legends':  { tab: 'MOBA Legends',  prefix: 'MOB', min: 5, max: 5, start: '12:00', end: '17:00' },
   'e-football':    { tab: 'E-Football',    prefix: 'EFO', min: 1, max: 1 },
   'frame-flick':   { tab: 'Frame Flick',   prefix: 'FRA', min: 1, max: 1 },
   'photography':   { tab: 'Photography',   prefix: 'PHO', min: 1, max: 1 },
-  'painting':      { tab: 'Painting',      prefix: 'PAI', min: 1, max: 1 }
+  'painting':      { tab: 'Painting',      prefix: 'PAI', min: 1, max: 1, start: '10:30', end: '13:30' }
 };
 
 var COL = { TOKEN: 0, AT: 1, ENTRY: 2, TEAM: 3, NAME: 4, ENROLL: 5, EMAIL: 6, PHONE: 7, COLLEGE: 8, COURSE: 9, IT: 10, MEMBERS: 11 };
@@ -49,8 +51,65 @@ function headersFor_(event) {
   return headers;
 }
 
-function doGet() {
+function doGet(e) {
+  var token = e && e.parameter && e.parameter.token;
+  if (token !== undefined) return verifyPage_(lookupToken_(token));
   return json_({ ok: true, service: 'innovision-registration' });
+}
+
+/** Finds a pass by token. Returns only what the public verification page may show. */
+function lookupToken_(rawToken) {
+  var token = String(rawToken).trim().toUpperCase();
+  var match = /^IV26-([A-Z]{3})-[A-Z2-9]{6}$/.exec(token);
+  if (!match) return { valid: false, token: token.slice(0, 40) };
+
+  var slugs = Object.keys(EVENTS);
+  for (var i = 0; i < slugs.length; i++) {
+    var event = EVENTS[slugs[i]];
+    if (event.prefix !== match[1]) continue;
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(event.tab);
+    if (!sheet) break;
+    var rows = sheet.getDataRange().getValues().slice(1);
+    var checkedInCol = COL.MEMBERS + (event.max - 1) * 2;
+    for (var r = 0; r < rows.length; r++) {
+      if (String(rows[r][COL.TOKEN]) !== token) continue;
+      var mark = String(rows[r][checkedInCol]).trim().toLowerCase();
+      return {
+        valid: true,
+        token: token,
+        eventName: event.tab,
+        name: String(rows[r][COL.NAME]),
+        team: String(rows[r][COL.TEAM]),
+        checkedIn: mark !== '' && mark !== 'false' && mark !== 'no'
+      };
+    }
+    break;
+  }
+  return { valid: false, token: token };
+}
+
+// Public page: anyone holding the pass can open it, so never add phone, email or enrollment here.
+function verifyPage_(result) {
+  var rows = result.valid
+    ? [['Event', result.eventName], result.team ? ['Team', result.team] : null, [result.team ? 'Team leader' : 'Participant', result.name], ['Check-in', result.checkedIn ? 'Already checked in' : 'Not checked in yet']]
+    : [];
+  var details = rows.filter(Boolean).map(function (row) {
+    return '<tr><th>' + escapeHtml_(row[0]) + '</th><td>' + escapeHtml_(row[1]) + '</td></tr>';
+  }).join('');
+  var colour = !result.valid ? '#B91C1C' : result.checkedIn ? '#B45309' : '#15803D';
+  var heading = !result.valid ? 'Not a valid pass' : result.checkedIn ? 'Valid pass: already checked in' : 'Valid pass';
+  var note = result.valid ? 'Confirm the name against a valid college ID.' : 'This token is not in the INNOVISION 2026 registrations. Please contact the event coordinator.';
+  var html = '<style>body{margin:0;font-family:Arial,sans-serif;color:#1C1917;background:#FAF7F2}' +
+    '.head{padding:28px 20px;color:#fff;background:' + colour + '}h1{margin:0;font-size:26px}p{margin:6px 0 0}' +
+    '.body{padding:20px}table{width:100%;border-collapse:collapse}th,td{padding:10px 0;text-align:left;border-bottom:1px solid #E7E5E4;font-size:16px}' +
+    'th{width:38%;color:#6B7280;font-weight:normal}.token{font-family:monospace;font-size:15px;margin-bottom:12px}.note{color:#6B7280;font-size:14px;margin-top:16px}</style>' +
+    '<div class="head"><p>INNOVISION 2026</p><h1>' + heading + '</h1></div>' +
+    '<div class="body"><div class="token">' + escapeHtml_(result.token) + '</div><table>' + details + '</table><p class="note">' + note + '</p></div>';
+  return HtmlService.createHtmlOutput(html).setTitle('INNOVISION 2026 pass check').addMetaTag('viewport', 'width=device-width, initial-scale=1');
+}
+
+function escapeHtml_(value) {
+  return String(value).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 }
 
 function doPost(e) {
@@ -92,6 +151,9 @@ function register_(body) {
 
     var clash = findClash_(rows, clean, event);
     if (clash) return clash;
+
+    var scheduleClash = findScheduleClash_(clean, body.eventSlug);
+    if (scheduleClash) return scheduleClash;
 
     var token = newToken_(event, rows);
     var at = Utilities.formatDate(new Date(), 'Asia/Kolkata', 'yyyy-MM-dd HH:mm:ss');
@@ -162,6 +224,39 @@ function findClash_(rows, clean, event) {
     }
   }
   return null;
+}
+
+/** A student can enter many events, but not two that overlap. The fest is one day, so only times are compared. */
+function findScheduleClash_(clean, slug) {
+  var event = EVENTS[slug];
+  if (!event.start) return null;
+  var book = SpreadsheetApp.getActiveSpreadsheet();
+  var others = Object.keys(EVENTS);
+  for (var i = 0; i < others.length; i++) {
+    var other = EVENTS[others[i]];
+    if (others[i] === slug || !other.start || !(other.start < event.end && event.start < other.end)) continue;
+    var sheet = book.getSheetByName(other.tab);
+    if (!sheet) continue;
+    var rows = sheet.getDataRange().getValues().slice(1);
+    for (var r = 0; r < rows.length; r++) {
+      var entered = entrantsOf_(rows[r], other);
+      for (var e = 0; e < entered.length; e++) {
+        if (clean.entrants[norm_(entered[e])]) {
+          return fail_('schedule_clash', 'Enrollment number ' + entered[e] + ' is already registered for ' + other.tab + ', which overlaps with this event on the current timetable (' + other.start + ' to ' + other.end + '). One student can only enter events that do not clash.');
+        }
+      }
+    }
+  }
+  return null;
+}
+
+function entrantsOf_(row, event) {
+  var entered = [row[COL.ENROLL]];
+  for (var n = 0; n < event.max - 1; n++) {
+    var enrollment = row[COL.MEMBERS + n * 2 + 1];
+    if (enrollment !== '') entered.push(enrollment);
+  }
+  return entered;
 }
 
 function alreadyIn_(enrollment) {

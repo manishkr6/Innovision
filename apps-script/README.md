@@ -17,6 +17,8 @@ Saving `Code.gs` does not change the live site. Use **Deploy → Manage deployme
 
 Team sizes live in `EVENTS` in `Code.gs` and in `teamSize` in `src/data/events.js`. Change both. To change a size after registrations have started, add columns by hand before the `Checked In` column, since `setupSheets` skips existing tabs.
 
+Event times live in `start`/`end` in `Code.gs` and in `slot` in `src/data/events.js`. Change both when the final schedule arrives. An event with no times can't clash with anything.
+
 Set `CLOSES_AT` at the top of `Code.gs` to stop accepting registrations at a set time.
 
 ## Running registration
@@ -29,4 +31,6 @@ Set `CLOSES_AT` at the top of `Code.gs` to stop accepting registrations at a set
 
 ## Fest day
 
-Scan a pass's QR code, which contains only the token, then search for it in the event's tab (Ctrl+F) and mark `Checked In`. Downloading **File → Download → Microsoft Excel** gives an `.xlsx` copy at any time.
+Scan a pass's QR code with any phone camera. It opens a page that checks the token against the sheet and shows **Valid pass** or **Not a valid pass**, with the event, name and check-in status. Compare the name with the student's college ID, then search for the token in the event's tab (Ctrl+F) and type `Yes` under `Checked In`. Scanning never checks anyone in by itself.
+
+The page is public to anyone with the pass, so it deliberately hides phone numbers, emails and enrollment numbers. Keep the same deployment when you update the script, or QR codes on passes already issued will stop working. Downloading **File → Download → Microsoft Excel** gives an `.xlsx` copy at any time.
