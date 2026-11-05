@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Calendar, MapPin, Trophy, ArrowRight } from 'lucide-react';
 import { FEST_INFO, EVENTS } from '../../data/events';
@@ -83,13 +84,13 @@ export const HeroSection = () => {
             </motion.ul>
 
             <motion.div {...fadeUp(0.4)} className="mt-8 flex flex-col sm:flex-row gap-3">
-              <button
-                onClick={() => goToSection('#events')}
-                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-marigold-500 hover:bg-marigold-600 text-white font-semibold shadow-lg shadow-black/20 transition-colors"
+              <Link
+                to="/register"
+                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-marigold-500 hover:bg-marigold-600 text-white font-semibold shadow-lg shadow-black/20 transition-colors cursor-pointer"
               >
                 Register free
                 <ArrowRight className="w-4 h-4" />
-              </button>
+              </Link>
               <button
                 onClick={() => goToSection('#esports')}
                 className="inline-flex items-center justify-center px-7 py-3.5 rounded-full bg-night/60 hover:bg-night/80 backdrop-blur border border-white/40 text-white font-semibold transition-colors"
