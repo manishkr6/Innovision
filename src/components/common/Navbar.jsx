@@ -64,6 +64,7 @@ export const Navbar = () => {
     if (location.pathname.startsWith('/events/')) return setActiveSection('events');
     if (location.pathname === '/passes') return setActiveSection('passes');
     if (location.pathname === '/contact') return setActiveSection('contact');
+    if (location.pathname === '/register') return setActiveSection('register');
     if (location.pathname !== '/') return setActiveSection(null);
 
     const update = () => {
@@ -106,7 +107,7 @@ export const Navbar = () => {
   };
 
   // Transparent over the hero photo / dark pages; solid paper bar once scrolled or on light pages
-  const solid = isScrolled || mobileMenuOpen || location.pathname === '/contact' || location.pathname === '/passes' || location.pathname.startsWith('/events/');
+  const solid = isScrolled || mobileMenuOpen || location.pathname === '/contact' || location.pathname === '/passes' || location.pathname.startsWith('/events/') || location.pathname === '/register';
 
   return (
     <header
@@ -166,12 +167,12 @@ export const Navbar = () => {
                 My Passes ({regCount})
               </Link>
             )}
-            <button
-              onClick={handleRegisterClick}
-              className="px-5 py-2.5 rounded-full bg-marigold-500 hover:bg-marigold-600 text-white text-sm font-semibold shadow-sm transition-colors"
+            <Link
+              to="/register"
+              className="px-5 py-2.5 rounded-full bg-marigold-500 hover:bg-marigold-600 text-white text-sm font-semibold shadow-sm transition-colors cursor-pointer"
             >
               Register now
-            </button>
+            </Link>
           </div>
 
           <button
@@ -219,12 +220,13 @@ export const Navbar = () => {
                   <Ticket className="w-4 h-4" /> My Passes ({regCount})
                 </Link>
               )}
-              <button
-                onClick={handleRegisterClick}
-                className="mt-2 py-3 rounded-full bg-marigold-500 text-white font-semibold"
+              <Link
+                to="/register"
+                onClick={() => setMobileMenuOpen(false)}
+                className="mt-2 py-3 rounded-full bg-marigold-500 hover:bg-marigold-600 text-white font-semibold text-center block transition-colors shadow-sm"
               >
                 Register now
-              </button>
+              </Link>
             </div>
           </motion.div>
         )}

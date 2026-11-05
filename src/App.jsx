@@ -7,6 +7,7 @@ import { HomePage } from './pages/HomePage';
 import { EventDetailPage } from './pages/EventDetailPage';
 import { ContactPage } from './pages/ContactPage';
 import { MyRegistrationsPage } from './pages/MyRegistrationsPage';
+import { RegisterPage } from './pages/RegisterPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { useSmoothScrollSetup } from './hooks/useLenis';
 
@@ -37,6 +38,7 @@ export const App = () => {
           <Route path="/events/:slug" element={<EventDetailPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/passes" element={<MyRegistrationsPage />} />
+          <Route path="/register" element={<RegisterPage />} />
           <Route path="*" element={<Legacy><NotFoundPage /></Legacy>} />
         </Routes>
       </main>
