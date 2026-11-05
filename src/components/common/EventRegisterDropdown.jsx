@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Search, X, ChevronRight, Sparkles } from 'lucide-react';
 import { EVENTS } from '../../data/events';
 import { TRACKS, trackOf, splitTitle } from '../../data/eventUtils';
+import { globalLenisInstance, scrollToTarget } from '../../hooks/useLenis';
 
 const TRACK_BADGES = {
   A: 'bg-cyan-500/20 text-cyan-300 border-cyan-400/30',
@@ -125,13 +126,25 @@ export const EventRegisterDropdown = ({
     };
   }, [isOpen]);
 
-  // Navigate to event details and close dropdown
+  // Navigate to event details and scroll down to registration section
   const handleSelectEvent = (slug) => {
     cancelCloseTimer();
     setIsOpen(false);
     setIsPinned(false);
     setQuery('');
-    navigate(`/events/${slug}`);
+
+    const targetPath = `/events/${slug}`;
+    navigate(`${targetPath}#register`);
+
+    // If already on this event's page, trigger smooth scroll directly
+    if (window.location.pathname === targetPath) {
+      setTimeout(() => {
+        const el = document.getElementById('register');
+        if (el) {
+          scrollToTarget(el);
+        }
+      }, 50);
+    }
   };
 
   // Dropdown animation variants

@@ -1,5 +1,5 @@
-import React from 'react';
-import { useParams, Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { getEventBySlug } from '../data/events';
 import { EventHero } from '../components/event/EventHero';
@@ -9,11 +9,33 @@ import { EventRulesSection } from '../components/event/EventRulesSection';
 import { EventRegistrationForm } from '../components/event/EventRegistrationForm';
 import { RelatedEvents } from '../components/event/RelatedEvents';
 import { Seo } from '../components/common/Seo';
+import { useLenis } from '../hooks/useLenis';
 import { ArrowLeft, AlertCircle } from 'lucide-react';
 
 export const EventDetailPage = () => {
   const { slug } = useParams();
+  const location = useLocation();
+  const { scrollTo } = useLenis();
   const event = getEventBySlug(slug);
+
+  // Smooth scroll down to #register section if hash is present
+  useEffect(() => {
+    if (location.hash === '#register') {
+      const scrollDown = () => {
+        const el = document.getElementById('register');
+        if (el) {
+          scrollTo(el);
+        }
+      };
+
+      const t1 = setTimeout(scrollDown, 100);
+      const t2 = setTimeout(scrollDown, 300);
+      return () => {
+        clearTimeout(t1);
+        clearTimeout(t2);
+      };
+    }
+  }, [location.pathname, location.hash, slug, scrollTo]);
 
   if (!event) {
     return (

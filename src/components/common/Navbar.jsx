@@ -250,7 +250,7 @@ export const Navbar = () => {
                       return (
                         <Link
                           key={event.slug}
-                          to={`/events/${event.slug}`}
+                          to={`/events/${event.slug}#register`}
                           onClick={() => {
                             setMobileMenuOpen(false);
                             setMobileEventsOpen(false);

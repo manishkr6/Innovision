@@ -16,15 +16,33 @@ export let globalLenisInstance = null;
 const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // Scroll to a selector, element or pixel offset through Lenis, falling back to native scrolling
-const scrollToTarget = (target, { immediate = false } = {}) => {
-  if (globalLenisInstance) {
-    globalLenisInstance.scrollTo(target, { offset: typeof target === 'number' ? 0 : -HEADER_OFFSET, immediate, duration: 0.9 });
-    return;
+export const scrollToTarget = (target, { immediate = false, offset } = {}) => {
+  let targetNumber = null;
+
+  if (typeof target === 'number') {
+    targetNumber = target;
+  } else {
+    const el = typeof target === 'string' ? document.querySelector(target) : target;
+    if (el) {
+      const isRegister =
+        (typeof target === 'string' && target.includes('register')) ||
+        (el.id === 'register');
+      // For #register, clear the fixed navbar + sticky tab bar (~125px)
+      const clearOffset = isRegister ? 125 : HEADER_OFFSET;
+      const appliedOffset = offset !== undefined ? -offset : clearOffset;
+      const currentScroll = window.scrollY || document.documentElement.scrollTop;
+      targetNumber = Math.max(0, el.getBoundingClientRect().top + currentScroll - appliedOffset);
+    }
   }
-  const behavior = immediate || reducedMotion() ? 'auto' : 'smooth';
-  if (typeof target === 'number') return window.scrollTo({ top: target, behavior });
-  const el = typeof target === 'string' ? document.querySelector(target) : target;
-  if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET, behavior });
+
+  if (targetNumber !== null) {
+    if (globalLenisInstance) {
+      globalLenisInstance.scrollTo(targetNumber, { immediate, duration: 0.9 });
+      return;
+    }
+    const behavior = immediate || reducedMotion() ? 'auto' : 'smooth';
+    window.scrollTo({ top: targetNumber, behavior });
+  }
 };
 
 // Wait (up to ~2s) for a section to mount after a route change, then scroll to it
@@ -33,7 +51,12 @@ const scrollWhenReady = (hash, opts) => {
   let raf;
   const attempt = () => {
     const el = document.querySelector(hash);
-    if (el) return scrollToTarget(el, opts);
+    if (el) {
+      // For #register, use smooth scroll so user sees the scroll down to the registration form
+      const isRegister = hash === '#register';
+      const immediate = isRegister ? false : opts?.immediate;
+      return scrollToTarget(el, { ...opts, immediate });
+    }
     if (frames++ < 120) raf = requestAnimationFrame(attempt);
   };
   attempt();
