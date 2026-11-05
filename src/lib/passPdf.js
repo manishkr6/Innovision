@@ -1,5 +1,6 @@
 import { FEST_INFO } from '../data/events';
 import { passVerifyUrl } from './registrationApi';
+import { getFeeStatus } from './feeRules';
 
 const INK = [28, 25, 23];
 const MUTED = [107, 114, 128];
@@ -55,6 +56,8 @@ export const buildPassPdf = async (pass) => {
   row('College', pass.college);
   row('Course', pass.course);
   pass.teamMembers?.forEach((member, idx) => row(`Member ${idx + 2}`, `${member.name} (${member.enrollment})`));
+  const feeStatus = pass.feeStatus || getFeeStatus(pass);
+  row('Fee Status', feeStatus);
   row('When', FEST_INFO.dateString);
   row('Where', FEST_INFO.venue);
 

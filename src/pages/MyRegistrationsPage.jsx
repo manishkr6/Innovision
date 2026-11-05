@@ -5,6 +5,7 @@ import { Seo } from '../components/common/Seo';
 import { FEST_INFO } from '../data/events';
 import { getPasses, removePass } from '../lib/passStore';
 import { downloadPassPdf } from '../lib/passPdf';
+import { getFeeStatus } from '../lib/feeRules';
 
 const Detail = ({ label, children }) => (
   <div>
@@ -15,6 +16,7 @@ const Detail = ({ label, children }) => (
 
 const PassCard = ({ pass, onRemove }) => {
   const [downloadState, setDownloadState] = useState('idle');
+  const feeStatus = pass.feeStatus || getFeeStatus(pass);
 
   const handleDownload = async () => {
     setDownloadState('working');
@@ -65,6 +67,7 @@ const PassCard = ({ pass, onRemove }) => {
         <Detail label="College">{pass.college}</Detail>
         <Detail label="Course">{pass.course}</Detail>
         <Detail label="When">{FEST_INFO.dateString}</Detail>
+        <Detail label="Fee Status">{feeStatus}</Detail>
       </div>
 
       {pass.teamMembers?.length > 0 && (

@@ -1,0 +1,21 @@
+export const INSTITUTIONS = [
+  'The ICFAI University, Sikkim',
+  'Sikkim Manipal Institute of Technology',
+  'Sikkim University',
+  'Burtuk Law College',
+  'Burtuk College',
+  'SRM Sikkim',
+  'Narbahadur Bhandari College',
+  'Kanchenjunga University',
+  'Sikkim Alpine University',
+  'Sikkim Skill University',
+  'Sikkim Capital University',
+  'Sikkim Professional University',
+  'Harkamaya University',
+  'SMU',
+  'Halen Medical College',
+  'Medhavi University',
+  'IHM Rumtek',
+  'Other',
+];
+
