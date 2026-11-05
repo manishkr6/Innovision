@@ -10,12 +10,15 @@ import {
   Trash2, 
   Loader2, 
   AlertCircle,
-  Building2
+  Building2,
+  ChevronDown
 } from 'lucide-react';
 import { RegistrationSuccessModal } from './RegistrationSuccessModal';
 import { submitRegistration } from '../../lib/registrationApi';
 import { addPass } from '../../lib/passStore';
 import { getClashingEvents, splitTitle } from '../../data/eventUtils';
+import { INSTITUTIONS } from '../../data/institutions';
+import { getFeeStatus } from '../../lib/feeRules';
 
 export const EventRegistrationForm = ({ event }) => {
   const minSize = event.teamSize?.min || 1;
@@ -30,6 +33,7 @@ export const EventRegistrationForm = ({ event }) => {
     email: '',
     phone: '',
     college: '',
+    otherCollege: '',
     course: '',
     enrollmentNumber: '',
     teamName: '',
@@ -91,7 +95,9 @@ export const EventRegistrationForm = ({ event }) => {
     }
 
     if (!formData.college.trim()) {
-      newErrors.college = 'Please enter your college or university.';
+      newErrors.college = 'Please select your college or university.';
+    } else if (formData.college === 'Other' && !formData.otherCollege.trim()) {
+      newErrors.otherCollege = 'Please specify your college or university name.';
     }
 
     if (!formData.course.trim()) {
@@ -147,11 +153,15 @@ export const EventRegistrationForm = ({ event }) => {
           .filter(m => m.name || m.enrollment)
       : [];
 
+    const finalCollege = formData.college === 'Other'
+      ? formData.otherCollege.trim()
+      : formData.college.trim();
+
     const details = {
       fullName: formData.fullName.trim(),
       email: formData.email.trim(),
       phone: formData.phone.trim(),
-      college: formData.college.trim(),
+      college: finalCollege,
       course: formData.course.trim(),
       enrollmentNumber: formData.enrollmentNumber.trim(),
       teamName: members.length > 0 ? formData.teamName.trim() : null,
@@ -169,6 +179,7 @@ export const EventRegistrationForm = ({ event }) => {
         website: formData.website,
       });
 
+      const feeStatus = getFeeStatus(details, event);
       // A repeat submission gets the details the sheet already holds, not what was just typed.
       const registrationRecord = {
         ...details,
@@ -179,6 +190,7 @@ export const EventRegistrationForm = ({ event }) => {
         eventSlug: event.slug,
         eventTitle: event.title,
         registeredAt: result.registeredAt,
+        feeStatus,
       };
 
       addPass(registrationRecord);
@@ -325,20 +337,70 @@ export const EventRegistrationForm = ({ event }) => {
             </label>
             <div className="relative">
               <Building2 className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
-              <input
-                type="text"
+              <select
                 value={formData.college}
-                onChange={(e) => setFormData({ ...formData, college: e.target.value })}
-                placeholder="e.g. The ICFAI University, Sikkim"
-                className={`w-full pl-10 pr-4 py-3 rounded-xl bg-white border text-gray-900 placeholder:text-gray-400 text-sm focus:outline-none transition-colors ${
+                onChange={(e) => {
+                  const val = e.target.value;
+                  setFormData(prev => ({
+                    ...prev,
+                    college: val,
+                    otherCollege: val === 'Other' ? prev.otherCollege : '',
+                  }));
+                  if (errors.college) {
+                    setErrors(prev => ({ ...prev, college: '' }));
+                  }
+                }}
+                className={`w-full pl-10 pr-10 py-3 rounded-xl bg-white border text-sm focus:outline-none transition-colors appearance-none cursor-pointer ${
+                  !formData.college ? 'text-gray-400' : 'text-gray-900 font-medium'
+                } ${
                   errors.college ? 'border-rose-500 focus:border-rose-600' : 'border-gray-200 focus:border-gray-900'
                 }`}
-              />
+              >
+                <option value="" disabled className="text-gray-400">
+                  Select your College / University
+                </option>
+                {INSTITUTIONS.map((inst) => (
+                  <option key={inst} value={inst} className="text-gray-900 py-1">
+                    {inst}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
             </div>
             {errors.college && (
               <p className="mt-1.5 text-xs text-rose-600 flex items-center gap-1 font-medium">
                 <AlertCircle className="w-3.5 h-3.5" /> {errors.college}
               </p>
+            )}
+
+            {formData.college === 'Other' && (
+              <div className="mt-3">
+                <label className="block text-xs uppercase tracking-wider font-semibold text-gray-700 mb-1.5">
+                  Specify College / University *
+                </label>
+                <div className="relative">
+                  <Building2 className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                  <input
+                    type="text"
+                    value={formData.otherCollege}
+                    onChange={(e) => {
+                      setFormData(prev => ({ ...prev, otherCollege: e.target.value }));
+                      if (errors.otherCollege) {
+                        setErrors(prev => ({ ...prev, otherCollege: '' }));
+                      }
+                    }}
+                    placeholder="Enter your college or university name"
+                    className={`w-full pl-10 pr-4 py-3 rounded-xl bg-white border text-gray-900 placeholder:text-gray-400 text-sm focus:outline-none transition-colors ${
+                      errors.otherCollege ? 'border-rose-500 focus:border-rose-600' : 'border-gray-200 focus:border-gray-900'
+                    }`}
+                  />
+                </div>
+                {errors.otherCollege && (
+                  <p className="mt-1.5 text-xs text-rose-600 flex items-center gap-1 font-medium">
+                    <AlertCircle className="w-3.5 h-3.5" /> {errors.otherCollege}
+                  </p>
+                )}
+              </div>
             )}
           </div>
 

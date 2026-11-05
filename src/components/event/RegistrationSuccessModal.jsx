@@ -13,6 +13,7 @@ import {
 import { Link } from 'react-router-dom';
 import { FEST_INFO } from '../../data/events';
 import { downloadPassPdf } from '../../lib/passPdf';
+import { getFeeStatus } from '../../lib/feeRules';
 
 export const RegistrationSuccessModal = ({ isOpen, onClose, registrationData, event }) => {
   const [downloadState, setDownloadState] = useState('idle');
@@ -46,6 +47,7 @@ export const RegistrationSuccessModal = ({ isOpen, onClose, registrationData, ev
   };
 
   const alreadyRegistered = registrationData.alreadyRegistered;
+  const feeStatus = registrationData.feeStatus || getFeeStatus(registrationData, event);
 
   return (
     <AnimatePresence>
@@ -134,6 +136,11 @@ export const RegistrationSuccessModal = ({ isOpen, onClose, registrationData, ev
                   <span className="font-semibold text-gray-900">{registrationData.teamName}</span>
                 </div>
               )}
+
+              <div className="flex justify-between items-center gap-2">
+                <span className="text-gray-500">Fee Status:</span>
+                <span className="font-semibold text-gray-900 text-right">{feeStatus}</span>
+              </div>
 
               <div className="pt-2 border-t border-gray-200 flex items-center justify-between text-xs text-gray-500 font-medium">
                 <div className="flex items-center gap-1">
