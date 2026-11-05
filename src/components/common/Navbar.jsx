@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Ticket, ChevronRight } from 'lucide-react';
+import { Menu, X, Ticket, ChevronRight, ChevronDown } from 'lucide-react';
 import { useLenis } from '../../hooks/useLenis';
 import { getPasses } from '../../lib/passStore';
+import { EventRegisterDropdown } from './EventRegisterDropdown';
+import { EVENTS } from '../../data/events';
+import { TRACKS, trackOf, splitTitle } from '../../data/eventUtils';
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileEventsOpen, setMobileEventsOpen] = useState(false);
   const [regCount, setRegCount] = useState(0);
   const [activeSection, setActiveSection] = useState('home');
   
@@ -50,6 +54,7 @@ export const Navbar = () => {
   // Close the mobile menu on any navigation (page or section) and on Escape
   useEffect(() => {
     setMobileMenuOpen(false);
+    setMobileEventsOpen(false);
   }, [location.pathname, location.hash, location.key]);
 
   useEffect(() => {
@@ -166,12 +171,12 @@ export const Navbar = () => {
                 My Passes ({regCount})
               </Link>
             )}
-            <button
-              onClick={handleRegisterClick}
-              className="px-5 py-2.5 rounded-full bg-marigold-500 hover:bg-marigold-600 text-white text-sm font-semibold shadow-sm transition-colors"
-            >
-              Register now
-            </button>
+            <EventRegisterDropdown
+              label="Register now"
+              buttonClassName="px-5 py-2.5 rounded-full bg-marigold-500 hover:bg-marigold-600 text-white text-sm font-semibold shadow-sm transition-colors cursor-pointer"
+              direction="down"
+              align="right"
+            />
           </div>
 
           <button
@@ -219,12 +224,68 @@ export const Navbar = () => {
                   <Ticket className="w-4 h-4" /> My Passes ({regCount})
                 </Link>
               )}
-              <button
-                onClick={handleRegisterClick}
-                className="mt-2 py-3 rounded-full bg-marigold-500 text-white font-semibold"
-              >
-                Register now
-              </button>
+              <div className="mt-2 pt-2 border-t border-ink-line/60">
+                <button
+                  type="button"
+                  onClick={() => setMobileEventsOpen((prev) => !prev)}
+                  className="w-full py-3 px-4 rounded-xl bg-marigold-500 hover:bg-marigold-600 text-white font-semibold flex items-center justify-between transition-colors shadow-sm"
+                >
+                  <span>Register now (12 Events)</span>
+                  <ChevronDown
+                    className={`w-4 h-4 transition-transform duration-200 ${
+                      mobileEventsOpen ? 'rotate-180' : ''
+                    }`}
+                  />
+                </button>
+
+                {mobileEventsOpen && (
+                  <div className="mt-2 max-h-[300px] overflow-y-auto space-y-1.5 rounded-2xl bg-paper-deep p-2 border border-ink-line">
+                    <p className="text-[11px] font-semibold text-ink-muted px-2 py-1">
+                      Choose an event to view rules & register:
+                    </p>
+                    {EVENTS.map((event) => {
+                      const track = TRACKS[trackOf(event)];
+                      const [name] = splitTitle(event.title);
+
+                      return (
+                        <Link
+                          key={event.slug}
+                          to={`/events/${event.slug}`}
+                          onClick={() => {
+                            setMobileMenuOpen(false);
+                            setMobileEventsOpen(false);
+                          }}
+                          className="flex items-center gap-3 p-2 rounded-xl bg-white border border-ink-line/70 hover:bg-paper text-ink transition-colors"
+                        >
+                          <img
+                            src={event.image}
+                            alt={name}
+                            className="w-10 h-10 rounded-lg object-cover shrink-0 border border-black/10"
+                          />
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-1.5">
+                              <span className="font-heading font-bold text-xs truncate">
+                                {name}
+                              </span>
+                              {track && (
+                                <span
+                                  className={`px-1.5 py-0.2 rounded text-[9px] font-semibold ${track.chip}`}
+                                >
+                                  {track.label}
+                                </span>
+                              )}
+                            </div>
+                            <span className="text-[10px] text-marigold-600 font-medium">
+                              Free Entry · Tap to view
+                            </span>
+                          </div>
+                          <ChevronRight className="w-4 h-4 text-ink-muted shrink-0" />
+                        </Link>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
             </div>
           </motion.div>
         )}

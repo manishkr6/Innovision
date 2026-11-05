@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Calendar, MapPin, Trophy, ArrowRight } from 'lucide-react';
 import { FEST_INFO, EVENTS } from '../../data/events';
 import { CountdownTimer } from './CountdownTimer';
+import { EventRegisterDropdown } from '../common/EventRegisterDropdown';
 import { useLenis } from '../../hooks/useLenis';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 
@@ -82,14 +83,14 @@ export const HeroSection = () => {
               ))}
             </motion.ul>
 
-            <motion.div {...fadeUp(0.4)} className="mt-8 flex flex-col sm:flex-row gap-3">
-              <button
-                onClick={() => goToSection('#events')}
-                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-marigold-500 hover:bg-marigold-600 text-white font-semibold shadow-lg shadow-black/20 transition-colors"
-              >
-                Register free
-                <ArrowRight className="w-4 h-4" />
-              </button>
+            <motion.div {...fadeUp(0.4)} className="mt-8 flex flex-col sm:flex-row gap-3 relative z-30">
+              <EventRegisterDropdown
+                label="Register free"
+                icon={<ArrowRight className="w-4 h-4" />}
+                buttonClassName="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-marigold-500 hover:bg-marigold-600 text-white font-semibold shadow-lg shadow-black/20 transition-colors cursor-pointer w-full sm:w-auto"
+                direction="up"
+                align="left"
+              />
               <button
                 onClick={() => goToSection('#esports')}
                 className="inline-flex items-center justify-center px-7 py-3.5 rounded-full bg-night/60 hover:bg-night/80 backdrop-blur border border-white/40 text-white font-semibold transition-colors"
